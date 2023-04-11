@@ -15,63 +15,73 @@ connection.connect((error) => {
   }
 });
 
-function createRecord(tableName, data, callback) {
-  const sql = `INSERT INTO ${tableName} SET ?`;
+function createRecord(tableName, data) {
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO ${tableName} SET ?`;
 
-  connection.query(sql, data, (error, result) => {
-    if (error) {
-      return callback(error, null);
-    }
-
-    return callback(null, result);
+    connection.query(sql, data, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
   });
 }
 
-function getAllRecords(tableName, callback) {
-  const sql = `SELECT * FROM ${tableName}`;
+function getAllRecords(tableName) {
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM ${tableName}`;
 
-  connection.query(sql, (error, result) => {
-    if (error) {
-      return callback(error, null);
-    }
-
-    return callback(null, result);
+    connection.query(sql, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
   });
 }
 
-function updateRecord(tableName, id, data, callback) {
-  const sql = `UPDATE ${tableName} SET ? WHERE id = ?`;
+function updateRecord(tableName, id, data) {
+  return new Promise((resolve, reject) => {
+    const sql = `UPDATE ${tableName} SET ? WHERE id = ?`;
 
-  connection.query(sql, [data, id], (error, result) => {
-    if (error) {
-      return callback(error, null);
-    }
-
-    return callback(null, result);
+    connection.query(sql, [data, id], (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
   });
 }
 
-function deleteRecord(tableName, id, callback) {
-  const sql = `DELETE FROM ${tableName} WHERE id = ?`;
+function deleteRecord(tableName, id) {
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM ${tableName} WHERE id = ?`;
 
-  connection.query(sql, id, (error, result) => {
-    if (error) {
-      return callback(error, null);
-    }
-
-    return callback(null, result);
+    connection.query(sql, id, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
   });
 }
 
 function getRecords(tableName, conditions, callback) {
-  const sql = `SELECT * FROM ${tableName} WHERE ${conditions}`;
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM ${tableName} WHERE ${conditions}`;
 
-  connection.query(sql, (error, result) => {
-    if (error) {
-      return callback(error, null);
-    }
-
-    return callback(null, result);
+    connection.query(sql, conditions, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
   });
 }
 

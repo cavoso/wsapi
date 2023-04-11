@@ -24,7 +24,7 @@ const request = require("request"),
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
   console.log(JSON.stringify(req.body, null, 2));
@@ -40,6 +40,9 @@ app.post("/webhook", (req, res) => {
   }
   console.log(wa_id)
   let ticket = null
+  let tickets = await db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`).then((result) => result);
+  console.log(tickets["RowDataPacket"])
+  /*
   db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`, (error, result) => {
     if(result.length == 0){
       db.createRecord('Ticket', {waid: wa_id}, (cerror, cresult) => {
@@ -52,6 +55,7 @@ app.post("/webhook", (req, res) => {
     }
   });
   console.log(ticket)
+  */
 });
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
