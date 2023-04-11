@@ -67,7 +67,16 @@ app.post("/webhook", async (req, res) => {
     let update_ticket = await db.updateTicket('Ticket', ticket.id).then((result) => result);
   }
   let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
-  if(ticket.departamento == null){
+  if(ticket.departamento == null && !req.body.entry[0].changes[0].value.statuses){
+    let getdepartamentos = await db.getAllRecords('Departamento').then((result) => result);
+    let departamentos = [];
+    for (const dep of getdepartamentos) {
+      departamentos.push({
+        "id": "1",
+        "title": "titulo 1",
+        "description": "descripcion 1"
+      });
+    }
     /*
     axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -93,7 +102,7 @@ app.post("/webhook", async (req, res) => {
               "text": "Bot RS"
             },
             "action": {
-            "button": "test button",
+            "button": "Seleccione departamento",
             "sections": [
                 {
                   "title": "seccion 1 titulo",
