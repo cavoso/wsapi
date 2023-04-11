@@ -63,10 +63,10 @@ function deleteRecord(tableName, id, callback) {
   });
 }
 
-function getRecords(table, conditions, callback) {
-  const sql = `SELECT * FROM ${table} WHERE ?`;
+function getRecords(tableName, conditions, callback) {
+  const sql = `SELECT * FROM ${tableName} WHERE ${conditions}`;
 
-  connection.query(sql, conditions, (error, result) => {
+  connection.query(sql, (error, result) => {
     if (error) {
       return callback(error, null);
     }

@@ -38,9 +38,19 @@ app.post("/webhook", (req, res) => {
     // Si la propiedad "contacts" no existe dentro de "value"
     wa_id = req.body.entry[0].changes[0].value.statuses[0].recipient_id
   }
-  db.getRecords('Ticket', {waid: wa_id, status: '<> FINALIZADO'}, (error, result) => {
+  console.log(wa_id)
+  let ticket = null
+  db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`, (error, result) => {
     console.log(error)
     console.log(result)
+    if(result.length == 0){
+      db.createRecord('Ticket', {waid: wa_id}, (cerror, cresult) => {
+        console.log(cerror)
+        console.log(cresult)
+      });
+    }else{
+      
+    }
   });
 
 });
