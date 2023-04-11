@@ -55,7 +55,7 @@ app.post("/webhook", async (req, res) => {
   if(clientes.length == 0){
     let create_cliente = await db.createRecord('Cliente', {waid: wa_id, waprofile: name_profile}).then((result) => result);
   }
-  //console.log(ticket);
+  console.log(ticket);
   let msg = {};
   if ('messages' in req.body.entry[0].changes[0].value) {
     // Si la propiedad "contacts" existe dentro de "value"
@@ -74,6 +74,10 @@ app.post("/webhook", async (req, res) => {
         if(msgo_m.action.button == "Sel. departamento"){
            let update_ticket = await db.updateRecord('Ticket', ticket.id, {departamento: msg.interactive.list_reply.title}).then((result) => result);
           ticket.departamento = msg.interactive.list_reply.title;
+        }
+        if(msgo_m.action.button == "Sel. Sucursal"){
+           let update_ticket = await db.updateRecord('Ticket', ticket.id, {departamento: msg.interactive.list_reply.id}).then((result) => result);
+          ticket.departamento = msg.interactive.list_reply.id;
         }
       }
     }
@@ -136,27 +140,35 @@ app.post("/webhook", async (req, res) => {
 
     res.sendStatus(200);
   }
-  if(ticket.departamento == null && !req.body.entry[0].changes[0].value.statuses){
-    let getdepartamentos = await db.getAllRecords('Departamento').then((result) => result);
-    let departamentos = [];
-    for (const dep of getdepartamentos) {
-      departamentos.push({
-        "id": dep.id,
-        "title": dep.nombre
-      });
-    }
+  
+  if(ticket.sucursal == null && !req.body.entry[0].changes[0].value.statuses){
+    let sucursales = [{
+      "id": 16,
+      "title": "Chillan Viejo (Casas Matriz)"
+    },{
+      "id": 2,
+      "title": "Temuco"
+    },{
+      "id": 3,
+      "title": "Vitacura"
+    },{
+      "id": 4,
+      "title": "La Serena"
+    },{
+      "id": 5,
+      "title": "Raul Labbe"
+    },{
+      "id": 6,
+      "title": "Apoquindo"
+    }];
     let msg_dep = {
           messaging_product: "whatsapp",
           to: wa_id,
           type: "interactive",
           "interactive": {
-            "type": "list",
-            "header": {
-              "type": "text",
-              "text": "Bienvenido a RS-Shop"
-            },
+            "type": "list",            
             "body": {
-              "text": "Por favor seleccione el departamento con el cual desea contactar"
+              "text": "Por favor seleccione la sucursal más cercana a su ubicación"
             },
             "footer": {
               "text": "Bot RS"
@@ -166,7 +178,7 @@ app.post("/webhook", async (req, res) => {
               "sections": [
                 {
                   "title": "Sucursales",
-                  "rows": departamentos
+                  "rows": sucursales
                 }
               ]
             }
@@ -192,7 +204,36 @@ app.post("/webhook", async (req, res) => {
 
     res.sendStatus(200);
   }
-
+  
+  if(ticket.vendedor == null && !req.body.entry[0].changes[0].value.statuses){
+    let msg_dep = {
+          messaging_product: "whatsapp",
+          to: wa_id,
+          "type": "text",
+          "text": {
+        "preview_url": false,
+        "body": "text-message-content"
+    }
+        };
+    axios({
+        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+        url:
+          "https://graph.facebook.com/v16.0/" +
+          phone_number_id +
+          "/messages?access_token=" +
+          token,
+        data: msg_dep,
+        headers: { "Content-Type": "application/json" },
+      }).then(async (result) => {
+      let data = result.data;
+      let date = new Date();
+      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+      let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
+    }).catch((error) => {
+      //console.log(error);
+    });
+  }
+  
 });
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
