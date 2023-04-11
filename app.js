@@ -41,18 +41,17 @@ app.post("/webhook", (req, res) => {
   console.log(wa_id)
   let ticket = null
   db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`, (error, result) => {
-    console.log(error)
-    console.log(result)
     if(result.length == 0){
       db.createRecord('Ticket', {waid: wa_id}, (cerror, cresult) => {
-        console.log(cerror)
-        console.log(cresult)
+        db.getRecords('Ticket', `id = ${cresult.insertId}`, (xerror, xresult) => {
+          ticket = xresult.RowDataPacket;
+        })
       });
     }else{
-      
+      ticket = result.RowDataPacket;
     }
   });
-
+  console.log(ticket)
 });
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
