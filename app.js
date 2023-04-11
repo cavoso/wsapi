@@ -73,8 +73,7 @@ app.post("/webhook", async (req, res) => {
     for (const dep of getdepartamentos) {
       departamentos.push({
         "id": dep.id,
-        "title": dep.nombre,
-        "description": ""
+        "title": dep.nombre
       });
     }
  
