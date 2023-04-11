@@ -28,7 +28,7 @@ app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
   
-  console.log(JSON.stringify(req.body, null, 2));
+  //console.log(JSON.stringify(req.body, null, 2));
   
   let wa_id = 0;
   let name_profile = "";
@@ -40,7 +40,7 @@ app.post("/webhook", async (req, res) => {
     // Si la propiedad "contacts" no existe dentro de "value"
     wa_id = req.body.entry[0].changes[0].value.statuses[0].recipient_id
   }
-  console.log(wa_id)
+  //console.log(wa_id)
   let ticket = null
   let tickets = await db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`).then((result) => result);
   
@@ -55,17 +55,25 @@ app.post("/webhook", async (req, res) => {
   if(clientes.length == 0){
     let create_cliente = await db.createRecord('Cliente', {waid: wa_id, waprofile: name_profile}).then((result) => result);
   }
-  console.log(ticket);
+  //console.log(ticket);
   let msg = {};
   if ('messages' in req.body.entry[0].changes[0].value) {
     // Si la propiedad "contacts" existe dentro de "value"
     msg = req.body.entry[0].changes[0].value.messages[0]
-    console.log(msg)
+    //console.log(msg)
     let date = new Date(parseInt(msg.timestamp) * 1000);
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
     let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, timestamp: mysqlDatetimeString,  type: msg.type, message: JSON.stringify(msg[msg.type]) }).then((result) => result);
     let update_ticket = await db.updateTicket('Ticket', ticket.id).then((result) => result);
+    if(msg.type == "interactive"){
+      if('context' in msg){
+        console.log(msg.context.id)
+        let mensaje_env = await db.getRecords('Ticket_Mensajes', `wamid = ${msg.context.id}`).then((result) => result);
+        console.log(mensaje_env)
+      }
+    }
   }
+  let phone_number = req.body.entry[0].changes[0].value.metadata.display_phone_number;
   let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
   if(ticket.departamento == null && !req.body.entry[0].changes[0].value.statuses){
     let getdepartamentos = await db.getAllRecords('Departamento').then((result) => result);
@@ -112,9 +120,11 @@ app.post("/webhook", async (req, res) => {
           token,
         data: msg_dep,
         headers: { "Content-Type": "application/json" },
-      }).then((result) => {
+      }).then(async (result) => {
       let data = result.data;
-      console.log(data.messages[0].id);
+      let date = new Date();
+      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+      let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
     }).catch((error) => {
   //console.log(error);
 });
