@@ -143,7 +143,7 @@ app.post("/webhook", async (req, res) => {
 
       return res.sendStatus(200);
     }
-    else if(ticket.sucursal == null)
+    if(ticket.sucursal == null)
     {
       let sucursales = [{
         "id": 16,
