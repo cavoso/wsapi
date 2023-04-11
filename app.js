@@ -67,9 +67,14 @@ app.post("/webhook", async (req, res) => {
     let update_ticket = await db.updateTicket('Ticket', ticket.id).then((result) => result);
     if(msg.type == "interactive"){
       if('context' in msg){
-        console.log(msg.context.id)
-        let mensaje_env = await db.getRecords('Ticket_Mensajes', `wamid = ${msg.context.id}`).then((result) => result);
-        console.log(mensaje_env)
+        //console.log(msg.context.id)
+        let mensaje_env = await db.getRecords('Ticket_Mensajes', `wamid = '${msg.context.id}'`).then((result) => result);
+        let msgo = mensaje_env[0];
+        let msgo_m = JSON.parse(msgo.message);        
+        if(msgo_m.action.button == "Sel. departamento"){
+           let update_ticket = await db.updateRecord('Ticket', ticket.id, {departamento: msg.interactive.list_reply.title}).then((result) => result);
+          ticket.departamento = msg.interactive.list_reply.title;
+        }
       }
     }
   }
@@ -126,8 +131,64 @@ app.post("/webhook", async (req, res) => {
       let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
       let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
     }).catch((error) => {
-  //console.log(error);
-});
+      //console.log(error);
+    });
+
+    res.sendStatus(200);
+  }
+  if(ticket.departamento == null && !req.body.entry[0].changes[0].value.statuses){
+    let getdepartamentos = await db.getAllRecords('Departamento').then((result) => result);
+    let departamentos = [];
+    for (const dep of getdepartamentos) {
+      departamentos.push({
+        "id": dep.id,
+        "title": dep.nombre
+      });
+    }
+    let msg_dep = {
+          messaging_product: "whatsapp",
+          to: wa_id,
+          type: "interactive",
+          "interactive": {
+            "type": "list",
+            "header": {
+              "type": "text",
+              "text": "Bienvenido a RS-Shop"
+            },
+            "body": {
+              "text": "Por favor seleccione el departamento con el cual desea contactar"
+            },
+            "footer": {
+              "text": "Bot RS"
+            },
+            "action": {
+              "button": "Sel. Sucursal",
+              "sections": [
+                {
+                  "title": "Sucursales",
+                  "rows": departamentos
+                }
+              ]
+            }
+          }
+        };
+    axios({
+        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+        url:
+          "https://graph.facebook.com/v16.0/" +
+          phone_number_id +
+          "/messages?access_token=" +
+          token,
+        data: msg_dep,
+        headers: { "Content-Type": "application/json" },
+      }).then(async (result) => {
+      let data = result.data;
+      let date = new Date();
+      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+      let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
+    }).catch((error) => {
+      //console.log(error);
+    });
 
     res.sendStatus(200);
   }
