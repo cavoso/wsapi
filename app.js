@@ -74,13 +74,14 @@ app.post("/webhook", async (req, res) => {
       departamentos.push({
         "id": dep.id,
         "title": dep.nombre,
+        "description": ""
       });
     }
  
-    let r = await axios({
+    axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
-          "https://graph.facebook.com/v12.0/" +
+          "https://graph.facebook.com/v16.0/" +
           phone_number_id +
           "/messages?access_token=" +
           token,
@@ -112,8 +113,12 @@ app.post("/webhook", async (req, res) => {
           }
         },
         headers: { "Content-Type": "application/json" },
-      }).then((result) => result);
-     console.log(r)
+      }).then((result) => {
+      console.log(result)
+    }).catch((error) => {
+  console.log(error);
+});
+
     res.sendStatus(200);
   }
 
