@@ -27,7 +27,9 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
+  
   console.log(JSON.stringify(req.body, null, 2));
+  
   let wa_id = 0;
   let name_profile = "";
   if ('contacts' in req.body.entry[0].changes[0].value) {
@@ -54,6 +56,11 @@ app.post("/webhook", async (req, res) => {
     let create_cliente = await db.createRecord('Cliente', {waid: wa_id, waprofile: name_profile}).then((result) => result);
   }
   console.log(ticket);
+  if ('messages' in req.body.entry[0].changes[0].value) {
+    // Si la propiedad "contacts" existe dentro de "value"
+    let msg = req.body.entry[0].changes[0].value.contacts[0].messages[0]
+    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, type: msg.type, message: JSON.stringify(objeto) }).then((result) => result);
+  }
 
 });
 
