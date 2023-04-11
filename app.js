@@ -76,15 +76,7 @@ app.post("/webhook", async (req, res) => {
         "title": dep.nombre
       });
     }
- 
-    axios({
-        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-        url:
-          "https://graph.facebook.com/v16.0/" +
-          phone_number_id +
-          "/messages?access_token=" +
-          token,
-        data: {
+    let msg_dep = {
           messaging_product: "whatsapp",
           to: wa_id,
           type: "interactive",
@@ -101,7 +93,7 @@ app.post("/webhook", async (req, res) => {
               "text": "Bot RS"
             },
             "action": {
-              "button": "Seleccione departamento",
+              "button": "Sel. departamento",
               "sections": [
                 {
                   "title": "Departamentos",
@@ -110,12 +102,21 @@ app.post("/webhook", async (req, res) => {
               ]
             }
           }
-        },
+        };
+    axios({
+        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+        url:
+          "https://graph.facebook.com/v16.0/" +
+          phone_number_id +
+          "/messages?access_token=" +
+          token,
+        data: msg_dep,
         headers: { "Content-Type": "application/json" },
       }).then((result) => {
-      console.log(result)
+      let data = result.data;
+      console.log(data.messages[0].id);
     }).catch((error) => {
-  console.log(error);
+  //console.log(error);
 });
 
     res.sendStatus(200);
