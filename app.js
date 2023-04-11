@@ -56,16 +56,68 @@ app.post("/webhook", async (req, res) => {
     let create_cliente = await db.createRecord('Cliente', {waid: wa_id, waprofile: name_profile}).then((result) => result);
   }
   console.log(ticket);
+  let msg = {};
   if ('messages' in req.body.entry[0].changes[0].value) {
     // Si la propiedad "contacts" existe dentro de "value"
-    let msg = req.body.entry[0].changes[0].value.messages[0]
+    msg = req.body.entry[0].changes[0].value.messages[0]
     console.log(msg)
     let date = new Date(parseInt(msg.timestamp) * 1000);
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
     let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, timestamp: mysqlDatetimeString,  type: msg.type, message: JSON.stringify(msg[msg.type]) }).then((result) => result);
     let update_ticket = await db.updateTicket('Ticket', ticket.id).then((result) => result);
-    
-    if()
+  }
+  let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
+  if(ticket.departamento == null){
+    /*
+    axios({
+        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+        url:
+          "https://graph.facebook.com/v12.0/" +
+          phone_number_id +
+          "/messages?access_token=" +
+          token,
+        data: {
+          messaging_product: "whatsapp",
+          to: wa_id,
+          type: "interactive",
+          "interactive": {
+            "type": "list",
+            "header": {
+              "type": "text",
+              "text": "Bienvenido a RS-Shop"
+            },
+            "body": {
+              "text": "Por favor seleccione el departamento con el cual desea contactar"
+            },
+            "footer": {
+              "text": "Bot RS"
+            },
+            "action": {
+            "button": "test button",
+            "sections": [
+                {
+                  "title": "seccion 1 titulo",
+                  "rows": [
+                    {
+                      "id": "1",
+                      "title": "titulo 1",
+                      "description": "descripcion 1"
+                    },
+                    {
+                      "id": "2",
+                      "title": "titulo 2",
+                      "description": "descripcion 2"
+                    }
+                  ]
+                }
+            ]
+          }
+          }
+        },
+        headers: { "Content-Type": "application/json" },
+      });
+    */
+    res.sendStatus(200);
   }
 
 });
