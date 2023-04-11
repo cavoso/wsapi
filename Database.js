@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'tu_usuario',
-  password: 'tu_contraseña',
-  database: 'nombre_de_la_base_de_datos'
+  host: '34.176.155.48',
+  user: 'google',
+  password: 'EVFQLY41LA18Rce',
+  database: 'WaTicket'
 });
 
 connection.connect((error) => {
@@ -15,8 +15,8 @@ connection.connect((error) => {
   }
 });
 
-function createRecord(data, callback) {
-  const sql = 'INSERT INTO tabla SET ?';
+function createRecord(tableName, data, callback) {
+  const sql = `INSERT INTO ${tableName} SET ?`;
 
   connection.query(sql, data, (error, result) => {
     if (error) {
@@ -27,8 +27,8 @@ function createRecord(data, callback) {
   });
 }
 
-function getAllRecords(callback) {
-  const sql = 'SELECT * FROM tabla';
+function getAllRecords(tableName, callback) {
+  const sql = `SELECT * FROM ${tableName}`;
 
   connection.query(sql, (error, result) => {
     if (error) {
@@ -39,8 +39,8 @@ function getAllRecords(callback) {
   });
 }
 
-function updateRecord(id, data, callback) {
-  const sql = 'UPDATE tabla SET ? WHERE id = ?';
+function updateRecord(tableName, id, data, callback) {
+  const sql = `UPDATE ${tableName} SET ? WHERE id = ?`;
 
   connection.query(sql, [data, id], (error, result) => {
     if (error) {
@@ -51,10 +51,22 @@ function updateRecord(id, data, callback) {
   });
 }
 
-function deleteRecord(id, callback) {
-  const sql = 'DELETE FROM tabla WHERE id = ?';
+function deleteRecord(tableName, id, callback) {
+  const sql = `DELETE FROM ${tableName} WHERE id = ?`;
 
   connection.query(sql, id, (error, result) => {
+    if (error) {
+      return callback(error, null);
+    }
+
+    return callback(null, result);
+  });
+}
+
+function getRecords(table, conditions, callback) {
+  const sql = `SELECT * FROM ${table} WHERE ?`;
+
+  connection.query(sql, conditions, (error, result) => {
     if (error) {
       return callback(error, null);
     }
@@ -67,5 +79,6 @@ module.exports = {
   createRecord,
   getAllRecords,
   updateRecord,
-  deleteRecord
+  deleteRecord,
+  getRecords
 };

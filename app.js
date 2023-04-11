@@ -31,6 +31,7 @@ app.post("/webhook", (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
+
   if (req.body.object) {
     if (
       req.body.entry &&
@@ -63,6 +64,7 @@ app.post("/webhook", (req, res) => {
     // Return a '404 Not Found' if event is not from a WhatsApp API
     res.sendStatus(404);
   }
+
 });
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
