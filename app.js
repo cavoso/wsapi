@@ -41,7 +41,15 @@ app.post("/webhook", async (req, res) => {
   console.log(wa_id)
   let ticket = null
   let tickets = await db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`).then((result) => result);
-  console.log(tickets["RowDataPacket"])
+  
+  if(tickets.length == 0){
+    let create_ticket = await db.createRecord('Ticket', {waid: wa_id}).then((result) => result);
+    let xtickets = await db.getRecords('Ticket', `id = ${create_ticket.insertId}`).then((result) => result);
+    ticket = JSON.parse(JSON.stringify(xtickets[0]));
+  }else{
+    ticket = JSON.parse(JSON.stringify(tickets[0]));
+  }
+  console.log(ticket);
   /*
   db.getRecords('Ticket', `waid = ${wa_id} and status != 'FINALIZADO'`, (error, result) => {
     if(result.length == 0){

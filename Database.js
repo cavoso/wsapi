@@ -75,7 +75,7 @@ function getRecords(tableName, conditions, callback) {
   return new Promise((resolve, reject) => {
     const sql = `SELECT * FROM ${tableName} WHERE ${conditions}`;
 
-    connection.query(sql, conditions, (error, result) => {
+    connection.query(sql, (error, result) => {
       if (error) {
         reject(error);
       } else {
