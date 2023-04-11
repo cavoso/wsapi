@@ -72,13 +72,12 @@ app.post("/webhook", async (req, res) => {
     let departamentos = [];
     for (const dep of getdepartamentos) {
       departamentos.push({
-        "id": "1",
-        "title": "titulo 1",
-        "description": "descripcion 1"
+        "id": dep.id,
+        "title": dep.nombre,
       });
     }
-    /*
-    axios({
+ 
+    let r = await axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
           "https://graph.facebook.com/v12.0/" +
@@ -102,30 +101,19 @@ app.post("/webhook", async (req, res) => {
               "text": "Bot RS"
             },
             "action": {
-            "button": "Seleccione departamento",
-            "sections": [
+              "button": "Seleccione departamento",
+              "sections": [
                 {
-                  "title": "seccion 1 titulo",
-                  "rows": [
-                    {
-                      "id": "1",
-                      "title": "titulo 1",
-                      "description": "descripcion 1"
-                    },
-                    {
-                      "id": "2",
-                      "title": "titulo 2",
-                      "description": "descripcion 2"
-                    }
-                  ]
+                  "title": "Departamentos",
+                  "rows": departamentos
                 }
-            ]
-          }
+              ]
+            }
           }
         },
         headers: { "Content-Type": "application/json" },
-      });
-    */
+      }).then((result) => result);
+     console.log(r)
     res.sendStatus(200);
   }
 
