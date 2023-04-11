@@ -28,15 +28,20 @@ app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
   console.log(JSON.stringify(req.body, null, 2));
-  let wa_id = req.body.entry[0].changes[0].value.contacts[0].wa_id
+  let wa_id = 0;
+  let name_profile = "";
   if ('contacts' in req.body.entry[0].changes[0].value) {
-  // Si la propiedad "contacts" existe dentro de "value"
-  console.log(req.body.entry[0].changes[0].value.contacts[0].wa_id);
+    // Si la propiedad "contacts" existe dentro de "value"
+    wa_id = req.body.entry[0].changes[0].value.contacts[0].wa_id
+    name_profile = req.body.entry[0].changes[0].value.contacts[0].profile.name
   } else {
     // Si la propiedad "contacts" no existe dentro de "value"
-    console.log("La propiedad 'contacts' no existe dentro de 'value'.");
+    wa_id = req.body.entry[0].changes[0].value.statuses[0].recipient_id
   }
-  console.log(wa_id)
+  db.getRecords('Ticket', {waid: wa_id, status: '<> FINALIZADO'}, (error, result) => {
+    console.log(error)
+    console.log(result)
+  });
 
 });
 
