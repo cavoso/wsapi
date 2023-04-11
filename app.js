@@ -77,7 +77,7 @@ app.post("/webhook", async (req, res) => {
         }
         if(msgo_m.action.button == "Sel. Sucursal"){
            let update_ticket = await db.updateRecord('Ticket', ticket.id, {sucursal: msg.interactive.list_reply.id}).then((result) => result);
-          ticket.sucursal = msg.interactive.list_reply.id;
+            ticket.sucursal = msg.interactive.list_reply.id;
         }
       }
     }
@@ -85,8 +85,8 @@ app.post("/webhook", async (req, res) => {
   let phone_number = req.body.entry[0].changes[0].value.metadata.display_phone_number;
   let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
   
-  if(ticket.status == 'PENDIENTE'){
-    if(ticket.departamento == null && !req.body.entry[0].changes[0].value.statuses)
+  if(ticket.status == 'PENDIENTE' && !req.body.entry[0].changes[0].value.statuses){
+    if(ticket.departamento == null)
     {
       let getdepartamentos = await db.getAllRecords('Departamento').then((result) => result);
       let departamentos = [];
@@ -141,30 +141,30 @@ app.post("/webhook", async (req, res) => {
         //console.log(error);
       });
 
-      res.sendStatus(200);
+      return res.sendStatus(200);
     }
-  }
-  if(ticket.sucursal == null && !req.body.entry[0].changes[0].value.statuses){
-    let sucursales = [{
-      "id": 16,
-      "title": "Chillan Viejo (Casas Matriz)"
-    },{
-      "id": 2,
-      "title": "Temuco"
-    },{
-      "id": 3,
-      "title": "Vitacura"
-    },{
-      "id": 4,
-      "title": "La Serena"
-    },{
-      "id": 5,
-      "title": "Raul Labbe"
-    },{
-      "id": 6,
-      "title": "Apoquindo"
-    }];
-    let msg_dep = {
+    else if(ticket.sucursal == null)
+    {
+      let sucursales = [{
+        "id": 16,
+        "title": "Chillan Viejo (Casas Matriz)"
+      },{
+        "id": 2,
+        "title": "Temuco"
+      },{
+        "id": 3,
+        "title": "Vitacura"
+      },{
+        "id": 4,
+        "title": "La Serena"
+      },{
+        "id": 5,
+        "title": "Raul Labbe"
+      },{
+        "id": 6,
+        "title": "Apoquindo"
+      }];
+      let msg_dep = {
           messaging_product: "whatsapp",
           to: wa_id,
           type: "interactive",
@@ -191,7 +191,7 @@ app.post("/webhook", async (req, res) => {
             }
           }
         };
-    axios({
+      axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
           "https://graph.facebook.com/v16.0/" +
@@ -201,19 +201,26 @@ app.post("/webhook", async (req, res) => {
         data: msg_dep,
         headers: { "Content-Type": "application/json" },
       }).then(async (result) => {
-      let data = result.data;
-      let date = new Date();
-      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-      let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
-    }).catch((error) => {
-      //console.log(error);
-    });
+        let data = result.data;
+        let date = new Date();
+        let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+        let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
+      }).catch((error) => {
+        //console.log(error);
+      });
 
-    res.sendStatus(200);
+      return res.sendStatus(200);
+    }
+    if(ticket.departamento != null && ticket.sucursal != null){
+       let update_ticket = await db.updateRecord('Ticket', ticket.id, {status: 'ACTIVO', inbot: 0}).then((result) => result);
+       ticket.status = 'ACTIVO';
+       ticket.inbot = 0;
+    }
   }
-  
-  if(ticket.vendedor == null && !req.body.entry[0].changes[0].value.statuses){
-    let msg_dep = {
+  if(ticket.status == 'ACTIVO' && !req.body.entry[0].changes[0].value.statuses){
+    if(ticket.vendedor == null)
+    {
+      let msg_dep = {
           messaging_product: "whatsapp",
           to: wa_id,
           "type": "text",
@@ -222,7 +229,7 @@ app.post("/webhook", async (req, res) => {
             "body": "Uno de nuestros ejecutivos se contactará con usted muy pronto"
           }
         };
-    axios({
+      axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
           "https://graph.facebook.com/v16.0/" +
@@ -232,14 +239,19 @@ app.post("/webhook", async (req, res) => {
         data: msg_dep,
         headers: { "Content-Type": "application/json" },
       }).then(async (result) => {
-      let data = result.data;
-      let date = new Date();
-      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-      let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
-    }).catch((error) => {
-      //console.log(error);
-    });
+        let data = result.data;
+        let date = new Date();
+        let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+        let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
+      }).catch((error) => {
+        //console.log(error);
+      });
+      return res.sendStatus(200);
+    }
   }
+  
+  
+  
   
 });
 
