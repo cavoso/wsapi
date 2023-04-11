@@ -58,8 +58,9 @@ app.post("/webhook", async (req, res) => {
   console.log(ticket);
   if ('messages' in req.body.entry[0].changes[0].value) {
     // Si la propiedad "contacts" existe dentro de "value"
-    let msg = req.body.entry[0].changes[0].value.contacts[0].messages[0]
-    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, type: msg.type, message: JSON.stringify(objeto) }).then((result) => result);
+    let msg = req.body.entry[0].changes[0].value.messages[0]
+    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, timestamp: msg.timestamp,  type: msg.type, message: JSON.stringify(msg[msg.type]) }).then((result) => result);
+    let update_ticket = await db.updateRecord('Ticket', ticket.id, {ultimomensaje: 'now()'}).then((result) => result);
   }
 
 });
