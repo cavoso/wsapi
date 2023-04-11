@@ -16,6 +16,7 @@ const token = process.env.WHATSAPP_TOKEN;
 const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
+  db = require("./Database"),
   axios = require("axios").default,
   app = express().use(body_parser.json()); // creates express http server
 
@@ -26,44 +27,16 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
-
-  // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
-
-  // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
-
-  if (req.body.object) {
-    if (
-      req.body.entry &&
-      req.body.entry[0].changes &&
-      req.body.entry[0].changes[0] &&
-      req.body.entry[0].changes[0].value.messages &&
-      req.body.entry[0].changes[0].value.messages[0]
-    ) {
-      let phone_number_id =
-        req.body.entry[0].changes[0].value.metadata.phone_number_id;
-      let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
-      let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payload
-      axios({
-        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-        url:
-          "https://graph.facebook.com/v12.0/" +
-          phone_number_id +
-          "/messages?access_token=" +
-          token,
-        data: {
-          messaging_product: "whatsapp",
-          to: from,
-          text: { body: "Ack: " + msg_body },
-        },
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-    res.sendStatus(200);
+  let wa_id = req.body.entry[0].changes[0].value.contacts[0].wa_id
+  if ('contacts' in req.body.entry[0].changes[0].value) {
+  // Si la propiedad "contacts" existe dentro de "value"
+  console.log(req.body.entry[0].changes[0].value.contacts[0].wa_id);
   } else {
-    // Return a '404 Not Found' if event is not from a WhatsApp API
-    res.sendStatus(404);
+    // Si la propiedad "contacts" no existe dentro de "value"
+    console.log("La propiedad 'contacts' no existe dentro de 'value'.");
   }
+  console.log(wa_id)
 
 });
 
