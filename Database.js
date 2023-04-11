@@ -57,6 +57,20 @@ function updateRecord(tableName, id, data) {
   });
 }
 
+function updateTicket(tableName, id) {
+  return new Promise((resolve, reject) => {
+    const sql = `UPDATE ${tableName} SET ultimomensaje = NOW() WHERE id = ?`;
+
+    connection.query(sql, [id], (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
 function deleteRecord(tableName, id) {
   return new Promise((resolve, reject) => {
     const sql = `DELETE FROM ${tableName} WHERE id = ?`;
@@ -89,6 +103,7 @@ module.exports = {
   createRecord,
   getAllRecords,
   updateRecord,
+  updateTicket,
   deleteRecord,
   getRecords
 };

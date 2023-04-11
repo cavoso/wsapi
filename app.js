@@ -59,8 +59,13 @@ app.post("/webhook", async (req, res) => {
   if ('messages' in req.body.entry[0].changes[0].value) {
     // Si la propiedad "contacts" existe dentro de "value"
     let msg = req.body.entry[0].changes[0].value.messages[0]
-    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, timestamp: msg.timestamp,  type: msg.type, message: JSON.stringify(msg[msg.type]) }).then((result) => result);
-    let update_ticket = await db.updateRecord('Ticket', ticket.id, {ultimomensaje: 'now()'}).then((result) => result);
+    console.log(msg)
+    let date = new Date(parseInt(msg.timestamp) * 1000);
+    let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, timestamp: mysqlDatetimeString,  type: msg.type, message: JSON.stringify(msg[msg.type]) }).then((result) => result);
+    let update_ticket = await db.updateTicket('Ticket', ticket.id).then((result) => result);
+    
+    if()
   }
 
 });
