@@ -21,11 +21,14 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()); // creates express http server
 const moment = require('moment');
+const { NlpManager } = require('node-nlp');
 
 const db = require('./models');
 const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
+
+const nlpManager = new NlpManager({ languages: ['es'] });
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -37,69 +40,7 @@ app.post("/webhook", async (req, res) => {
   const value = body.entry[0].changes[0].value;
   console.log(JSON.stringify(value, null, 2));
   
-  if("contacts" in value){
-    //el mensaje fue enviado por el cliente
-    
-    //Obtenemos al cliente, si no existe se creara automaticamente
-    const Cliente = await ClienteService.crearClienteSiNoExiste(value.contacts[0].wa_id, value.contacts[0].profile.name);
-    
-    const Ticket = await TicketService.buscarOCrearTicket(value.contacts[0].wa_id);
-    const diffHoras = moment().diff(Ticket.ultimomensaje, 'hours'); 
-    
-    if("messages" in value){
-      let date = new Date(parseInt(value.messages[0].timestamp) * 1000);
-      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-      
-      await TicketService.agregarMensaje({
-        ticket: Ticket.id,
-        waid: value.contacts[0].wa_id,
-        wamid: value.messages[0].id,
-        timestamp: mysqlDatetimeString,
-        type: value.messages[0].type,
-        message: JSON.stringify(value.messages[0][value.messages[0].type])
-      });
-      
-      
-      if(diffHoras >= maxhours){
-        await MensajeService.MSGBotones(Ticket, `Tiene un Ticket abierto con el departamento ${Ticket.departamento}, ¿desea continuar con él, o desea crear uno nuevo?`, [
-          MensajeService.GetButtonReplyFormat(1, "SI"),
-          MensajeService.GetButtonReplyFormat(2, "No"),
-        ]);
-      }
-      
-      Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
-      if("context" in value.messages[0]){
-        //console.log(JSON.stringify(value.messages[0], null, 2));
-        const mensaje = await db.TicketMensajes.findOne({ where: { wamid: value.messages[0].context.id } });
-        let msg = JSON.parse(mensaje.message);
-        if(msg.action.sections[0].title == "Departamentos"){
-          Ticket.update({departamento: value.messages[0].interactive.list_reply.title});
-        }
-        if(msg.action.sections[0].title == "Sucursales"){
-          Ticket.update({sucursal: parseInt(value.messages[0].interactive.list_reply.id)});
-        }
-      }
-    }
-    
-    if(!Ticket.vendedor && diffHoras <= maxhours){
-      
-      if(!Ticket.departamento || !Ticket.sucursal){
-        await MensajeService.botMensaje(Ticket);
-      }
-      if(Ticket.departamento && Ticket.sucursal){
-        Ticket.update({status: 'ACTIVO'});
-        await MensajeService.MSGText(Ticket, "Uno de nuestros ejecutivos se contactará con usted muy pronto");
-      }
-    }
-    
-    
-  }
-  
-  if("statuses" in value){
-    //corresponde a un mensaje de status, sobre el estado de otro mensaje
-    let mensaje = await db.TicketMensajes.findOne({ where: { wamid: value.statuses[0].id } });
-    mensaje.update({status: value.statuses[0].status});
-  }
+ 
   
   res.sendStatus(200);
   
