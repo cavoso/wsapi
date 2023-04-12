@@ -16,7 +16,7 @@ const Ticket = sequelize.define('Ticket', {
     allowNull: true
   },
   sucursal: {
-    type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: true
   },
   status: {
@@ -32,7 +32,7 @@ const Ticket = sequelize.define('Ticket', {
     allowNull: true
   },
   vendedor: {
-    type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: true
   }
 }, {
