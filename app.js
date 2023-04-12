@@ -21,7 +21,7 @@ const request = require("request"),
   axios = require("axios").default,
   app = express().use(body_parser.json()); // creates express http server
 
-const db = require('./models');
+const TicketService = require('./services/ticketService');
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -35,7 +35,9 @@ app.post("/webhook", async (req, res) => {
   
   if("contacts" in value){
     //el mensaje fue enviado por el cliente
-    //const Ticket = Tickets.GetTicket(value.contacts.wa_id);
+    console.log(value.contacts.wa_id)
+    const Ticket = await TicketService.buscarOCrearTicket(value.contacts.wa_id);
+    console.log(Ticket)
   }
   
   if("statuses" in value){
