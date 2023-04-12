@@ -38,12 +38,22 @@ app.post("/webhook", async (req, res) => {
     const Ticket = await TicketService.buscarOCrearTicket(value.contacts[0].wa_id);
     
     if("messages" in value){
+      let date = new Date(parseInt(value.messages[0].timestamp) * 1000);
+      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+      
       await TicketService.agregarMensaje({
-        
+        ticket: Ticket.id,
+        waid: value.contacts[0].wa_id,
+        wamid: value.messages[0].id,
+        timestamp: mysqlDatetimeString,
+        type: value.messages[0].type,
+        message: JSON.stringify(value.messages[0][value.messages[0].type])
       });
     }
     
-    console.log(Ticket.departamento)
+    if(Ticket.departamento == null){
+      
+    }
   }
   
   if("statuses" in value){
