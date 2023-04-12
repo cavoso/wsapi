@@ -1,3 +1,4 @@
+const { sequelize } = require('sequelize');
 const db = require('../models');
 const axios = require("axios").default;
 const TicketService = require('./ticketService');
@@ -97,7 +98,7 @@ function EnviarMensaje(ticket, msg){
     headers: { "Content-Type": "application/json" },
   }).then(async (result) => {
     let data = result.data;
-    console.log(JSON.stringify(data, null, 2));
+    //console.log(JSON.stringify(data, null, 2));
     let date = new Date();
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
     await TicketService.agregarMensaje({
@@ -108,11 +109,26 @@ function EnviarMensaje(ticket, msg){
         type: msg.type,
         message: JSON.stringify(msg[msg.type])
       });
+    ticket.update({ultimomensaje: sequelize.literal('NOW()')});
   }).catch((error) => {
     console.log(JSON.stringify(error, null, 2));
   });
 }
 
+function MSGText(Ticket, texto){
+   let msg = {
+      messaging_product: "whatsapp",
+      to: Ticket.waid,
+      type: "text",
+      text: {
+        preview_url: false,
+        body: texto
+      }
+    };
+  EnviarMensaje(Ticket, msg);
+}
+
 module.exports = {
-  botMensaje
+  botMensaje,
+  MSGText
 };

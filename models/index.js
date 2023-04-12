@@ -12,5 +12,6 @@ module.exports = {
   Departamento,
   Ticket,
   TicketMensajes,
-  UserDepartamento
+  UserDepartamento,
+  sequelize
 };

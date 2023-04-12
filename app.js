@@ -20,6 +20,7 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()); // creates express http server
 
+
 const db = require('./models');
 const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
@@ -55,8 +56,9 @@ app.post("/webhook", async (req, res) => {
         type: value.messages[0].type,
         message: JSON.stringify(value.messages[0][value.messages[0].type])
       });
+      Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
       if("context" in value.messages[0]){
-        console.log(JSON.stringify(value.messages[0], null, 2));
+        //console.log(JSON.stringify(value.messages[0], null, 2));
         const mensaje = await db.TicketMensajes.findOne({ where: { wamid: value.messages[0].context.id } });
         let msg = JSON.parse(mensaje.message);
         if(msg.action.sections[0].title == "Departamentos"){
@@ -70,6 +72,10 @@ app.post("/webhook", async (req, res) => {
     
     if(!Ticket.departamento || !Ticket.sucursal){
       await MensajeService.botMensaje(Ticket);
+    }
+    if(Ticket.departamento && Ticket.sucursal){
+      Ticket.update({status: 'ACTIVO'});
+      await MensajeService.MSGText(Ticket, "Uno de nuestros ejecutivos se contactará con usted muy pronto");
     }
   }
   
