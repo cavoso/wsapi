@@ -31,12 +31,11 @@ app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
   const value = body.entry[0].changes[0].value;
-  //console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(value, null, 2));
   
   if("contacts" in value){
     //el mensaje fue enviado por el cliente
-    console.log(value.contacts.wa_id)
-    const Ticket = await TicketService.buscarOCrearTicket(value.contacts.wa_id);
+    const Ticket = await TicketService.buscarOCrearTicket(value.contacts[0].wa_id);
     console.log(Ticket)
   }
   
