@@ -70,17 +70,24 @@ app.post("/webhook", async (req, res) => {
       }
     }
     
-    if(!Ticket.departamento || !Ticket.sucursal){
-      await MensajeService.botMensaje(Ticket);
+    if(!Ticket.vendedor){
+      
+      if(!Ticket.departamento || !Ticket.sucursal){
+        await MensajeService.botMensaje(Ticket);
+      }
+      if(Ticket.departamento && Ticket.sucursal){
+        Ticket.update({status: 'ACTIVO'});
+        await MensajeService.MSGText(Ticket, "Uno de nuestros ejecutivos se contactará con usted muy pronto");
+      }
     }
-    if(Ticket.departamento && Ticket.sucursal){
-      Ticket.update({status: 'ACTIVO'});
-      await MensajeService.MSGText(Ticket, "Uno de nuestros ejecutivos se contactará con usted muy pronto");
-    }
+    
+    
   }
   
   if("statuses" in value){
     //corresponde a un mensaje de status, sobre el estado de otro mensaje
+    let mensaje = await db.TicketMensajes.findOne({ where: { wamid: value.statuses[0].id } });
+    mensaje.update({status: value.statuses[0].status});
   }
   
   res.sendStatus(200);

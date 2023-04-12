@@ -34,7 +34,11 @@ const Ticket = sequelize.define('Ticket', {
   vendedor: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: true
-  }
+  },
+  creadoel: {
+    type: DataTypes.DATE,
+    defaultValue: null,
+  },
 }, {
   tableName: 'Ticket',
   timestamps: false
