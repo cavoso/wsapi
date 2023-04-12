@@ -11,6 +11,8 @@
 // (copy token from DevX getting started page
 // and save it as environment variable into the .env file)
 const token = process.env.WHATSAPP_TOKEN;
+const phone_number = process.env.PHONE_NUMBER;
+const phone_number_id = process.env.PHONE_NUMBER_ID;
 
 // Imports dependencies and set up http server
 const request = require("request"),
@@ -28,10 +30,10 @@ app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
   
-  //console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(req.body, null, 2));
   
   
-  
+  res.sendStatus(200);
   
 });
 
