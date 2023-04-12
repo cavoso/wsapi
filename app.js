@@ -21,14 +21,13 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()); // creates express http server
 const moment = require('moment');
-const { NlpManager } = require('node-nlp');
+const nlpManager = require('./nlp/index');
 
 const db = require('./models');
 const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
 
-const nlpManager = new NlpManager({ languages: ['es'] });
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));

@@ -1,7 +1,6 @@
 const { NlpManager } = require('node-nlp');
-const saludo = require('./saludo');
-const despedida = require('./despedida');
-
+const fs = require('fs');
+const path = require('path');
 
 const nlpManager = new NlpManager({ languages: ['es'] });
 
@@ -15,9 +14,15 @@ const addDocumentsAndAnswers = (doc, ans) => {
   });
 };
 
-addDocumentsAndAnswers(saludo.documents, saludo.answers);
-addDocumentsAndAnswers(despedida.documents, despedida.answers);
+const files = fs.readdirSync(__dirname).filter(file => {
+  const ext = path.extname(file);
+  return file !== 'index.js' && ext === '.js';
+});
 
+files.forEach(file => {
+  const data = require(path.join(__dirname, file));
+  addDocumentsAndAnswers(data.documents, data.answers);
+});
 
 nlpManager.train();
 
