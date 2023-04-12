@@ -138,28 +138,26 @@ function MSGBotones(Ticket, texto, botones){
           text: texto
         },
         action: {
-          buttons: [
-            {
-              type: "reply",
-              reply: {
-                id: "<UNIQUE_BUTTON_ID_1>",
-                title: "<BUTTON_TITLE_1>"
-              }
-            },{
-              type: "reply",
-              reply: {
-                id: "<UNIQUE_BUTTON_ID_2>",
-                title: "<BUTTON_TITLE_2>"
-              }
-            }
-          ]
+          buttons: botones
         }
       }
     };
   EnviarMensaje(Ticket, msg);
 }
 
+function GetButtonReplyFormat(id, texto){
+  return {
+    type: "reply",
+    reply: {
+      id: id,
+      title: texto
+    }
+  };
+}
+
 module.exports = {
   botMensaje,
-  MSGText
+  MSGText,
+  MSGBotones,
+  GetButtonReplyFormat
 };

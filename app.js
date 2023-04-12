@@ -13,6 +13,7 @@
 const token = process.env.WHATSAPP_TOKEN;
 const phone_number = process.env.PHONE_NUMBER;
 const phone_number_id = process.env.PHONE_NUMBER_ID;
+const maxhours = 1;
 
 // Imports dependencies and set up http server
 const request = require("request"),
@@ -43,6 +44,7 @@ app.post("/webhook", async (req, res) => {
     const Cliente = await ClienteService.crearClienteSiNoExiste(value.contacts[0].wa_id, value.contacts[0].profile.name);
     
     const Ticket = await TicketService.buscarOCrearTicket(value.contacts[0].wa_id);
+    const diffHoras = moment().diff(Ticket.ultimomensaje, 'hours');
     
     if("messages" in value){
       let date = new Date(parseInt(value.messages[0].timestamp) * 1000);
@@ -57,9 +59,12 @@ app.post("/webhook", async (req, res) => {
         message: JSON.stringify(value.messages[0][value.messages[0].type])
       });
       
-      const diffHoras = moment().diff(Ticket.ultimomensaje, 'hours');
-      if(diffHoras >= 24){
-        
+      
+      if(diffHoras >= maxhours){
+        await MensajeService.MSGBotones(Ticket, `Tiene un Ticket abierto con el departamento ${Ticket.departamento}, ¿desea continuar con él, o desea crear uno nuevo?`, [
+          MensajeService.GetButtonReplyFormat(1, "SI"),
+          MensajeService.GetButtonReplyFormat(2, "No"),
+        ]);
       }
       
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
@@ -76,7 +81,7 @@ app.post("/webhook", async (req, res) => {
       }
     }
     
-    if(!Ticket.vendedor){
+    if(!Ticket.vendedor && diffHoras <= maxhours){
       
       if(!Ticket.departamento || !Ticket.sucursal){
         await MensajeService.botMensaje(Ticket);
