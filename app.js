@@ -49,6 +49,7 @@ app.post("/webhook", async (req, res) => {
     if (message.type === "text") {
       // Es un mensaje de texto enviado por el cliente
       const text = message.text.body;
+      console.log(text)
       const { classification } = await nlpManager.process(text);
       console.log(classification)
       if (classification.intent === 'saludo') {
