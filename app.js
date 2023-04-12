@@ -18,9 +18,7 @@ const phone_number_id = process.env.PHONE_NUMBER_ID;
 const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
-  db = require("./Database"),
   axios = require("axios").default,
-  Tickets = require("./tickets"),
   app = express().use(body_parser.json()); // creates express http server
 
 // Sets server port and logs message on success
@@ -35,7 +33,7 @@ app.post("/webhook", async (req, res) => {
   
   if("contacts" in value){
     //el mensaje fue enviado por el cliente
-    const Ticket = Tickets.GetTicket(value.contacts.wa_id);
+    //const Ticket = Tickets.GetTicket(value.contacts.wa_id);
   }
   
   if("statuses" in value){
@@ -55,7 +53,6 @@ app.get("/webhook", (req, res) => {
   **/
   const verify_token = process.env.VERIFY_TOKEN;
   
-  console.log(JSON.stringify(req.body, null, 2));
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
