@@ -22,6 +22,7 @@ const request = require("request"),
   app = express().use(body_parser.json()); // creates express http server
 
 const TicketService = require('./services/ticketService');
+const ClienteService = require('./services/clienteService');
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -35,6 +36,10 @@ app.post("/webhook", async (req, res) => {
   
   if("contacts" in value){
     //el mensaje fue enviado por el cliente
+    
+    //Obtenemos al cliente, si no existe se creara automaticamente
+    const Cliente = await ClienteService.crearClienteSiNoExiste(value.contacts[0].wa_id, value.contacts[0].profile.name);
+    
     const Ticket = await TicketService.buscarOCrearTicket(value.contacts[0].wa_id);
     
     if("messages" in value){
@@ -51,7 +56,9 @@ app.post("/webhook", async (req, res) => {
       });
     }
     
-    if(Ticket.departamento == null){
+    if(!Ticket.departamento){
+      
+    }else if(!Ticket.sucursal){
       
     }
   }
