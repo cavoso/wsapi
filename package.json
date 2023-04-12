@@ -15,7 +15,8 @@
     "request": "^2.88.2",
     "sequelize": "^6.31.0",
     "mysql2": "^3.2.0",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "botkit": "^4.15.0"
   },
   "engines": {
     "node": "12.x"
