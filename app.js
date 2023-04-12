@@ -63,7 +63,7 @@ app.post("/webhook", async (req, res) => {
           Ticket.update({departamento: value.messages[0].interactive.list_reply.title});
         }
         if(msg.action.sections[0].title == "Sucursales"){
-          Ticket.update({sucursal: value.messages[0].interactive.list_reply.id});
+          Ticket.update({sucursal: parseInt(value.messages[0].interactive.list_reply.id)});
         }
       }
     }

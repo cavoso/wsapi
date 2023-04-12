@@ -54,9 +54,9 @@ async function botMensaje(Ticket){
       return;
     }
     if (!Ticket.sucursal) {
-       msg.interactive.action.sections[0].rows = [{
+      msg.interactive.action.sections[0].rows = [{
         "id": 16,
-        "title": "Chillan Viejo (Casas Matriz)"
+        "title": "Chillan Viejo"
       },{
         "id": 2,
         "title": "Temuco"
@@ -97,6 +97,7 @@ function EnviarMensaje(ticket, msg){
     headers: { "Content-Type": "application/json" },
   }).then(async (result) => {
     let data = result.data;
+    console.log(JSON.stringify(data, null, 2));
     let date = new Date();
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
     await TicketService.agregarMensaje({
@@ -108,7 +109,7 @@ function EnviarMensaje(ticket, msg){
         message: JSON.stringify(msg[msg.type])
       });
   }).catch((error) => {
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   });
 }
 
