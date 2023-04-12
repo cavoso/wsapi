@@ -18,11 +18,11 @@ const phone_number_id = process.env.PHONE_NUMBER_ID;
 const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
-  axios = require("axios").default,
   app = express().use(body_parser.json()); // creates express http server
 
 const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
+const MensajeService = require('./services/mensajesService');
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -56,10 +56,8 @@ app.post("/webhook", async (req, res) => {
       });
     }
     
-    if(!Ticket.departamento){
-      
-    }else if(!Ticket.sucursal){
-      
+    if(!Ticket.departamento || !Ticket.sucursal){
+      await MensajeService.botMensaje(Ticket);
     }
   }
   
