@@ -28,10 +28,12 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
-  let body = req.body;
+  let body = req.body;  
+  //console.log(JSON.stringify(req.body, null, 2));
   
-  console.log(JSON.stringify(req.body, null, 2));
-  
+  if(){
+    
+  }
   
   res.sendStatus(200);
   
@@ -45,6 +47,8 @@ app.get("/webhook", (req, res) => {
    *This will be the Verify Token value when you set up webhook
   **/
   const verify_token = process.env.VERIFY_TOKEN;
+  
+  console.log(JSON.stringify(req.body, null, 2));
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
