@@ -15,6 +15,16 @@ async function buscarOCrearTicket(waid) {
   }
 }
 
+async function agregarMensaje(datos) {
+  try {
+    const mensajeCreado = await db.Mensaje.create(datos);
+    return mensajeCreado;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
-  buscarOCrearTicket
+  buscarOCrearTicket,
+  agregarMensaje
 };
