@@ -59,12 +59,11 @@ app.post("/webhook", async (req, res) => {
   let msg = {};
   if ('messages' in req.body.entry[0].changes[0].value) {
     // Si la propiedad "contacts" existe dentro de "value"
-    msg = req.body.entry[0].changes[0].value.messages[0]
-    //console.log(msg)
-    let date = new Date(parseInt(msg.timestamp) * 1000);
+    //console.log(req.body.entry[0].changes[0].value.messages[0])
+    let date = new Date(parseInt(req.body.entry[0].changes[0].value.messages[0].timestamp) * 1000);
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: msg.id, timestamp: mysqlDatetimeString,  type: msg.type, message: JSON.stringify(msg[msg.type]) }).then((result) => result);
-    let update_ticket = await db.updateTicket('Ticket', ticket.id).then((result) => result);
+    await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: req.body.entry[0].changes[0].value.messages[0].id, timestamp: mysqlDatetimeString,  type: req.body.entry[0].changes[0].value.messages[0].type, message: JSON.stringify(req.body.entry[0].changes[0].value.messages[0][req.body.entry[0].changes[0].value.messages[0].type]) }).then((result) => result);
+    await db.updateTicket('Ticket', ticket.id);
     if(msg.type == "interactive"){
       if('context' in msg){
         //console.log(msg.context.id)
