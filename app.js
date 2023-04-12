@@ -28,11 +28,16 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
-  let body = req.body;  
+  let body = req.body;
+  const value = body.entry[0].changes[0].value;
   //console.log(JSON.stringify(req.body, null, 2));
   
-  if(){
-    
+  if("contacts" in value){
+    //el mensaje fue enviado por el cliente
+  }
+  
+  if("statuses" in value){
+    //corresponde a un mensaje de status, sobre el estado de otro mensaje
   }
   
   res.sendStatus(200);

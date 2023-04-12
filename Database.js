@@ -85,7 +85,7 @@ function deleteRecord(tableName, id) {
   });
 }
 
-function getRecords(tableName, conditions, callback) {
+function getRecords(tableName, conditions) {
   return new Promise((resolve, reject) => {
     const sql = `SELECT * FROM ${tableName} WHERE ${conditions}`;
 
