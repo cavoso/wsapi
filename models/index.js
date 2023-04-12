@@ -1,26 +1,16 @@
-{
-  "development": {
-    "dialect": "mysql",
-    "host": "34.176.155.48",
-    "port": "3306",
-    "database": "WaTicket",
-    "username": "google",
-    "password": "EVFQLY41LA18Rce"
-  },
-  "test": {
-    "dialect": "mysql",
-    "host": "34.176.155.48",
-    "port": "3306",
-    "database": "WaTicket",
-    "username": "google",
-    "password": "EVFQLY41LA18Rce"
-  },
-  "production": {
-    "dialect": "mysql",
-    "host": "34.176.155.48",
-    "port": "3306",
-    "database": "WaTicket",
-    "username": "google",
-    "password": "EVFQLY41LA18Rce"
-  }
-}
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
+
+const Cliente = require('./cliente')(sequelize, DataTypes);
+const Departamento = require('./departamento')(sequelize, DataTypes);
+const Ticket = require('./ticket')(sequelize, DataTypes);
+const TicketMensajes = require('./ticketMensajes')(sequelize, DataTypes);
+const UserDepartamento = require('./userDepartamento')(sequelize, DataTypes);
+
+module.exports = {
+  Cliente,
+  Departamento,
+  Ticket,
+  TicketMensajes,
+  UserDepartamento
+};
