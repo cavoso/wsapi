@@ -54,6 +54,33 @@ async function botMensaje(Ticket){
       return;
     }
     if (!Ticket.sucursal) {
+       msg.interactive.action.sections[0].rows = [{
+        "id": 16,
+        "title": "Chillan Viejo (Casas Matriz)"
+      },{
+        "id": 2,
+        "title": "Temuco"
+      },{
+        "id": 3,
+        "title": "Vitacura"
+      },{
+        "id": 4,
+        "title": "La Serena"
+      },{
+        "id": 5,
+        "title": "Raul Labbe"
+      },{
+        "id": 6,
+        "title": "Apoquindo"
+      }];
+      msg.interactive.header.text = "RS-Shop";
+      msg.interactive.body.text = "Por favor seleccione la sucursal más cercana a su ubicación";
+      msg.interactive.footer.text = "Bot RS";
+      msg.interactive.action.button = "Sel. Sucursal";
+      msg.interactive.action.sections[0].title = "Sucursales";
+      
+      EnviarMensaje(Ticket, msg);
+      
       return;
     }
   }catch (error) {

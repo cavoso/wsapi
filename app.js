@@ -59,7 +59,12 @@ app.post("/webhook", async (req, res) => {
         console.log(JSON.stringify(value.messages[0], null, 2));
         const mensaje = await db.TicketMensajes.findOne({ where: { wamid: value.messages[0].context.id } });
         let msg = JSON.parse(mensaje.message);
-        console.log(JSON.stringify(value.messages[0], null, 2));
+        if(msg.action.sections[0].title == "Departamentos"){
+          Ticket.update({departamento: value.messages[0].interactive.list_reply.title});
+        }
+        if(msg.action.sections[0].title == "Sucursales"){
+          Ticket.update({sucursal: value.messages[0].interactive.list_reply.id});
+        }
       }
     }
     
