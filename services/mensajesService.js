@@ -127,6 +127,37 @@ function MSGText(Ticket, texto){
     };
   EnviarMensaje(Ticket, msg);
 }
+function MSGBotones(Ticket, texto, botones){
+   let msg = {
+      messaging_product: "whatsapp",
+      to: Ticket.waid,
+      type: "interactive",
+      interactive: {
+        type: "button",
+        body: {
+          text: texto
+        },
+        action: {
+          buttons: [
+            {
+              type: "reply",
+              reply: {
+                id: "<UNIQUE_BUTTON_ID_1>",
+                title: "<BUTTON_TITLE_1>"
+              }
+            },{
+              type: "reply",
+              reply: {
+                id: "<UNIQUE_BUTTON_ID_2>",
+                title: "<BUTTON_TITLE_2>"
+              }
+            }
+          ]
+        }
+      }
+    };
+  EnviarMensaje(Ticket, msg);
+}
 
 module.exports = {
   botMensaje,
