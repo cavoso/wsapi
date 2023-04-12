@@ -37,18 +37,23 @@ app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
   //console.log(JSON.stringify(value, null, 2));
-  
+  const Ticket = null;
   const entry = req.body.entry[0];
   const change = entry.changes[0];
-  
-  if (change.field === "messages") {
+  if (change.field === "contacts"){
+    const Cliente = await ClienteService.crearClienteSiNoExiste(change.value.contacts[0].wa_id, change.value.contacts[0].profile.name);
+    Ticket = await TicketService.buscarOCrearTicket(change.value.contacts[0].wa_id);
+  }
+  if (change.field === "messages" && !Ticket) {
     const message = change.value.messages[0];
     if (message.type === "text") {
       // Es un mensaje de texto enviado por el cliente
       const text = message.text.body;
-      const { classification } = await nlpManager.process(message);
+      const { classification } = await nlpManager.process(text);
+      console.log(classification)
       if (classification.intent === 'saludo') {
-        // Realizamos la acción correspondiente al saludo
+        console.log(classification)
+        //await MensajeService.MSGText(Ticket, );
       } else if (classification.intent === 'despedida') {
         // Realizamos la acción correspondiente a la despedida
       } else {
