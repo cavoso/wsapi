@@ -62,20 +62,20 @@ app.post("/webhook", async (req, res) => {
     //console.log(req.body.entry[0].changes[0].value.messages[0])
     let date = new Date(parseInt(req.body.entry[0].changes[0].value.messages[0].timestamp) * 1000);
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-    await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: req.body.entry[0].changes[0].value.messages[0].id, timestamp: mysqlDatetimeString,  type: req.body.entry[0].changes[0].value.messages[0].type, message: JSON.stringify(req.body.entry[0].changes[0].value.messages[0][req.body.entry[0].changes[0].value.messages[0].type]) }).then((result) => result);
+    await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: wa_id, wamid: req.body.entry[0].changes[0].value.messages[0].id, timestamp: mysqlDatetimeString,  type: req.body.entry[0].changes[0].value.messages[0].type, message: JSON.stringify(req.body.entry[0].changes[0].value.messages[0][req.body.entry[0].changes[0].value.messages[0].type]) });
     await db.updateTicket('Ticket', ticket.id);
     if(msg.type == "interactive"){
-      if('context' in msg){
+      if('context' in req.body.entry[0].changes[0].value.messages[0]){
         //console.log(msg.context.id)
-        let mensaje_env = await db.getRecords('Ticket_Mensajes', `wamid = '${msg.context.id}'`).then((result) => result);
+        let mensaje_env = await db.getRecords('Ticket_Mensajes', `wamid = '${req.body.entry[0].changes[0].value.messages[0].context.id}'`).then((result) => result);
         let msgo = mensaje_env[0];
         let msgo_m = JSON.parse(msgo.message);        
         if(msgo_m.action.button == "Sel. departamento"){
-           let update_ticket = await db.updateRecord('Ticket', ticket.id, {departamento: msg.interactive.list_reply.title}).then((result) => result);
+           await db.updateRecord('Ticket', ticket.id, {departamento: req.body.entry[0].changes[0].value.messages[0].interactive.list_reply.title});
           ticket.departamento = msg.interactive.list_reply.title;
         }
         if(msgo_m.action.button == "Sel. Sucursal"){
-           let update_ticket = await db.updateRecord('Ticket', ticket.id, {sucursal: msg.interactive.list_reply.id}).then((result) => result);
+           await db.updateRecord('Ticket', ticket.id, {sucursal: req.body.entry[0].changes[0].value.messages[0].interactive.list_reply.id});
             ticket.sucursal = msg.interactive.list_reply.id;
         }
       }
