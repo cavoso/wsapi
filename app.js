@@ -28,14 +28,13 @@ const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
 
-const adapter = createAdapter({
-    clientName: 'whatsapp',
-    webhook_uri: 'https://your-webhook-url',
-    adapterOptions: {
-        accountSid: 'your-account-sid',
-        authToken: 'your-auth-token',
-        phoneNumber: 'your-phone-number',
-    },
+const controller = new Botkit({
+  webhook_uri: '/webhook',
+});
+
+controller.on('message', async(bot, message) => {
+  // Aquí procesamos la información que llega en cada mensaje
+  console.log('Mensaje recibido: ', message);
 });
 
 // Sets server port and logs message on success
@@ -53,6 +52,7 @@ app.post("/webhook", async (req, res) => {
   res.sendStatus(200);
   
 });
+
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests 
