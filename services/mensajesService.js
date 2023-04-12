@@ -6,11 +6,53 @@ const token = process.env.WHATSAPP_TOKEN;
 const phone_number = process.env.PHONE_NUMBER;
 const phone_number_id = process.env.PHONE_NUMBER_ID;
 
-function botMensaje(Ticket){
+async function botMensaje(Ticket){
   try{
+    let msg = {
+      messaging_product: "whatsapp",
+      to: Ticket.waid,
+      type: "interactive",
+      interactive: {
+        type: "list",
+        header: {
+          type: "text",
+          text: ""
+        },
+        body: {
+          text: ""
+        },
+        footer: {
+          text: ""
+        },
+        action: {
+          button: "",
+          sections: [
+            {
+              title: "",
+              rows: []
+            }
+          ]
+        }
+      }
+    };
     if (!Ticket.departamento) {
-       return;
-     }
+      const departamentos = await db.Departamento.findAll();
+      for (const departamento of departamentos) {
+        msg.interactive.action.sections[0].rows.push({
+          "id": departamento.id,
+          "title": departamento.nombre
+        });
+      }
+      msg.interactive.header.text = "Bienvenido a RS-Shop";
+      msg.interactive.body.text = "Por favor seleccione el departamento con el cual desea contactar";
+      msg.interactive.footer.text = "Bot RS";
+      msg.interactive.action.button = "Sel. departamento";
+      msg.interactive.action.sections[0].title = "Departamentos";
+      
+      EnviarMensaje(Ticket, msg);
+      
+      return;
+    }
     if (!Ticket.sucursal) {
       return;
     }
@@ -35,10 +77,9 @@ function EnviarMensaje(ticket, msg){
         waid: phone_number,
         wamid: data.messages[0].id,
         timestamp: mysqlDatetimeString,
-        type: value.messages[0].type,
-        message: JSON.stringify(value.messages[0][value.messages[0].type])
+        type: msg.type,
+        message: JSON.stringify(msg[msg.type])
       });
-    let add_message = await db.createRecord('Ticket_Mensajes', {ticket: ticket.id, waid: phone_number, wamid: data.messages[0].id, timestamp: mysqlDatetimeString,  type: msg_dep.type, message: JSON.stringify(msg_dep[msg_dep.type]) }).then((result) => result);
   }).catch((error) => {
     console.log(error);
   });
