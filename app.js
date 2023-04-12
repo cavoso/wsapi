@@ -21,7 +21,7 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()); // creates express http server
 const moment = require('moment');
-const nlpManager = require('./nlp/index');
+
 
 const db = require('./models');
 const TicketService = require('./services/ticketService');
@@ -50,16 +50,7 @@ app.post("/webhook", async (req, res) => {
       // Es un mensaje de texto enviado por el cliente
       const text = message.text.body;
       console.log(text)
-      const { classification } = await nlpManager.process(text);
-      console.log(classification)
-      if (classification.intent === 'saludo') {
-        console.log(classification)
-        //await MensajeService.MSGText(Ticket, );
-      } else if (classification.intent === 'despedida') {
-        // Realizamos la acción correspondiente a la despedida
-      } else {
-        // Respondemos con un mensaje indicando que no se ha entendido el mensaje
-      }
+
       
     } else if (message.type === "image") {
       // Es un mensaje de imagen enviado por el cliente
