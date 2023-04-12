@@ -36,9 +36,34 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
-  const value = body.entry[0].changes[0].value;
-  console.log(JSON.stringify(value, null, 2));
+  //console.log(JSON.stringify(value, null, 2));
   
+  const entry = req.body.entry[0];
+  const change = entry.changes[0];
+  
+  if (change.field === "messages") {
+    const message = change.value.messages[0];
+    if (message.type === "text") {
+      // Es un mensaje de texto enviado por el cliente
+      const text = message.text.body;
+      const { classification } = await nlpManager.process(message);
+      if (classification.intent === 'saludo') {
+        // Realizamos la acción correspondiente al saludo
+      } else if (classification.intent === 'despedida') {
+        // Realizamos la acción correspondiente a la despedida
+      } else {
+        // Respondemos con un mensaje indicando que no se ha entendido el mensaje
+      }
+      
+    } else if (message.type === "image") {
+      // Es un mensaje de imagen enviado por el cliente
+      const imageUrl = message.image.url;
+      // Hacer algo con la imagen
+    } else {
+      // Otro tipo de mensaje enviado por el cliente
+      // Hacer algo con el mensaje
+    }
+  }
  
   
   res.sendStatus(200);
