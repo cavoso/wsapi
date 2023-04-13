@@ -39,7 +39,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
 
-  
+  const maxhours = 1;
   // Parse the request body from the POST
   let body = req.body;
   //console.log(JSON.stringify(body, null, 2));
@@ -48,6 +48,7 @@ app.post("/webhook", async (req, res) => {
   if ("contacts" in change.value){
     const Cliente = await ClienteService.crearClienteSiNoExiste(change.value.contacts[0].wa_id, change.value.contacts[0].profile.name);
     const Ticket = await TicketService.buscarOCrearTicket(change.value.contacts[0].wa_id);
+    const diffHoras = moment().diff(Ticket.ultimomensaje, 'hours'); 
     if ("messages" in change.value) {
       const message = change.value.messages[0];
       
@@ -62,6 +63,14 @@ app.post("/webhook", async (req, res) => {
         type: message.type,
         message: JSON.stringify(message[message.type])
       });
+      
+      if(diffHoras >= maxhours){
+        await MensajeService.MSGBotones(Ticket, `Tiene un Ticket abierto con el departamento ${Ticket.departamento}, ¿desea continuar con él, o desea crear uno nuevo?`, [
+          MensajeService.GetButtonReplyFormat(1, "SI"),
+          MensajeService.GetButtonReplyFormat(2, "No"),
+        ]);
+      }
+      
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
       
       if(Ticket.inbot == 1){
