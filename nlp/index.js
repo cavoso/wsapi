@@ -23,21 +23,11 @@ const loadDocumentsAndAnswers = (folderPath) => {
     const { documents, answers } = require(filePath);
     addDocumentsAndAnswers(documents, answers);
   });
+
 };
-async function LoadDepartamentos(){
-  let Documents = [];
-  const departamentos = await db.Departamento.findAll();
-  for (const departamento of departamentos) {
-    Documents.push({
-      input: departamento.nombre,
-      output: 'Departamento'
-    });
-  }
-  addDocumentsAndAnswers(Documents, []);
-}
+
 
 loadDocumentsAndAnswers(__dirname + '/intents');
-LoadDepartamentos();
 
 
 nlpManager.train();

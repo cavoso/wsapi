@@ -68,9 +68,8 @@ app.post("/webhook", async (req, res) => {
       }else if(message.type === "interactive"){
         if(message.interactive.type === "list_reply"){
           let text = message.interactive.list_reply.title;
-          console.log(nlp)
           let response = await nlp.process('es', text);
-          console.log(response.intent);
+          console.log(response);
            if(response.intent == "Departamento"){
             //response.answer
             Ticket.update({departamento: response.utterance});
