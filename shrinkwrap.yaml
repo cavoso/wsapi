@@ -7,6 +7,7 @@ dependencies:
   mysql2: 3.2.0
   request: 2.88.2
   sequelize: 6.31.0
+  uuid: 9.0.0
 packages:
   /@babel/parser/7.21.4:
     dev: false
@@ -1805,6 +1806,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+  /uuid/9.0.0:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
   /validator/13.9.0:
     dev: false
     engines:
@@ -1910,3 +1916,4 @@ specifiers:
   mysql2: ^3.2.0
   request: ^2.88.2
   sequelize: ^6.31.0
+  uuid: ^9.0.0

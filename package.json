@@ -15,8 +15,7 @@
     "request": "^2.88.2",
     "sequelize": "^6.31.0",
     "mysql2": "^3.2.0",
-    "moment": "^2.29.4",
-    "@google-cloud/dialogflow": "^5.7.0"
+    "moment": "^2.29.4"
   },
   "engines": {
     "node": "12.x"
