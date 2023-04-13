@@ -27,6 +27,7 @@ const db = require('./models');
 const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
+const sucursales = require('./nlp/intents/Sucursales');
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -51,41 +52,32 @@ app.post("/webhook", async (req, res) => {
       const message = change.value.messages[0];
       if(Ticket.inbot == 1){
         let text = "";
+        
         if (message.type === "text") {
-          // Es un mensaje de texto enviado por el cliente
-          let text = message.text.body;
-          let response = await nlp.process('es', text);        
-          //console.log(response.utterance);
-          console.log(response.intent);        
-          if(response.intent == "Saludo"){
-            //response.answer
-            await MensajeService.MSGText(Ticket, response.answer);
-            await delay(2000);
-            await MensajeService.botMensaje(Ticket);          
-          }else{
-            await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
-          }
+          text = message.text.body;
         }else if(message.type === "interactive"){
           if(message.interactive.type === "list_reply"){
-            let text = message.interactive.list_reply.title;
-            let response = await nlp.process('es', text);
-             if(response.intent == "Departamento"){
-              //response.answer
-              Ticket.update({departamento: response.utterance});
-              await MensajeService.botMensaje(Ticket);
-            }
-            if(response.intent == "Sucursal"){
-              //response.answer
-              Ticket.update({sucursal: response.utterance});
-              await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
-            }else{
-              await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
-            }
-          }        
-        } else {
-          // Otro tipo de mensaje enviado por el cliente
+            text = message.interactive.list_reply.title;
+          }
+        }
+        
+        let response = await nlp.process('es', text);
+        console.log(response.intent);
+        
+        if(response.intent == "Saludo"){
+          await MensajeService.MSGText(Ticket, response.answer);
+          await delay(2000);
+          await MensajeService.botMensaje(Ticket);
+        }else if(response.intent == "Departamento"){
+          Ticket.update({departamento: response.utterance});
+          await MensajeService.botMensaje(Ticket);
+        }else if(response.intent == "Sucursal"){
+          Ticket.update({sucursal: response.utterance});
+          await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
+        }else{
           await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
         }
+        
       }else{
         //esto aplica si no hay esta activo el bot para el ticket
       }
