@@ -21,18 +21,12 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()); // creates express http server
 const moment = require('moment');
-const { NlpManager  } = require('node-nlp');
-
-
-
+const nlp = require('./nlp/index');
 
 const db = require('./models');
 const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
-
-const manager = new NlpManager({ languages: ['es'] });
-
 
 
 
@@ -41,14 +35,6 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
-  
-  manager.addDocument('es', 'hola', 'greetings.hello');
-  manager.addDocument('es', 'buenos dias', 'greetings.hello');
-  manager.addDocument('es', 'buenas tardes', 'greetings.hello');
-  manager.addDocument('es', 'buenas noches', 'greetings.hello');
-  manager.addDocument('es', 'adios', 'greetings.bye');
-
-  await manager.train();
   
   // Parse the request body from the POST
   let body = req.body;
@@ -65,14 +51,13 @@ app.post("/webhook", async (req, res) => {
     if (message.type === "text") {
       // Es un mensaje de texto enviado por el cliente
       const text = message.text.body;
-      console.log(text)
-      const response = await manager.process('es', text);
+      const response = await nlp.process('es', text);
       console.log(response);
+      if(response.intent == "Saludo"){
+        //response.answer
+        await MensajeService.MSGText(Ticket, response.answer);
+      }
       
-    } else if (message.type === "image") {
-      // Es un mensaje de imagen enviado por el cliente
-      const imageUrl = message.image.url;
-      // Hacer algo con la imagen
     } else {
       // Otro tipo de mensaje enviado por el cliente
       // Hacer algo con el mensaje
