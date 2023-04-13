@@ -50,6 +50,20 @@ app.post("/webhook", async (req, res) => {
     const Ticket = await TicketService.buscarOCrearTicket(change.value.contacts[0].wa_id);
     if ("messages" in change.value) {
       const message = change.value.messages[0];
+      
+      let date = new Date(parseInt(message.timestamp) * 1000);
+      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+      
+      await TicketService.agregarMensaje({
+        ticket: Ticket.id,
+        waid: change.value.contacts[0].wa_id,
+        wamid: message.id,
+        timestamp: mysqlDatetimeString,
+        type: message.type,
+        message: JSON.stringify(message[message.type])
+      });
+      Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
+      
       if(Ticket.inbot == 1){
         let text = "";
         
@@ -72,8 +86,12 @@ app.post("/webhook", async (req, res) => {
           Ticket.update({departamento: response.utterance});
           await MensajeService.botMensaje(Ticket);
         }else if(response.intent == "Sucursal"){
-          Ticket.update({sucursal: response.utterance});
-          await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
+          const checksucursal = sucursales.documents.find((sucursal) => sucursal.input === response.utterance);
+          if(checksucursal){
+            Ticket.update({sucursal: checksucursal.id});
+          }
+          
+          //await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
         }else{
           await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
         }
