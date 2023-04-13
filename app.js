@@ -46,20 +46,33 @@ app.post("/webhook", async (req, res) => {
   //console.log(JSON.stringify(body, null, 2));
   const entry = req.body.entry[0];
   const change = entry.changes[0];
-  
+     
   if("statuses" in change.value){
     
-  }
-  
-  
-  
-  if ("contacts" in change.value){
-    const Cliente = await ClienteService.crearClienteSiNoExiste(change.value.contacts[0].wa_id, change.value.contacts[0].profile.name);
-    const Ticket = await TicketService.buscarOCrearTicket(change.value.contacts[0].wa_id);
-    const diffHoras = moment().diff(Ticket.ultimomensaje, 'hours'); 
-    if ("messages" in change.value) {
+  }else{
+    
+    let waid = null;
+    let Cliente = null;
+    let Ticket = null;
+    
+    if ("contacts" in change.value){
+      waid = change.value.contacts[0].wa_id;
+      Cliente = await ClienteService.crearClienteSiNoExiste(waid, change.value.contacts[0].profile.name);
+      Ticket = await TicketService.buscarOCrearTicket(waid);
+ 
+    }
+    
+    let context = conversations.get(waid);
+    if (!context){
+      context = {
+        Cliente : Cliente,
+        Ticket  : Ticket
+      };
+      conversations.set(waid, context);
+    }
+    
+    if ("messages" in change.value){
       const message = change.value.messages[0];
-      
       let date = new Date(parseInt(message.timestamp) * 1000);
       let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
       
@@ -71,14 +84,6 @@ app.post("/webhook", async (req, res) => {
         type: message.type,
         message: JSON.stringify(message[message.type])
       });
-      
-      if(diffHoras >= maxhours){
-        await MensajeService.MSGBotones(Ticket, `Tiene un Ticket abierto con el departamento ${Ticket.departamento}, ¿desea continuar con él, o desea crear uno nuevo?`, [
-          MensajeService.GetButtonReplyFormat(1, "SI"),
-          MensajeService.GetButtonReplyFormat(2, "No"),
-        ]);
-      }
-      
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
       
       if(Ticket.inbot == 1){
@@ -92,7 +97,7 @@ app.post("/webhook", async (req, res) => {
           }
         }
         
-        let response = await nlp.process('es', text);
+        let response = await nlp.process('es', text, context);
         console.log(response.context);
         
         if(response.intent == "Saludo"){
@@ -117,10 +122,10 @@ app.post("/webhook", async (req, res) => {
         //esto aplica si no hay esta activo el bot para el ticket
       }
       
-    } 
-  }
-
-  
+    }
+    
+  }  
+    
   
   res.sendStatus(200);
   
