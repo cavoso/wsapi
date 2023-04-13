@@ -32,6 +32,7 @@ const sucursales = require('./nlp/intents/Sucursales');
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+const conversations = new Map();
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -45,6 +46,13 @@ app.post("/webhook", async (req, res) => {
   //console.log(JSON.stringify(body, null, 2));
   const entry = req.body.entry[0];
   const change = entry.changes[0];
+  
+  if("statuses" in change.value){
+    
+  }
+  
+  
+  
   if ("contacts" in change.value){
     const Cliente = await ClienteService.crearClienteSiNoExiste(change.value.contacts[0].wa_id, change.value.contacts[0].profile.name);
     const Ticket = await TicketService.buscarOCrearTicket(change.value.contacts[0].wa_id);
