@@ -1,4 +1,4 @@
-const datos = ['Juan', 'Pedro', 'María']
+const datos = ['Juan', 'Pedro', 'María', 'César', 'Mauricio', 'Francisco']
 
 module.exports = {
   entity: datos,
