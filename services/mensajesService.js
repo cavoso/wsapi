@@ -62,10 +62,18 @@ async function botMensaje(Ticket){
         
         if(Ticket.departamento == 'Taller'){
           if(suc.id !== 3){
-            
+            msg.interactive.action.sections[0].rows.push({
+              "id": suc.id,
+              "title": suc.input
+            });
           }
         }else if(Ticket.departamento == 'Venta Motos'){
-          
+          if(suc.id !== 6){
+            msg.interactive.action.sections[0].rows.push({
+              "id": suc.id,
+              "title": suc.input
+            });
+          }
         }else{
           msg.interactive.action.sections[0].rows.push({
             "id": suc.id,
@@ -73,25 +81,7 @@ async function botMensaje(Ticket){
           });
         }
       }
-      msg.interactive.action.sections[0].rows = [{
-        "id": 16,
-        "title": "Chillan Viejo"
-      },{
-        "id": 2,
-        "title": "Temuco"
-      },{
-        "id": 3,
-        "title": "Vitacura"
-      },{
-        "id": 4,
-        "title": "La Serena"
-      },{
-        "id": 5,
-        "title": "Raul Labbe"
-      },{
-        "id": 6,
-        "title": "Apoquindo"
-      }];
+
       msg.interactive.header.text = "";
       msg.interactive.body.text = "Por favor seleccione la sucursal más cercana a su ubicación";
       msg.interactive.footer.text = "Bot RS";
