@@ -26,8 +26,20 @@ const loadDocumentsAndAnswers = (folderPath) => {
 
 };
 
+const loadEntitys = (folderPath) => {
+  const files = fs.readdirSync(folderPath);
+
+  files.forEach(file => {
+    const filePath = path.join(folderPath, file);
+    const { entity, titulo } = require(filePath);
+    nlpManager.addNamedEntityText(titulo, entity, 'es');
+  });
+
+};
+
 
 loadDocumentsAndAnswers(__dirname + '/intents');
+loadEntitys(__dirname + '/entitys');
 
 
 nlpManager.train();
