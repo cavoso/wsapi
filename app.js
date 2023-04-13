@@ -35,9 +35,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
-  
-  const documents = nlp.getDocumentsByIntent('Departamento');
-  console.log(documents);
+
   
   // Parse the request body from the POST
   let body = req.body;
@@ -60,7 +58,7 @@ app.post("/webhook", async (req, res) => {
         if(response.intent == "Saludo"){
           //response.answer
           await MensajeService.MSGText(Ticket, response.answer);
-          await MensajeService.botMensaje(Ticket);
+          setTimeout(await MensajeService.botMensaje(Ticket), 5000);
         }
       
       }else if(message.type === "interactive"){

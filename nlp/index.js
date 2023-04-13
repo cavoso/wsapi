@@ -1,6 +1,7 @@
 const { NlpManager } = require('node-nlp');
 const fs = require('fs');
 const path = require('path');
+const db = require('../models');
 
 const nlpManager = new NlpManager({ languages: ['es'] });
 
@@ -23,8 +24,22 @@ const loadDocumentsAndAnswers = (folderPath) => {
     addDocumentsAndAnswers(documents, answers);
   });
 };
+async function LoadDepartamentos(){
+  const Documents = [];
+  const departamentos = await db.Departamento.findAll();
+  for (const departamento of departamentos) {
+    Documents.push({
+      input: departamento.nombre,
+      output: 'Departamento'
+    });
+  }
+  addDocumentsAndAnswers(Documents, []);
+}
 
 loadDocumentsAndAnswers(__dirname + '/intents');
+LoadDepartamentos();
+
+
 nlpManager.train();
 
 module.exports = nlpManager;
