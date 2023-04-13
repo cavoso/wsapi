@@ -25,7 +25,7 @@ const loadDocumentsAndAnswers = (folderPath) => {
   });
 };
 async function LoadDepartamentos(){
-  const Documents = [];
+  let Documents = [];
   const departamentos = await db.Departamento.findAll();
   for (const departamento of departamentos) {
     Documents.push({

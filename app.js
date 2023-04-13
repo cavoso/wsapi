@@ -28,7 +28,9 @@ const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
 
-
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -58,12 +60,15 @@ app.post("/webhook", async (req, res) => {
         if(response.intent == "Saludo"){
           //response.answer
           await MensajeService.MSGText(Ticket, response.answer);
-          setTimeout(await MensajeService.botMensaje(Ticket), 5000);
+          await delay(2000);
+          await MensajeService.botMensaje(Ticket);
+          
         }
       
       }else if(message.type === "interactive"){
         if(message.interactive.type === "list_reply"){
           let text = message.interactive.list_reply.title;
+          console.log(nlp)
           let response = await nlp.process('es', text);
           console.log(response.intent);
            if(response.intent == "Departamento"){
