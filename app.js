@@ -36,6 +36,9 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
   
+  const documents = nlp.getDocumentsByIntent('Departamento');
+  console.log(documents);
+  
   // Parse the request body from the POST
   let body = req.body;
   //console.log(JSON.stringify(body, null, 2));
@@ -48,8 +51,8 @@ app.post("/webhook", async (req, res) => {
       const message = change.value.messages[0];
       if (message.type === "text") {
         // Es un mensaje de texto enviado por el cliente
-        const text = message.text.body;
-        const response = await nlp.process('es', text);
+        let text = message.text.body;
+        let response = await nlp.process('es', text);
         
         //console.log(response.utterance);
         console.log(response.intent);
@@ -61,10 +64,10 @@ app.post("/webhook", async (req, res) => {
         }
       
       }else if(message.type === "interactive"){
-        const interactive = message.interactive;
-        if(interactive.type === "list_reply"){
-          const text = interactive.list_reply.title;
-          const response = await nlp.process('es', text);
+        if(message.interactive.type === "list_reply"){
+          let text = message.interactive.list_reply.title;
+          let response = await nlp.process('es', text);
+          console.log(response.intent);
            if(response.intent == "Departamento"){
             //response.answer
             Ticket.update({departamento: response.utterance});
