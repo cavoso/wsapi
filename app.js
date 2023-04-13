@@ -117,9 +117,8 @@ app.post("/webhook", async (req, res) => {
           await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
         }
         
-      }else{
-        //esto aplica si no hay esta activo el bot para el ticket
       }
+      
       
     }
     

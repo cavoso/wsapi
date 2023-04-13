@@ -2,6 +2,7 @@ const { sequelize } = require('sequelize');
 const db = require('../models');
 const axios = require("axios").default;
 const TicketService = require('./ticketService');
+const sucursales = require('../nlp/intents/Sucursales');
 
 const token = process.env.WHATSAPP_TOKEN;
 const phone_number = process.env.PHONE_NUMBER;
@@ -55,6 +56,7 @@ async function botMensaje(Ticket){
       return;
     }
     if (!Ticket.sucursal) {
+      msg.interactive.action.sections[0].rows = [];
       msg.interactive.action.sections[0].rows = [{
         "id": 16,
         "title": "Chillan Viejo"
