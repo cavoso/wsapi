@@ -44,17 +44,20 @@ app.post("/webhook", async (req, res) => {
   if ("contacts" in change.value){
     const Cliente = await ClienteService.crearClienteSiNoExiste(change.value.contacts[0].wa_id, change.value.contacts[0].profile.name);
     const Ticket = await TicketService.buscarOCrearTicket(change.value.contacts[0].wa_id);
-    console.log(Ticket)
     if ("messages" in change.value) {
       const message = change.value.messages[0];
       if (message.type === "text") {
         // Es un mensaje de texto enviado por el cliente
         const text = message.text.body;
         const response = await nlp.process('es', text);
+        /*
+        console.log(response.utterance);
         console.log(response);
+        */
         if(response.intent == "Saludo"){
           //response.answer
           await MensajeService.MSGText(Ticket, response.answer);
+          await MensajeService.botMensaje(Ticket);
         }
       
       } else {
