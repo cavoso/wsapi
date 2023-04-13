@@ -1,8 +1,10 @@
 const Documents = [
-  { input: 'Venta Repuestos', output: 'Sucursal' },
-  { input: 'Venta Motos', output: 'Sucursal' },
-  { input: 'Taller', output: 'Sucursal' },
-  { input: 'Post-Venta', output: 'Sucursal' },
+  { input: 'Chillan Viejo', output: 'Sucursal' },
+  { input: 'Temuco', output: 'Sucursal' },
+  { input: 'Vitacura', output: 'Sucursal' },
+  { input: 'La Serena', output: 'Sucursal' },
+  { input: 'Raul Labbe', output: 'Sucursal' },
+  { input: 'Apoquindo', output: 'Sucursal' },
 ];
 
 const Answers = [];
