@@ -13,7 +13,7 @@
 const token = process.env.WHATSAPP_TOKEN;
 const phone_number = process.env.PHONE_NUMBER;
 const phone_number_id = process.env.PHONE_NUMBER_ID;
-const maxhours = 24;
+const maxhours = 1;
 
 // Imports dependencies and set up http server
 const request = require("request"),
@@ -62,6 +62,12 @@ app.post("/webhook", async (req, res) => {
  
     }
     
+    let context = conversations.get(waid);
+    if (!context){
+      context = {};
+      conversations.set(waid, context);
+    }
+    
     if ("messages" in change.value){
       const message = change.value.messages[0];
       let date = new Date(parseInt(message.timestamp) * 1000);
@@ -73,7 +79,7 @@ app.post("/webhook", async (req, res) => {
         wamid: message.id,
         timestamp: mysqlDatetimeString,
         type: message.type,
-        message: JSON.stringify(message[message.type])
+        message: JSON.stringify(message)
       });
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
       
@@ -88,7 +94,7 @@ app.post("/webhook", async (req, res) => {
           }
         }
         
-        let response = await nlp.process('es', text);
+        let response = await nlp.process('es', text, context);
         
         if(response.intent == "Saludo"){
           await MensajeService.MSGText(Ticket, response.answer);
@@ -101,16 +107,28 @@ app.post("/webhook", async (req, res) => {
           const checksucursal = sucursales.documents.find((sucursal) => sucursal.input === response.utterance);
           if(checksucursal){
             Ticket.update({sucursal: checksucursal.id});
-          }          
+          }
+          
           //await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
         }else{
-          await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
+          if(!Cliente.nombres){
+            context.pendNombre = true;
+            conversations.set(waid, context);
+            await MensajeService.MSGText(Ticket, "Para mejorar la atención, podrías indicarnos tu nombre");
+          }else{
+            await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
+          }
+          
         }
         
-        if(Ticket.departamento && Ticket.sucursal){
-          Ticket.update({status: 'ACTIVO'});
-          await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
+        if(Ticket.status == 'PENDIENTE'){
+          if(Ticket.departamento && Ticket.sucursal){
+            Ticket.update({status: 'ACTIVO'});
+          }
         }
+        
+        
+        
         
       }
       
