@@ -57,6 +57,22 @@ async function botMensaje(Ticket){
     }
     if (!Ticket.sucursal) {
       msg.interactive.action.sections[0].rows = [];
+      
+      for(const suc of sucursales.documents){
+        
+        if(Ticket.departamento == 'Taller'){
+          if(suc.id !== 3){
+            
+          }
+        }else if(Ticket.departamento == 'Venta Motos'){
+          
+        }else{
+          msg.interactive.action.sections[0].rows.push({
+            "id": suc.id,
+            "title": suc.input
+          });
+        }
+      }
       msg.interactive.action.sections[0].rows = [{
         "id": 16,
         "title": "Chillan Viejo"
