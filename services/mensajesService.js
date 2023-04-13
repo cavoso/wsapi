@@ -44,7 +44,7 @@ async function botMensaje(Ticket){
           "title": departamento.nombre
         });
       }
-      msg.interactive.header.text = "Bienvenido a RS-Shop";
+      msg.interactive.header.text = "";
       msg.interactive.body.text = "Por favor seleccione el departamento con el cual desea contactar";
       msg.interactive.footer.text = "Bot RS";
       msg.interactive.action.button = "Sel. departamento";
@@ -74,7 +74,7 @@ async function botMensaje(Ticket){
         "id": 6,
         "title": "Apoquindo"
       }];
-      msg.interactive.header.text = "RS-Shop";
+      msg.interactive.header.text = "";
       msg.interactive.body.text = "Por favor seleccione la sucursal más cercana a su ubicación";
       msg.interactive.footer.text = "Bot RS";
       msg.interactive.action.button = "Sel. Sucursal";

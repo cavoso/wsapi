@@ -38,7 +38,7 @@ app.post("/webhook", async (req, res) => {
   
   // Parse the request body from the POST
   let body = req.body;
-  console.log(JSON.stringify(body, null, 2));
+  //console.log(JSON.stringify(body, null, 2));
   const entry = req.body.entry[0];
   const change = entry.changes[0];
   if ("contacts" in change.value){
@@ -50,16 +50,28 @@ app.post("/webhook", async (req, res) => {
         // Es un mensaje de texto enviado por el cliente
         const text = message.text.body;
         const response = await nlp.process('es', text);
-        /*
-        console.log(response.utterance);
-        console.log(response);
-        */
+        
+        //console.log(response.utterance);
+        console.log(response.intent);
+        
         if(response.intent == "Saludo"){
           //response.answer
           await MensajeService.MSGText(Ticket, response.answer);
           await MensajeService.botMensaje(Ticket);
         }
       
+      }else if(message.type === "interactive"){
+        const interactive = message.interactive;
+        if(interactive.type === "list_reply"){
+          const text = interactive.list_reply.title;
+          const response = await nlp.process('es', text);
+           if(response.intent == "Departamento"){
+            //response.answer
+            Ticket.update({departamento: response.utterance});
+            await MensajeService.botMensaje(Ticket);
+          }
+        }
+        
       } else {
         // Otro tipo de mensaje enviado por el cliente
         // Hacer algo con el mensaje
