@@ -75,6 +75,11 @@ app.post("/webhook", async (req, res) => {
             Ticket.update({departamento: response.utterance});
             await MensajeService.botMensaje(Ticket);
           }
+          if(response.intent == "Sucursal"){
+            //response.answer
+            Ticket.update({sucursal: response.utterance});
+            await MensajeService.MSGText(Ticket, "");
+          }
         }
         
       } else {
