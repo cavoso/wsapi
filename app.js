@@ -31,7 +31,8 @@ const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
 
-const manager = new NlpManager({ languages: ['en'] });
+const manager = new NlpManager({ languages: ['es'] });
+
 
 
 
@@ -41,6 +42,13 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
   
+  manager.addDocument('es', 'hola', 'greetings.hello');
+  manager.addDocument('es', 'buenos dias', 'greetings.hello');
+  manager.addDocument('es', 'buenas tardes', 'greetings.hello');
+  manager.addDocument('es', 'buenas noches', 'greetings.hello');
+  manager.addDocument('es', 'adios', 'greetings.bye');
+
+  await manager.train();
   
   // Parse the request body from the POST
   let body = req.body;
@@ -58,7 +66,8 @@ app.post("/webhook", async (req, res) => {
       // Es un mensaje de texto enviado por el cliente
       const text = message.text.body;
       console.log(text)
-
+      const response = await manager.process('es', text);
+      console.log(response);
       
     } else if (message.type === "image") {
       // Es un mensaje de imagen enviado por el cliente
