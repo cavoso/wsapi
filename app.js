@@ -68,6 +68,8 @@ app.post("/webhook", async (req, res) => {
       conversations.set(waid, context);
     }
     
+    context.ticket = Ticket;
+    
     if ("messages" in change.value){
       const message = change.value.messages[0];
       let date = new Date(parseInt(message.timestamp) * 1000);
@@ -111,10 +113,10 @@ app.post("/webhook", async (req, res) => {
           
           //await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
         }else{
-          if(!Cliente.nombres){
-            context.pendNombre = true;
-            conversations.set(waid, context);
-            await MensajeService.MSGText(Ticket, "Para mejorar la atención, podrías indicarnos tu nombre");
+          console.log(response)
+          console.log(context)
+          if(context.pendNombre){
+            console.log(response)
           }else{
             await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
           }
@@ -124,7 +126,19 @@ app.post("/webhook", async (req, res) => {
         if(Ticket.status == 'PENDIENTE'){
           if(Ticket.departamento && Ticket.sucursal){
             Ticket.update({status: 'ACTIVO'});
+            await MensajeService.MSGText(Ticket, "se creo su ticket exitosamente");
+            await delay(2000);
           }
+        }
+        if(Ticket.status == 'ACTIVO'){
+          if(!context.nopersonaldata || context.nopersonaldata == true){
+            if(!Cliente.nombres){
+              context.pendNombre = true;
+              conversations.set(waid, context);
+              await MensajeService.MSGText(Ticket, "Para mejorar la atención, podrías indicarnos tu nombre, pude ingresar “omitir”, si no desea responder con sus datos personales");
+            }
+          }
+          
         }
         
         
