@@ -85,7 +85,7 @@ app.post("/webhook", async (req, res) => {
         }
         
         let response = await nlp.process('es', text);
-        console.log(response);
+        console.log(response.context);
         
         if(response.intent == "Saludo"){
           await MensajeService.MSGText(Ticket, response.answer);
