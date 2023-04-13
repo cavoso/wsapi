@@ -21,6 +21,9 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()); // creates express http server
 const moment = require('moment');
+const { NlpManager  } = require('node-nlp');
+
+
 
 
 const db = require('./models');
@@ -28,12 +31,17 @@ const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
 
+const manager = new NlpManager({ languages: ['en'] });
+
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
+  
+  
   // Parse the request body from the POST
   let body = req.body;
   //console.log(JSON.stringify(value, null, 2));
