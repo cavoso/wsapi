@@ -9,8 +9,13 @@ function validarEmail(email) {
   return validator.isEmail(email);
 }
 
+function hayCampoPendiente(pendingData) {
+  return Object.values(pendingData).some(value => value === true);
+}
+
 
 module.exports = {
   validarTexto, 
-  validarEmail
+  validarEmail,
+  hayCampoPendiente
 };

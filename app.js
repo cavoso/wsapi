@@ -28,6 +28,8 @@ const TicketService = require('./services/ticketService');
 const ClienteService = require('./services/clienteService');
 const MensajeService = require('./services/mensajesService');
 const sucursales = require('./nlp/intents/Sucursales');
+const validacion = require('./config/validaciones');
+
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -98,6 +100,8 @@ app.post("/webhook", async (req, res) => {
         
         let response = await nlp.process('es', text, context);
         
+        console.log(response)
+        
         if(response.intent == "Saludo"){
           
           await MensajeService.MSGText(Ticket, response.answer);
@@ -125,13 +129,36 @@ app.post("/webhook", async (req, res) => {
             }
           }
         }else{
-          console.log(response)
-          console.log(context)
-          if(context.pendNombre){
-            console.log(response)
+          if (validacion.hayCampoPendiente(context.pendingData)) {
+            let esValido = false;
+            for (const key in context.pendingData) {
+              if (context.pendingData[key]) {
+                switch (key) {
+                  case 'nombres':
+                    esValido = validacion.validarTexto(response.source);
+                  case 'apellidoPaterno':
+                    esValido = validacion.validarTexto(response.source);
+                  case 'apellidoMaterno':
+                    esValido = validacion.validarTexto(response.source);
+                  case 'ciudad':
+                    esValido = validacion.validarTexto(response.source);
+                    break;
+                  case 'email':
+                    esValido = validacion.validarEmail(response.source);
+                    break;
+                }
+                if (esValido) {
+                  
+                } else {
+                  
+                }
+                break;
+              }
+            }
           }else{
             await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
           }
+
           
         }
         
