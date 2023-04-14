@@ -136,12 +136,15 @@ app.post("/webhook", async (req, res) => {
           }
         }
         if(Ticket.status == 'ACTIVO'){
-          if(!context.nopersonaldata || context.nopersonaldata == true){
-            if(!Cliente.nombres){
-              context.pendNombre = true;
-              conversations.set(waid, context);
-              await MensajeService.MSGText(Ticket, "Para mejorar la atención, podrías indicarnos tu nombre, pude ingresar “omitir”, si no desea responder con sus datos personales");
-            }
+          if (!context.pendingData) {
+            // Inicializar el objeto pendingData con los datos personales pendientes
+            context.pendingData = {
+              nombres: true,
+              apellidoPaterno: true,
+              apellidoMaterno: true,
+              email: true,
+              ciudad: true,
+            };
           }
           
         }
