@@ -100,13 +100,18 @@ app.post("/webhook", async (req, res) => {
         let response = await nlp.process('es', text, context);
         
         if(response.intent == "Saludo"){
+          
           await MensajeService.MSGText(Ticket, response.answer);
           await delay(2000);
           await MensajeService.botMensaje(Ticket);
+          
         }else if(response.intent == "Departamento"){
+          
           Ticket.update({departamento: response.utterance});
           await MensajeService.botMensaje(Ticket);
+          
         }else if(response.intent == "Sucursal"){
+          
           const checksucursal = sucursales.documents.find((sucursal) => sucursal.input === response.utterance);
           if(checksucursal){
             Ticket.update({sucursal: checksucursal.id});
