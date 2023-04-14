@@ -117,6 +117,13 @@ app.post("/webhook", async (req, res) => {
           }
           
           //await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
+        }else if (response.intent == 'omitir') {
+          for (const key in context.pendingData) {
+            if (context.pendingData[key]) {
+              context.pendingData[key] = false;
+              break;
+            }
+          }
         }else{
           console.log(response)
           console.log(context)
