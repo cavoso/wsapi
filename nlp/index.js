@@ -41,6 +41,9 @@ const loadEntitys = (folderPath) => {
 loadDocumentsAndAnswers(__dirname + '/intents');
 loadEntitys(__dirname + '/entitys');
 
+nlpManager.addDocument('es', 'omitir', 'omitir');
+nlpManager.addDocument('es', 'saltar', 'omitir');
+
 
 nlpManager.train();
 

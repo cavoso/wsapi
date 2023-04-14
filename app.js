@@ -145,7 +145,32 @@ app.post("/webhook", async (req, res) => {
               email: !Cliente.email,
               ciudad: !Cliente.ciudad,
             };
-            await MensajeService.MSGText(Ticket, "");
+            await MensajeService.MSGText(Ticket, "Se le solicitaran algunos datos personales, puede utilizar “omitir” o “saltar” si no desea responder");
+          }
+          
+          for (const key in context.pendingData) {
+            if (context.pendingData[key]) {
+              let pregunta;
+              switch (key) {
+                case 'nombres':
+                  pregunta = 'Por favor, ingresa tus nombres:';
+                  break;
+                case 'paterno':
+                  pregunta = 'Por favor, ingresa tu apellido paterno:';
+                  break;
+                case 'materno':
+                  pregunta = 'Por favor, ingresa tu apellido materno:';
+                  break;
+                case 'email':
+                  pregunta = 'Por favor, ingresa tu correo electrónico:';
+                  break;
+                case 'ciudad':
+                  pregunta = 'Por favor, ingresa tu ciudad:';
+                  break;
+              }
+              await MensajeService.MSGText(Ticket, pregunta);
+              break;
+            }
           }
           
         }
