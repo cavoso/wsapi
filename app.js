@@ -106,7 +106,7 @@ app.post("/webhook", async (req, res) => {
           
           const creadoEl = moment(Ticket.creadoel);
           if(moment().diff(creadoEl, 'minutes') >= 1){
-            await MensajeService.MSGText(Ticket, "");
+            await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
           }else{
             await MensajeService.MSGText(Ticket, response.answer);
             await delay(2000);
@@ -154,9 +154,10 @@ app.post("/webhook", async (req, res) => {
                     break;
                 }
                 if (esValido) {
-                  
+                  Cliente.update({ [key]: response.source });
+                  context.pendingData[key] = false;
                 } else {
-                  
+                  await MensajeService.MSGText(Ticket, "Lo siento, pero al parecer la información ingresada contiene caracteres no validos");
                 }
                 break;
               }
