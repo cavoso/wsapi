@@ -135,16 +135,16 @@ app.post("/webhook", async (req, res) => {
               if (context.pendingData[key]) {
                 switch (key) {
                   case 'nombres':
-                    esValido = validacion.validarTexto(response.source);
+                    esValido = validacion.validarTexto(response.utterance);
                   case 'apellidoPaterno':
-                    esValido = validacion.validarTexto(response.source);
+                    esValido = validacion.validarTexto(response.utterance);
                   case 'apellidoMaterno':
-                    esValido = validacion.validarTexto(response.source);
+                    esValido = validacion.validarTexto(response.utterance);
                   case 'ciudad':
-                    esValido = validacion.validarTexto(response.source);
+                    esValido = validacion.validarTexto(response.utterance);
                     break;
                   case 'email':
-                    esValido = validacion.validarEmail(response.source);
+                    esValido = validacion.validarEmail(response.utterance);
                     break;
                 }
                 if (esValido) {
