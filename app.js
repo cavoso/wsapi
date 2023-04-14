@@ -139,12 +139,13 @@ app.post("/webhook", async (req, res) => {
           if (!context.pendingData) {
             // Inicializar el objeto pendingData con los datos personales pendientes
             context.pendingData = {
-              nombres: true,
-              apellidoPaterno: true,
-              apellidoMaterno: true,
-              email: true,
-              ciudad: true,
+              nombres: !Cliente.nombres,
+              paterno: !Cliente.paterno,
+              materno: !Cliente.materno,
+              email: !Cliente.email,
+              ciudad: !Cliente.ciudad,
             };
+            await MensajeService.MSGText(Ticket, "");
           }
           
         }
