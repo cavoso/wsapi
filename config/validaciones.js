@@ -11,5 +11,6 @@ function validarEmail(email) {
 
 
 module.exports = {
-  
+  validarTexto, 
+  validarEmail
 };
