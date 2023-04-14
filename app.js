@@ -48,7 +48,8 @@ app.post("/webhook", async (req, res) => {
   const change = entry.changes[0];
      
   if("statuses" in change.value){
-    
+    let mensaje = await db.TicketMensajes.findOne({ where: { wamid: change.value.statuses[0].id } });
+    mensaje.update({status: change.value.statuses[0].status});
   }else{
     
     let waid = null;
