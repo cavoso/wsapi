@@ -104,9 +104,15 @@ app.post("/webhook", async (req, res) => {
         
         if(response.intent == "Saludo"){
           
-          await MensajeService.MSGText(Ticket, response.answer);
-          await delay(2000);
-          await MensajeService.botMensaje(Ticket);
+          const creadoEl = moment(Ticket.creadoel);
+          if(moment().diff(creadoEl, 'minutes') >= 1){
+            await MensajeService.MSGText(Ticket, "");
+          }else{
+            await MensajeService.MSGText(Ticket, response.answer);
+            await delay(2000);
+            await MensajeService.botMensaje(Ticket);
+          }
+          
           
         }else if(response.intent == "Departamento"){
           
