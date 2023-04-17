@@ -96,16 +96,17 @@ app.post("/webhook", async (req, res) => {
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
       console.log(message)
       let text = "";
-      if (message.type === "text") {
+      let type = message.type;
+      if (type === "text") {
         text = message.text.body;
-      }else if(message.type === "interactive"){
+      }else if(type === "interactive"){
         if(message.interactive.type === "list_reply"){
           text = message.interactive.list_reply.title;
         }else if(message.interactive.type === "button_reply"){
           text = message.interactive.button_reply.title;
         }
-      }else if(message.type === "location"){
-        text = "";
+      }else if(type === "location"){
+        text = await MensajeService.getLocationFromCoordinates(message.location, 'locality');
       }
       
       let response = await nlp.process('es', text, context);
@@ -158,7 +159,12 @@ app.post("/webhook", async (req, res) => {
                   case 'materno':
                     esValido = validacion.validarTexto(response.utterance);
                   case 'ciudad':
-                    esValido = validacion.validarTexto(response.utterance);
+                    if(type === "location"){
+                      esValido = true; 
+                    }else{
+                      esValido = validacion.validarTexto(response.utterance);
+                    }
+                    
                     break;
                   case 'email':
                     esValido = validacion.validarEmail(response.utterance);

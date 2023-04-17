@@ -164,6 +164,26 @@ function GetButtonReplyFormat(id, texto){
   };
 }
 
+async function getLocationFromCoordinates(coordinates, field) {
+  const { latitude, longitude } = coordinates;
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+
+  try {
+    const response = await axios.get(url);
+    if (response.data.results.length > 0) {
+      const addressComponents = response.data.results[0].address_components;
+      const result = addressComponents.find(component => component.types.includes(field));
+      return result ? result.long_name : null;
+    }
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+
 module.exports = {
   botMensaje,
   MSGText,
