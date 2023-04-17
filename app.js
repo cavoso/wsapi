@@ -107,12 +107,13 @@ app.post("/webhook", async (req, res) => {
         }
       }else if(type === "location"){
         text = await MensajeService.getLocationFromCoordinates(message.location, 'locality');
-        text += "";
       }
       
       let response = await nlp.process('es', text, context);
-      console.log(text)
-      console.log(response)
+
+      if(context.SolicitarContactData){
+        response.intent = "none";
+      }
       
       if(response.intent == "Saludo"){
         let nombre = Cliente.nombreOwaProfile();
@@ -186,6 +187,10 @@ app.post("/webhook", async (req, res) => {
                   
                 } else {
                   await MensajeService.MSGText(Ticket, "Lo siento, pero al parecer la información ingresada contiene caracteres no validos");
+                }
+                if (!validacion.hayCampoPendiente(context.pendingContactData)){
+                  context.prerequisitos = false;
+                  context.SolicitarContactData = false;
                 }
                 break;
               }
