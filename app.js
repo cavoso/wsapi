@@ -107,6 +107,7 @@ app.post("/webhook", async (req, res) => {
         }
       }else if(type === "location"){
         text = await MensajeService.getLocationFromCoordinates(message.location, 'locality');
+        text += "";
       }
       
       let response = await nlp.process('es', text, context);
@@ -133,6 +134,7 @@ app.post("/webhook", async (req, res) => {
       }else if(response.intent == "InfoUser.Acepto"){
         context.SolicitarContactData = true;
       }else if(response.intent == "InfoUser.NoAcepto"){
+        context.prerequisitos = false;
         context.SolicitarContactData = false;
       }else if (response.intent == 'omitir') {
         if(context.SolicitarContactData){
@@ -189,6 +191,7 @@ app.post("/webhook", async (req, res) => {
               }
             }
           }else{
+            context.prerequisitos = false;
             context.SolicitarContactData = false;
           }
         }else{
@@ -230,8 +233,6 @@ app.post("/webhook", async (req, res) => {
           await MensajeService.botMensaje(Ticket);
         }
       }
-      //verificamos si se cargaran los datos de usuario
-      
       
       if(Ticket.status == 'PENDIENTE'){
         if(Ticket.departamento && Ticket.sucursal){
