@@ -94,7 +94,7 @@ app.post("/webhook", async (req, res) => {
         message: JSON.stringify(message)
       });
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
-      
+      console.log(message)
       let text = "";
       if (message.type === "text") {
         text = message.text.body;
@@ -105,6 +105,7 @@ app.post("/webhook", async (req, res) => {
       }
       
       let response = await nlp.process('es', text, context);
+      console.log(text)
       console.log(response)
       
       if(response.intent == "Saludo"){
@@ -118,8 +119,8 @@ app.post("/webhook", async (req, res) => {
             await MensajeService.MSGText(Ticket, "nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio");
             await delay(2000);
             await MensajeService.MSGBotones(Ticket, `¿Actualizar datos?`, [
-              MensajeService.GetButtonReplyFormat("aceptarInformacion", "Acepto proporcionar información"),
-              MensajeService.GetButtonReplyFormat("rechazarInformacion", "No deseo compartir información"),
+              MensajeService.GetButtonReplyFormat("aceptarInformacion", "Entregaré info"),
+              MensajeService.GetButtonReplyFormat("rechazarInformacion", "No daré info"),
             ]);
           }
         }
