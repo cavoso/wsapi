@@ -37,6 +37,11 @@ const Cliente = sequelize.define('Cliente', {
   ciudad: {
     type: DataTypes.STRING,
     allowNull: true
+  },
+   nofilldatabot: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: true,
+    defaultValue: 0
   }
 }, {
   timestamps: false,
