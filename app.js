@@ -67,7 +67,17 @@ app.post("/webhook", async (req, res) => {
     }
     
     context.ticket = Ticket;
-    conversations.set(waid, context);
+    if (!context.pendingContactData) {
+      // Inicializar el objeto pendingData con los datos personales pendientes
+      context.pendingContactData = {
+        nombres: !Cliente.nombres,
+        paterno: !Cliente.paterno,
+        materno: !Cliente.materno,
+        email: !Cliente.email,
+        ciudad: !Cliente.ciudad,
+      };
+
+    }
     
     if ("messages" in change.value){
       
