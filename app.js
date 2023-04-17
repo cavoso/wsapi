@@ -94,13 +94,15 @@ app.post("/webhook", async (req, res) => {
         message: JSON.stringify(message)
       });
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
-      console.log(message)
+      //console.log(message)
       let text = "";
       if (message.type === "text") {
         text = message.text.body;
       }else if(message.type === "interactive"){
         if(message.interactive.type === "list_reply"){
           text = message.interactive.list_reply.title;
+        }else if(message.interactive.type === "button_reply"){
+          text = message.interactive.button_reply.title;
         }
       }
       
@@ -160,8 +162,13 @@ app.post("/webhook", async (req, res) => {
                     break;
                 }
                 if (esValido) {
-                  Cliente.update({ [key]: response.source });
-                  context.SolicitarContactData[key] = false;
+                  try{
+                    Cliente.update({ [key]: response.utterance });
+                    context.pendingContactData[key] = false;
+                  }catch(ex){
+                    console.log(ex)
+                  }
+                  
                 } else {
                   await MensajeService.MSGText(Ticket, "Lo siento, pero al parecer la información ingresada contiene caracteres no validos");
                 }
