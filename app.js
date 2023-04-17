@@ -114,7 +114,10 @@ app.post("/webhook", async (req, res) => {
         await MensajeService.MSGText(Ticket, "Soy {nombrebot}, tu ejecutivo virtual".replace('{nombrebot}', 'nombre_del_bot'));
         if (validacion.hayCampoPendiente(context.pendingContactData)){
           if(Cliente.nofilldatabot == 0){
-            await MensajeService.MSGBotones(Ticket, `nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio. ¿Estaría usted de acuerdo en proporcionarnos sus datos de contacto actualizados?`, [
+            await delay(2000);
+            await MensajeService.MSGText(Ticket, "nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio");
+            await delay(2000);
+            await MensajeService.MSGBotones(Ticket, `¿Actualizar datos?`, [
               MensajeService.GetButtonReplyFormat("aceptarInformacion", "Acepto proporcionar información"),
               MensajeService.GetButtonReplyFormat("rechazarInformacion", "No deseo compartir información"),
             ]);
