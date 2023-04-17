@@ -108,11 +108,8 @@ app.post("/webhook", async (req, res) => {
       console.log(response)
       
       if(response.intent == "Saludo"){
-        let nombre = Cliente.waprofile;
-        if(Cliente.nombres != null){
-          nombre = Cliente.nombres;
-        }
-        await MensajeService.MSGText(Ticket, response.answer.replace('{nombre}', nombre));
+        let nombre = Cliente.nombreOwaProfile();
+        await MensajeService.MSGText(Ticket, response.answer.replace('{nombre}', Cliente.nombreOwaProfile()));
         await delay(2000);
         await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
       }

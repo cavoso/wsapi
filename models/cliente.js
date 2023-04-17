@@ -20,7 +20,8 @@ const Cliente = sequelize.define('Cliente', {
   },
   nombres: {
     type: DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   paterno: {
     type: DataTypes.STRING,
@@ -47,5 +48,9 @@ const Cliente = sequelize.define('Cliente', {
   timestamps: false,
   tableName: 'Cliente'
 });
+
+Cliente.prototype.nombreOwaProfile = function() {
+  return this.nombres || this.waprofile;
+}
 
 module.exports = Cliente;
