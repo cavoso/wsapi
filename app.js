@@ -114,7 +114,7 @@ app.post("/webhook", async (req, res) => {
         await MensajeService.MSGText(Ticket, "Soy {nombrebot}, tu ejecutivo virtual".replace('{nombrebot}', 'nombre_del_bot'));
         if (validacion.hayCampoPendiente(context.pendingContactData)){
           if(Cliente.nofilldatabot == 0){
-            await MensajeService.MSGBotones(Ticket, `Estimado cliente, nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio. ¿Estaría usted de acuerdo en proporcionarnos sus datos de contacto actualizados?`, [
+            await MensajeService.MSGBotones(Ticket, `nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio. ¿Estaría usted de acuerdo en proporcionarnos sus datos de contacto actualizados?`, [
               MensajeService.GetButtonReplyFormat("aceptarInformacion", "Acepto proporcionar información"),
               MensajeService.GetButtonReplyFormat("rechazarInformacion", "No deseo compartir información"),
             ]);
@@ -125,12 +125,16 @@ app.post("/webhook", async (req, res) => {
       }else if(response.intent == "InfoUser.NoAcepto"){
         context.SolicitarContactData = false;
       }else if (response.intent == 'omitir') {
-        for (const key in context.pendingContactData) {
-          if (context.pendingContactData[key]) {
-            context.pendingContactData[key] = false;
-            break;
+        if(context.SolicitarContactData){
+          for (const key in context.pendingContactData) {
+            if (context.pendingContactData[key]) {
+              context.pendingContactData[key] = false;
+              break;
+            }
           }
+          Cliente.update({ nofilldatabot: 1 });
         }
+        
       }else{
         if(context.SolicitarContactData){
           if (validacion.hayCampoPendiente(context.SolicitarContactData)) {
@@ -160,7 +164,9 @@ app.post("/webhook", async (req, res) => {
                 break;
               }
             }
-          } 
+          }else{
+            context.SolicitarContactData = false;
+          }
         }else{
           await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
         }
