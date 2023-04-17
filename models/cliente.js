@@ -50,7 +50,7 @@ const Cliente = sequelize.define('Cliente', {
 });
 
 Cliente.prototype.nombreOwaProfile = function() {
-  return this.nombres || this.waprofile;
+  return (this.nombres && this.nombres !== '-') ? this.nombres : this.waprofile;
 }
 
 module.exports = Cliente;

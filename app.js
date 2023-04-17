@@ -112,7 +112,7 @@ app.post("/webhook", async (req, res) => {
         await MensajeService.MSGText(Ticket, response.answer.replace('{nombre}', Cliente.nombreOwaProfile()));
         await delay(2000);
         await MensajeService.MSGText(Ticket, "Soy {nombrebot}, tu ejecutivo virtual".replace('{nombrebot}', 'nombre_del_bot'));
-        if (validacion.hayCampoPendiente(context.pendingData)){
+        if (validacion.hayCampoPendiente(context.pendingContactData)){
           if(Cliente.nofilldatabot == 0){
             await MensajeService.MSGBotones(Ticket, `Estimado cliente, nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio. ¿Estaría usted de acuerdo en proporcionarnos sus datos de contacto actualizados?`, [
               MensajeService.GetButtonReplyFormat("aceptarInformacion", "Acepto proporcionar información"),
@@ -120,6 +120,42 @@ app.post("/webhook", async (req, res) => {
             ]);
           }
         }
+      }else if(response.intent == "InfoUser.Acepto"){
+        context.SolicitarContactData = true;
+      }else if(response.intent == "InfoUser.NoAcepto"){
+        context.SolicitarContactData = false;
+      }else{
+        
+      }
+      
+      //verificamos si se cargaran los datos de usuario
+      if(context.SolicitarContactData){
+        for (const key in context.pendingData) {
+            if (context.pendingData[key]) {
+              let pregunta;
+              switch (key) {
+                case 'nombres':
+                  pregunta = 'Ingresa solo tu(s) nombre(s), sin apellidos, o escribe "omitir" para saltar.';
+                  break;
+                case 'paterno':
+                  pregunta = 'Por favor, ingresa tu apellido paterno:';
+                  break;
+                case 'materno':
+                  pregunta = 'Por favor, ingresa tu apellido materno:';
+                  break;
+                case 'email':
+                  pregunta = 'Por favor, ingresa tu correo electrónico:';
+                  break;
+                case 'ciudad':
+                  pregunta = 'Por favor, ingresa tu ciudad:';
+                  break;
+              }
+              await MensajeService.MSGText(Ticket, pregunta);
+              break;
+            }
+          }
+      }else{
+        
       }
       
     }
