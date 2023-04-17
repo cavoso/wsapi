@@ -198,7 +198,7 @@ app.post("/webhook", async (req, res) => {
                   pregunta = 'Ingresa tu dirección de correo electrónico o escribe "omitir" para saltar.';
                   break;
                 case 'ciudad':
-                  pregunta = 'Ingresa el nombre de tu ciudad o escribe "omitir" para saltar.';
+                  pregunta = 'Ingresa el nombre de tu ciudad, envía tu ubicación o escribe "omitir" para saltar.';
                   break;
               }
               await MensajeService.MSGText(Ticket, pregunta);
