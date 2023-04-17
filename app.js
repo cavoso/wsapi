@@ -145,6 +145,14 @@ app.post("/webhook", async (req, res) => {
           Cliente.update({ nofilldatabot: 1 });
         }
         
+      }else if(response.intent == "Departamento"){
+        Ticket.update({departamento: response.utterance});
+        await MensajeService.botMensaje(Ticket);
+      }else if(response.intent == "Sucursal"){
+        const checksucursal = sucursales.documents.find((sucursal) => sucursal.input === response.utterance);
+        if(checksucursal){
+          Ticket.update({sucursal: checksucursal.id});
+        }
       }else{
         if(context.SolicitarContactData){
           if (validacion.hayCampoPendiente(context.pendingContactData)) {
@@ -215,7 +223,16 @@ app.post("/webhook", async (req, res) => {
             }
           }
       }else if(!Ticket.departamento || Ticket.departamento === ''){
-        
+        await MensajeService.botMensaje(Ticket);
+      }else if(!Ticket.sucursal || Ticket.sucursal === ''){
+        await MensajeService.botMensaje(Ticket);
+      }
+      
+      if(Ticket.status == 'PENDIENTE'){
+        if(Ticket.departamento && Ticket.sucursal){
+          Ticket.update({status: 'ACTIVO'});
+          await MensajeService.MSGText(Ticket, ``);
+        }
       }
       
     }
