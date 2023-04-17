@@ -5,7 +5,7 @@ const Documents = [
 
 const Answers = [
   { label: 'Saludo', answer: '¡Hola! {nombre} ¡Bienvenido a RS-Shop!' },
-  { label: 'Saludo', answer: '¡Hola! {nombre} ¡Bienvenido a RS-Shop!' },
+  { label: 'Saludo', answer: '¡Buen día! {nombre} ¡Bienvenido a RS-Shop!' },
 ];
  
 module.exports = {
