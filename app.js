@@ -124,30 +124,68 @@ app.post("/webhook", async (req, res) => {
         context.SolicitarContactData = true;
       }else if(response.intent == "InfoUser.NoAcepto"){
         context.SolicitarContactData = false;
+      }else if (response.intent == 'omitir') {
+        for (const key in context.pendingContactData) {
+          if (context.pendingContactData[key]) {
+            context.pendingContactData[key] = false;
+            break;
+          }
+        }
       }else{
-        
+        if(context.SolicitarContactData){
+          if (validacion.hayCampoPendiente(context.SolicitarContactData)) {
+            let esValido = false;
+            for (const key in context.SolicitarContactData) {
+              if (context.SolicitarContactData[key]) {
+                switch (key) {
+                  case 'nombres':
+                    esValido = validacion.validarTexto(response.utterance);
+                  case 'paterno':
+                    esValido = validacion.validarTexto(response.utterance);
+                  case 'materno':
+                    esValido = validacion.validarTexto(response.utterance);
+                  case 'ciudad':
+                    esValido = validacion.validarTexto(response.utterance);
+                    break;
+                  case 'email':
+                    esValido = validacion.validarEmail(response.utterance);
+                    break;
+                }
+                if (esValido) {
+                  Cliente.update({ [key]: response.source });
+                  context.SolicitarContactData[key] = false;
+                } else {
+                  await MensajeService.MSGText(Ticket, "Lo siento, pero al parecer la información ingresada contiene caracteres no validos");
+                }
+                break;
+              }
+            }
+          } 
+        }else{
+          await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
+        }
       }
       
       //verificamos si se cargaran los datos de usuario
       if(context.SolicitarContactData){
-        for (const key in context.pendingData) {
-            if (context.pendingData[key]) {
+        for (const key in context.pendingContactData) {
+            if (context.pendingContactData[key]) {
               let pregunta;
               switch (key) {
                 case 'nombres':
                   pregunta = 'Ingresa solo tu(s) nombre(s), sin apellidos, o escribe "omitir" para saltar.';
                   break;
                 case 'paterno':
-                  pregunta = 'Por favor, ingresa tu apellido paterno:';
+                  pregunta = 'Ingresa tu apellido paterno, sin incluir nombres, o escribe "omitir" para saltar.';
                   break;
                 case 'materno':
-                  pregunta = 'Por favor, ingresa tu apellido materno:';
+                  pregunta = 'Ingresa tu apellido materno, sin incluir nombres, o escribe "omitir" para saltar.';
                   break;
                 case 'email':
-                  pregunta = 'Por favor, ingresa tu correo electrónico:';
+                  pregunta = 'Ingresa tu dirección de correo electrónico o escribe "omitir" para saltar.';
                   break;
                 case 'ciudad':
-                  pregunta = 'Por favor, ingresa tu ciudad:';
+                  pregunta = 'Ingresa el nombre de tu ciudad o escribe "omitir" para saltar.';
                   break;
               }
               await MensajeService.MSGText(Ticket, pregunta);
