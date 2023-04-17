@@ -41,13 +41,10 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
-
-  // Parse the request body from the POST
   let body = req.body;
-  //console.log(JSON.stringify(body, null, 2));
   const entry = req.body.entry[0];
   const change = entry.changes[0];
-     
+  
   if("statuses" in change.value){
     let mensaje = await db.TicketMensajes.findOne({ where: { wamid: change.value.statuses[0].id } });
     mensaje.update({status: change.value.statuses[0].status});
@@ -60,8 +57,7 @@ app.post("/webhook", async (req, res) => {
     if ("contacts" in change.value){
       waid = change.value.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, change.value.contacts[0].profile.name);
-      Ticket = await TicketService.buscarOCrearTicket(waid);
- 
+      Ticket = await TicketService.buscarOCrearTicket(waid); 
     }
     
     let context = conversations.get(waid);
@@ -71,8 +67,10 @@ app.post("/webhook", async (req, res) => {
     }
     
     context.ticket = Ticket;
+    conversations.set(waid, context);
     
     if ("messages" in change.value){
+      
       const message = change.value.messages[0];
       let date = new Date(parseInt(message.timestamp) * 1000);
       let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
@@ -87,145 +85,32 @@ app.post("/webhook", async (req, res) => {
       });
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
       
-      if(Ticket.inbot == 1){
-        let text = "";
-        
-        if (message.type === "text") {
-          text = message.text.body;
-        }else if(message.type === "interactive"){
-          if(message.interactive.type === "list_reply"){
-            text = message.interactive.list_reply.title;
-          }
+      let text = "";
+      if (message.type === "text") {
+        text = message.text.body;
+      }else if(message.type === "interactive"){
+        if(message.interactive.type === "list_reply"){
+          text = message.interactive.list_reply.title;
         }
-        
-        let response = await nlp.process('es', text, context);
-        
-        console.log(response)
-        
-        if(response.intent == "Saludo"){
-          
-          const creadoEl = moment(Ticket.creadoel);
-          if(moment().diff(creadoEl, 'minutes') >= 1){
-            await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
-          }else{
-            await MensajeService.MSGText(Ticket, response.answer);
-            await delay(2000);
-            await MensajeService.botMensaje(Ticket);
-          }
-          
-          
-        }else if(response.intent == "Departamento"){
-          
-          Ticket.update({departamento: response.utterance});
-          await MensajeService.botMensaje(Ticket);
-          
-        }else if(response.intent == "Sucursal"){
-          
-          const checksucursal = sucursales.documents.find((sucursal) => sucursal.input === response.utterance);
-          if(checksucursal){
-            Ticket.update({sucursal: checksucursal.id});
-          }
-          
-          //await MensajeService.MSGText(Ticket, "Su ticket se ha creado exitosamente, uno de nuestros agentes se conectará pronto");
-        }else if (response.intent == 'omitir') {
-          for (const key in context.pendingData) {
-            if (context.pendingData[key]) {
-              context.pendingData[key] = false;
-              break;
-            }
-          }
-        }else{
-          if (validacion.hayCampoPendiente(context.pendingData)) {
-            let esValido = false;
-            for (const key in context.pendingData) {
-              if (context.pendingData[key]) {
-                switch (key) {
-                  case 'nombres':
-                    esValido = validacion.validarTexto(response.utterance);
-                  case 'apellidoPaterno':
-                    esValido = validacion.validarTexto(response.utterance);
-                  case 'apellidoMaterno':
-                    esValido = validacion.validarTexto(response.utterance);
-                  case 'ciudad':
-                    esValido = validacion.validarTexto(response.utterance);
-                    break;
-                  case 'email':
-                    esValido = validacion.validarEmail(response.utterance);
-                    break;
-                }
-                if (esValido) {
-                  Cliente.update({ [key]: response.source });
-                  context.pendingData[key] = false;
-                } else {
-                  await MensajeService.MSGText(Ticket, "Lo siento, pero al parecer la información ingresada contiene caracteres no validos");
-                }
-                break;
-              }
-            }
-          }else{
-            await MensajeService.MSGText(Ticket, "Lo siento, no puedo entender este tipo de mensaje.");
-          }
-
-          
-        }
-        
-        if(Ticket.status == 'PENDIENTE'){
-          if(Ticket.departamento && Ticket.sucursal){
-            Ticket.update({status: 'ACTIVO'});
-            await MensajeService.MSGText(Ticket, "se creo su ticket exitosamente");
-            await delay(2000);
-          }
-        }
-        if(Ticket.status == 'ACTIVO'){
-          if (!context.pendingData) {
-            // Inicializar el objeto pendingData con los datos personales pendientes
-            context.pendingData = {
-              nombres: !Cliente.nombres,
-              paterno: !Cliente.paterno,
-              materno: !Cliente.materno,
-              email: !Cliente.email,
-              ciudad: !Cliente.ciudad,
-            };
-            await MensajeService.MSGText(Ticket, "Se le solicitaran algunos datos personales, puede utilizar “omitir” o “saltar” si no desea responder");
-          }
-          
-          for (const key in context.pendingData) {
-            if (context.pendingData[key]) {
-              let pregunta;
-              switch (key) {
-                case 'nombres':
-                  pregunta = 'Por favor, ingresa tus nombres:';
-                  break;
-                case 'paterno':
-                  pregunta = 'Por favor, ingresa tu apellido paterno:';
-                  break;
-                case 'materno':
-                  pregunta = 'Por favor, ingresa tu apellido materno:';
-                  break;
-                case 'email':
-                  pregunta = 'Por favor, ingresa tu correo electrónico:';
-                  break;
-                case 'ciudad':
-                  pregunta = 'Por favor, ingresa tu ciudad:';
-                  break;
-              }
-              await MensajeService.MSGText(Ticket, pregunta);
-              break;
-            }
-          }
-          
-        }
-        
-        
-        
-        
       }
       
+      let response = await nlp.process('es', text, context);
+      console.log(response)
+      
+      if(response.intent == "Saludo"){
+        const creadoEl = moment(Ticket.creadoel);
+        if(moment().diff(creadoEl, 'minutes') >= 1){
+          await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
+        }else{
+          await MensajeService.MSGText(Ticket, response.answer);
+          await delay(2000);
+          await MensajeService.botMensaje(Ticket);
+        }
+      }
       
     }
     
-  }  
-    
+  }
   
   res.sendStatus(200);
   
