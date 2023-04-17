@@ -143,10 +143,10 @@ app.post("/webhook", async (req, res) => {
         
       }else{
         if(context.SolicitarContactData){
-          if (validacion.hayCampoPendiente(context.SolicitarContactData)) {
+          if (validacion.hayCampoPendiente(context.pendingContactData)) {
             let esValido = false;
-            for (const key in context.SolicitarContactData) {
-              if (context.SolicitarContactData[key]) {
+            for (const key in context.pendingContactData) {
+              if (context.pendingContactData[key]) {
                 switch (key) {
                   case 'nombres':
                     esValido = validacion.validarTexto(response.utterance);
@@ -162,12 +162,8 @@ app.post("/webhook", async (req, res) => {
                     break;
                 }
                 if (esValido) {
-                  try{
-                    Cliente.update({ [key]: response.utterance });
-                    context.pendingContactData[key] = false;
-                  }catch(ex){
-                    console.log(ex)
-                  }
+                  Cliente.update({ [key]: response.utterance });
+                  context.pendingContactData[key] = false;
                   
                 } else {
                   await MensajeService.MSGText(Ticket, "Lo siento, pero al parecer la información ingresada contiene caracteres no validos");
