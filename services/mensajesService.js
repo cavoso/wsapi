@@ -54,8 +54,7 @@ async function botMensaje(Ticket){
       EnviarMensaje(Ticket, msg);
       
       return;
-    }
-    if (!Ticket.sucursal) {
+    }else if (!Ticket.sucursal) {
       msg.interactive.action.sections[0].rows = [];
       
       for(const suc of sucursales.documents){

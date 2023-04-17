@@ -118,7 +118,7 @@ app.post("/webhook", async (req, res) => {
         await MensajeService.MSGText(Ticket, response.answer.replace('{nombre}', Cliente.nombreOwaProfile()));
         await delay(2000);
         await MensajeService.MSGText(Ticket, "Soy {nombrebot}, tu ejecutivo virtual".replace('{nombrebot}', 'nombre_del_bot'));
-        console.log(context.pendingContactData)
+        context.prerequisitos = true;
         if (validacion.hayCampoPendiente(context.pendingContactData)){
           if(Cliente.nofilldatabot == 0){
             await delay(2000);
@@ -196,9 +196,9 @@ app.post("/webhook", async (req, res) => {
         }
       }
       
-      //verificamos si se cargaran los datos de usuario
-      if(context.SolicitarContactData){
-        for (const key in context.pendingContactData) {
+      if(context.prerequisitos){
+        if(context.SolicitarContactData){
+          for (const key in context.pendingContactData) {
             if (context.pendingContactData[key]) {
               let pregunta;
               switch (key) {
@@ -222,16 +222,21 @@ app.post("/webhook", async (req, res) => {
               break;
             }
           }
-      }else if(!Ticket.departamento || Ticket.departamento === ''){
-        await MensajeService.botMensaje(Ticket);
-      }else if(!Ticket.sucursal || Ticket.sucursal === ''){
-        await MensajeService.botMensaje(Ticket);
+        }
+      }else{
+        if(!Ticket.departamento || Ticket.departamento === ''){
+          await MensajeService.botMensaje(Ticket);
+        }else if(!Ticket.sucursal || Ticket.sucursal === ''){
+          await MensajeService.botMensaje(Ticket);
+        }
       }
+      //verificamos si se cargaran los datos de usuario
+      
       
       if(Ticket.status == 'PENDIENTE'){
         if(Ticket.departamento && Ticket.sucursal){
           Ticket.update({status: 'ACTIVO'});
-          await MensajeService.MSGText(Ticket, ``);
+          await MensajeService.MSGText(Ticket, `Se ha creado el ticket N° ${Ticket.id}.`);
         }
       }
       
