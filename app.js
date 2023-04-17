@@ -109,6 +109,8 @@ app.post("/webhook", async (req, res) => {
       
       if(response.intent == "Saludo"){
         await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
+        await delay(2000);
+        await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
       }
       
     }
