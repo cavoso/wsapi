@@ -108,14 +108,7 @@ app.post("/webhook", async (req, res) => {
       console.log(response)
       
       if(response.intent == "Saludo"){
-        const creadoEl = moment(Ticket.creadoel);
-        if(moment().diff(creadoEl, 'minutes') >= 1){
-          await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
-        }else{
-          await MensajeService.MSGText(Ticket, response.answer);
-          await delay(2000);
-          await MensajeService.botMensaje(Ticket);
-        }
+        await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
       }
       
     }
