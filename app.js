@@ -94,7 +94,7 @@ app.post("/webhook", async (req, res) => {
         message: JSON.stringify(message)
       });
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
-      //console.log(message)
+      console.log(message)
       let text = "";
       if (message.type === "text") {
         text = message.text.body;
