@@ -111,7 +111,15 @@ app.post("/webhook", async (req, res) => {
         let nombre = Cliente.nombreOwaProfile();
         await MensajeService.MSGText(Ticket, response.answer.replace('{nombre}', Cliente.nombreOwaProfile()));
         await delay(2000);
-        await MensajeService.MSGText(Ticket, "¡Hola! ¡Bienvenido a RS-Shop!");
+        await MensajeService.MSGText(Ticket, "Soy {nombrebot}, tu ejecutivo virtual".replace('{nombrebot}', 'nombre_del_bot'));
+        if (validacion.hayCampoPendiente(context.pendingData)){
+          if(Cliente.nofilldatabot == 0){
+            await MensajeService.MSGBotones(Ticket, `Tiene un Ticket abierto con el departamento ${Ticket.departamento}, ¿desea continuar con él, o desea crear uno nuevo?`, [
+              MensajeService.GetButtonReplyFormat(1, "SI"),
+              MensajeService.GetButtonReplyFormat(2, "No"),
+            ]);
+          }
+        }
       }
       
     }
