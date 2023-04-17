@@ -104,6 +104,8 @@ app.post("/webhook", async (req, res) => {
         }else if(message.interactive.type === "button_reply"){
           text = message.interactive.button_reply.title;
         }
+      }else if(message.type === "location"){
+        text = "";
       }
       
       let response = await nlp.process('es', text, context);
@@ -115,6 +117,7 @@ app.post("/webhook", async (req, res) => {
         await MensajeService.MSGText(Ticket, response.answer.replace('{nombre}', Cliente.nombreOwaProfile()));
         await delay(2000);
         await MensajeService.MSGText(Ticket, "Soy {nombrebot}, tu ejecutivo virtual".replace('{nombrebot}', 'nombre_del_bot'));
+        console.log(context.pendingContactData)
         if (validacion.hayCampoPendiente(context.pendingContactData)){
           if(Cliente.nofilldatabot == 0){
             await delay(2000);
