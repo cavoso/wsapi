@@ -188,5 +188,6 @@ module.exports = {
   botMensaje,
   MSGText,
   MSGBotones,
-  GetButtonReplyFormat
+  GetButtonReplyFormat,
+  getLocationFromCoordinates
 };

@@ -214,7 +214,7 @@ app.post("/webhook", async (req, res) => {
               break;
             }
           }
-      }else{
+      }else if(!Ticket.departamento || Ticket.departamento === ''){
         
       }
       
