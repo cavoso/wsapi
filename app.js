@@ -242,7 +242,7 @@ app.post("/webhook", async (req, res) => {
       if(Ticket.status == 'PENDIENTE'){
         if(Ticket.departamento && Ticket.sucursal){
           Ticket.update({status: 'ACTIVO'});
-          await MensajeService.MSGText(Ticket, `Se ha creado el ticket N° ${Ticket.id}.`);
+          await MensajeService.MSGText(Ticket, `He creado tu ticket con éxito. El número de ticket asignado es ${Ticket.id}`);
         }
       }
       
