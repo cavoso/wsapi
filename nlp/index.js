@@ -5,6 +5,9 @@ const db = require('../models');
 
 const nlpManager = new NlpManager({ languages: ['es'] });
 
+// nlpManager.addDocument('es', d.input, d.output);
+// nlpManager.addAnswer('es', a.label, a.answer);
+
 const addDocumentsAndAnswers = (doc, ans) => {
   doc.forEach(d => {
     nlpManager.addDocument('es', d.input, d.output);
