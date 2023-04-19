@@ -9,10 +9,6 @@ const moment = require('moment');
 const nlp = require('./nlp/index');
 
 const db = require('./models');
-const TicketService = require('./services/ticketService');
-const ClienteService = require('./services/clienteService');
-const MensajeService = require('./services/mensajesService');
-const sucursales = require('./nlp/intents/Sucursales');
 const validacion = require('./config/validaciones');
 
 
