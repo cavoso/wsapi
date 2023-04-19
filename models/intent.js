@@ -1,28 +1,36 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Intent = sequelize.define('intent', {
   id: {
-    type: Sequelize.BIGINT.UNSIGNED,
+    type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   tipo: {
-    type: Sequelize.ENUM('DOCUMENT', 'ANSWER'),
-    defaultValue: 'DOCUMENT',
+    type: DataTypes.ENUM('DOCUMENT', 'ANSWER'),
+    defaultValue: 'DOCUMENT'
   },
   intent: {
-    type: Sequelize.STRING(30),
-    allowNull: true,
+    type: DataTypes.STRING(30),
+    allowNull: true
   },
   texto: {
-    type: Sequelize.STRING(255),
-    allowNull: true,
+    type: DataTypes.STRING(255),
+    allowNull: true
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false
+  }
 }, {
   tableName: 'intents',
-  timestamps: false,
-  underscored: true,
+  charset: 'latin1',
+  collate: 'latin1_swedish_ci'
 });
 
 module.exports = Intent;

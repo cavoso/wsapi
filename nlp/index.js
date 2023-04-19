@@ -21,6 +21,15 @@ const loadDocumentsAndAnswers = async () => {
         );
       }
     }
+    
+    const entities = await db.Entity.findAll();
+    entities.forEach(entity => {
+      const titles = entity.titles.split(',');
+      titles.forEach(title => {
+        nlpManager.addNamedEntityText(title, entity.value, 'es');
+      });
+    });
+    
   } catch (error) {
     console.error('Error al cargar los intents:', error);
   }
