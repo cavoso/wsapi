@@ -22,7 +22,7 @@ const loadDocumentsAndAnswers = async () => {
       }
     }
     
-    const entities = await db.entity.findAll();
+    const entities = await db.Entity.findAll();
     entities.forEach(entity => {
       nlpManager.addNamedEntityText(entity.name, entity.value, 'es', entity.synonyms);
     });
