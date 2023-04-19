@@ -7,11 +7,8 @@ const Ticket = require('./ticket');
 const TicketMensajes = require('./ticketmensaje');
 const UserDepartamento = require('./userdepartamento');
 
+const Intent = require()
+
 module.exports = {
-  Cliente,
-  Departamento,
-  Ticket,
-  TicketMensajes,
-  UserDepartamento,
   sequelize
 };
