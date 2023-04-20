@@ -10,6 +10,7 @@ const nlp = require('./nlp/index');
 
 const db = require('./models');
 const validacion = require('./config/validaciones');
+const utils = require('./utils');
 
 
 function delay(ms) {
@@ -23,8 +24,8 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", async (req, res) => {
   let body = req.body;
-  
-  
+  const datos = utils.WSProc(body);
+  console.log(datos)
   
   res.sendStatus(200);  
 });
