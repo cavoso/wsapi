@@ -32,6 +32,16 @@ app.post("/webhook", async (req, res) => {
 
   }else{
     //aqui se procesan los mensajes
+    let waid = null;
+    let Departamento = null;
+    let Cliente = null;
+    let Ticket = null;
+    
+    if("metadata" in datos){
+      Departamento = await db.Department.findOne({ where: { phone_number: datos.metadata.display_phone_number, phone_number_id: datos.metadata.phone_number_id } });
+      console.log(JSON.stringify(Departamento, null, 2));
+    }
+    
   }
   
   res.sendStatus(200);  
