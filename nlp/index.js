@@ -37,7 +37,7 @@ const loadDocumentsAndAnswers = async () => {
   await loadDocumentsAndAnswers();
 
   // Entrenar el modelo de NLP
-  nlpManager.train();
+  await nlpManager.train();
 
   // Exportar el modelo de NLP
   

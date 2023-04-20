@@ -84,9 +84,9 @@ app.post("/webhook", async (req, res) => {
         text = message.text.body;
       }
       
-      console.log(JSON.stringify(nlp, null, 2));
-      let response = await nlp.process('es', text, context);      
       
+      let response = await nlp.process('es', text, context);      
+      console.log(JSON.stringify(response, null, 2));
       
       
     }
