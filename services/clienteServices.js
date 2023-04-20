@@ -3,8 +3,8 @@ const db = require('../models');
 async function crearClienteSiNoExiste(waid, waprofile) {
   try {
     const [cliente, created] = await db.Cliente.findOrCreate({
-      where: { waid },
-      defaults: { waid, waprofile }
+      where: { wa_id: waid },
+      defaults: { wa_id: waid, profile_name: waprofile }
     });
 
     return cliente;
