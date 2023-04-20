@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
     if ("contacts" in datos){
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
-      Ticket = await TicketService.buscarOCrearTicket(waid);
+      Ticket = await TicketService.buscarOCrearTicket(waid, Departamento.id);
     }
     
     let context = conversations.get(waid);
