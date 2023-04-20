@@ -18,7 +18,7 @@ function EnviarMensaje(departamento, ticket, msg){
     await TicketService.agregarMensaje({
         ticket_id: ticket.id,
         wamid: data.messages[0].id,
-        content: JSON.stringify(msg[msg.type]),
+        content: JSON.stringify(msg),
         direction: "OUTGOING",
         created_at: sequelize.literal('NOW()')
       });
