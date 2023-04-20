@@ -71,9 +71,9 @@ app.post("/webhook", async (req, res) => {
         direction: "INCOMING",
         created_at: mysqlDatetimeString
       });
-      Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
+      Ticket.update({last_updated_message_at: db.sequelize.literal('NOW()')});
       
-      let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage();
+      let msg = new whatsappMessage(Ticket.wa_id).createTextMessage("Esto es la respuesta");
       
       MessageService.EnviarMensaje(Departamento, Ticket, msg)
     }
