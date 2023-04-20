@@ -55,6 +55,21 @@ app.post("/webhook", async (req, res) => {
       conversations.set(waid, context);
     }
     
+    if ("messages" in datos){
+      const message = datos.messages[0];
+      let date = new Date(parseInt(message.timestamp) * 1000);
+      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+      
+      await TicketService.agregarMensaje({
+        ticket_id: Ticket.id,
+        wamid: message.id,
+        content: JSON.stringify(msg[msg.type]),
+        direction: "OUTGOING",
+        created_at: sequelize.literal('NOW()')
+      });
+      Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
+    }
+    
   }
   
   res.sendStatus(200);  
