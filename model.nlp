@@ -1,1 +1,258 @@
-{"settings":{"languages":["es"],"tag":"nlp","threshold":0.5,"autoLoad":true,"autoSave":true,"modelFileName":"model.nlp","executeActionsBeforeAnswers":false,"calculateSentiment":true},"nluManager":{"settings":{"tag":"nlu-manager"},"locales":["es"],"languageNames":{},"domainManagers":{"es":{"settings":{"locale":"es","trainByDomain":false,"tag":"domain-manager-es","nluByDomain":{"default":{"className":"NeuralNlu","settings":{}}},"useStemDict":true},"stemDict":{"cotic,des,hol,mot,una,{marca},{modelo},{year}":{"intent":"reserva","domain":"default"}},"intentDict":{"reserva":"default"},"sentences":[{"domain":"default","utterance":"hola deseo cotizar una moto {marca} {modelo} {year}","intent":"reserva"}],"domains":{"master_domain":{"settings":{"locale":"es","tag":"nlu-es","keepStopwords":true,"nonefeatureValue":1,"nonedeltaMultiplier":1.2,"spellCheck":false,"spellCheckDistance":1,"filterZeros":true,"log":true},"features":{"hol":1,"des":1,"cotic":1,"una":1,"mot":1,"{marca}":1,"{modelo}":1,"{year}":1},"intents":{"reserva":1},"intentFeatures":{"reserva":{"hol":1,"des":1,"cotic":1,"una":1,"mot":1,"{marca}":1,"{modelo}":1,"{year}":1}},"featuresToIntent":{"hol":["reserva"],"des":["reserva"],"cotic":["reserva"],"una":["reserva"],"mot":["reserva"],"{marca}":["reserva"],"{modelo}":["reserva"],"{year}":["reserva"]},"neuralNetwork":{"settings":{"locale":"es","tag":"nlu-es","keepStopwords":true,"nonefeatureValue":1,"nonedeltaMultiplier":1.2,"spellCheck":false,"spellCheckDistance":1,"filterZeros":true,"log":true},"features":["hol","des","cotic","una","mot","{marca}","{modelo}","{year}"],"intents":["reserva"],"perceptrons":[[1.6815274953842163,1.6815274953842163,1.6815274953842163,1.6815274953842163,1.6815274953842163,1.6815274953842163,1.6815274953842163,1.6815274953842163,0.8465411941548168]]}}}}},"intentDomains":{},"extraSentences":[["es","hola deseo cotizar una moto {marca} {modelo} {year}"]]},"ner":{"settings":{"tag":"ner","entityPreffix":"%","entitySuffix":"%"},"rules":{"es":{"marca":{"name":"marca","type":"enum","rules":[{"option":"KTM","texts":["ktm","KTM","Ktm","KTm","kTm","ktM"]}]},"year":{"name":"year","type":"enum","rules":[{"option":"2023","texts":[]},{"option":"2022","texts":[]}]},"modelo":{"name":"modelo","type":"enum","rules":[{"option":"200 Duke","texts":["200 duke","200 DUKE","duke 200","DUKE 200"]}]}}}},"nlgManager":{"settings":{"tag":"nlg-manager"},"responses":{}},"actionManager":{"settings":{"tag":"action-manager"},"actions":{}},"slotManager":{}}
+{
+  "settings": {
+    "languages": [
+      "es"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "es"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "es": {
+        "settings": {
+          "locale": "es",
+          "trainByDomain": false,
+          "tag": "domain-manager-es",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "%marca%,%modelo%,%year%,cotic,des,hol,mot,una": {
+            "intent": "reserva",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "reserva": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%",
+            "intent": "reserva"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "es",
+              "tag": "nlu-es",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hol": 1,
+              "des": 1,
+              "cotic": 1,
+              "una": 1,
+              "mot": 1,
+              "%marca%": 1,
+              "%modelo%": 1,
+              "%year%": 1
+            },
+            "intents": {
+              "reserva": 1
+            },
+            "intentFeatures": {
+              "reserva": {
+                "hol": 1,
+                "des": 1,
+                "cotic": 1,
+                "una": 1,
+                "mot": 1,
+                "%marca%": 1,
+                "%modelo%": 1,
+                "%year%": 1
+              }
+            },
+            "featuresToIntent": {
+              "hol": [
+                "reserva"
+              ],
+              "des": [
+                "reserva"
+              ],
+              "cotic": [
+                "reserva"
+              ],
+              "una": [
+                "reserva"
+              ],
+              "mot": [
+                "reserva"
+              ],
+              "%marca%": [
+                "reserva"
+              ],
+              "%modelo%": [
+                "reserva"
+              ],
+              "%year%": [
+                "reserva"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "es",
+                "tag": "nlu-es",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hol",
+                "des",
+                "cotic",
+                "una",
+                "mot",
+                "%marca%",
+                "%modelo%",
+                "%year%"
+              ],
+              "intents": [
+                "reserva"
+              ],
+              "perceptrons": [
+                [
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  1.6815274953842163,
+                  0.8465411941548168
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {
+      "es": {
+        "marca": {
+          "name": "marca",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "KTM",
+              "texts": [
+                "ktm",
+                "KTM",
+                "Ktm",
+                "KTm",
+                "kTm",
+                "ktM"
+              ]
+            }
+          ]
+        },
+        "year": {
+          "name": "year",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "2023",
+              "texts": []
+            },
+            {
+              "option": "2022",
+              "texts": []
+            }
+          ]
+        },
+        "modelo": {
+          "name": "modelo",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "200 Duke",
+              "texts": [
+                "200 duke",
+                "200 DUKE",
+                "duke 200",
+                "DUKE 200"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {
+    "reserva": {
+      "marca": {
+        "intent": "reserva",
+        "entity": "marca",
+        "mandatory": false,
+        "locales": {}
+      },
+      "modelo": {
+        "intent": "reserva",
+        "entity": "modelo",
+        "mandatory": false,
+        "locales": {}
+      },
+      "year": {
+        "intent": "reserva",
+        "entity": "year",
+        "mandatory": false,
+        "locales": {}
+      }
+    }
+  }
+}

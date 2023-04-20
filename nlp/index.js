@@ -40,7 +40,7 @@ const loadDocumentsAndAnswers = async () => {
   await nlpManager.train();
 
   // Exportar el modelo de NLP
-  
+  nlpManager.save('model.nlp');
 })();
 
 module.exports = nlpManager;
