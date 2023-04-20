@@ -12,9 +12,13 @@ const Department = sequelize.define('Department', {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  whatsapp_api_number: {
+  phone_number: {
     type: DataTypes.STRING(20),
     allowNull: false
+  },
+  phone_number_id: {
+    type: DataTypes.BIGINT.UNSIGNED,
+    allowNull: true
   }
 }, {
   tableName: 'departments',
