@@ -17,7 +17,7 @@ async function buscarOCrearTicket(waid, deptoid) {
 
 async function agregarMensaje(datos) {
   try {
-    const mensajeCreado = await db.TicketMensajes.create(datos);
+    const mensajeCreado = await db.Message.create(datos);
     return mensajeCreado;
   } catch (error) {
     console.log(error);

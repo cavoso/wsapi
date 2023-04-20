@@ -54,7 +54,7 @@ const Ticket = sequelize.define('Ticket', {
   },
   city: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: true
   },
   available_to_all: {
     type: DataTypes.BOOLEAN,

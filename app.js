@@ -14,7 +14,10 @@ const utils = require('./utils');
 
 const ClienteService = require('./services/clienteServices');
 const TicketService = require('./services/ticketServices');
+const MessageService = require('./services/messageServices');
 
+const whatsappMessage = require('./lib/whatsappMessage');
+const messageInteractive = require('./lib/messageInteractive');
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -57,18 +60,22 @@ app.post("/webhook", async (req, res) => {
     
     if ("messages" in datos){
       const message = datos.messages[0];
-      /*
+      
       let date = new Date(parseInt(message.timestamp) * 1000);
       let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-      */
+      
       await TicketService.agregarMensaje({
         ticket_id: Ticket.id,
         wamid: message.id,
         content: JSON.stringify(message),
         direction: "INCOMING",
-        created_at: message.timestamp
+        created_at: mysqlDatetimeString
       });
       Ticket.update({ultimomensaje: db.sequelize.literal('NOW()')});
+      
+      let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage();
+      
+      MessageService.EnviarMensaje(Departamento, Ticket, msg)
     }
     
   }
