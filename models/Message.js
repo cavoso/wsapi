@@ -17,6 +17,10 @@ const Message = sequelize.define('Message', {
       key: 'id'
     }
   },
+  wamid: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
   content: {
     type: DataTypes.TEXT('long'),
     allowNull: false

@@ -25,7 +25,11 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post("/webhook", async (req, res) => {
   let body = req.body;
   const datos = utils.WSProc(body);
-  console.log(datos)
+  console.log(JSON.stringify(datos, null, 2));
+  
+  if("statuses" in datos){
+    
+  }
   
   res.sendStatus(200);  
 });

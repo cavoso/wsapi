@@ -1,5 +1,5 @@
 const extractRelevantData = (data) => {
-  return data.entry.map(entry => {
+  let datos = data.entry.map(entry => {
     return entry.changes.map(change => {
       const { metadata, contacts, messages, statuses } = change.value;
 
@@ -17,6 +17,7 @@ const extractRelevantData = (data) => {
       }
     });
   });
+  return datos[0][0];
 };
 
 module.exports = extractRelevantData;
