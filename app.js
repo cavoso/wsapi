@@ -28,7 +28,10 @@ app.post("/webhook", async (req, res) => {
   console.log(JSON.stringify(datos, null, 2));
   
   if("statuses" in datos){
-    
+    //aqui se actualizan los estados de los mensajes
+
+  }else{
+    //aqui se procesan los mensajes
   }
   
   res.sendStatus(200);  
