@@ -73,9 +73,20 @@ app.post("/webhook", async (req, res) => {
       });
       Ticket.update({last_updated_message_at: db.sequelize.literal('NOW()')});
       
-      let msg = new whatsappMessage(Ticket.wa_id).createTextMessage("Esto es la respuesta");
-      
+      /*
+      let msg = new whatsappMessage(Ticket.wa_id).createTextMessage("Esto es la respuesta");      
       MessageService.EnviarMensaje(Departamento, Ticket, msg)
+      */
+      
+      let text = "";
+      let type = message.type;
+      if (type === "text") {
+        text = message.text.body;
+      }
+      
+      let response = await nlp.process('es', text, context);      
+      console.log(response);
+      
     }
     
   }
