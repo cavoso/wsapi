@@ -5,6 +5,7 @@ const TicketService = require('./ticketServices');
 const token = process.env.WHATSAPP_TOKEN;
 
 function EnviarMensaje(departamento, ticket, msg){
+  console.log(JSON.stringify(msg, null, 2));
   axios({
     method : "POST",
     url : "https://graph.facebook.com/v16.0/" + departamento.phone_number_id + "/messages?access_token=" + token,
