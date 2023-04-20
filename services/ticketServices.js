@@ -5,8 +5,8 @@ async function buscarOCrearTicket(waid) {
   try {
     // Buscar un ticket existente con el waid y estado no finalizado
     const ticket = await db.Ticket.findOrCreate({
-      where: { waid, status: { [Op.ne]: 'FINALIZADO' } },
-      defaults: { waid, status: 'PENDIENTE', creadoel: db.sequelize.literal('NOW()')}
+      where: { waid, status: { [Op.ne]: 'CLOSED' } },
+      defaults: { waid, status: 'OPEN'}
     });
     // Devolver el objeto ticket (tanto si ya existía como si se acaba de crear)
     return ticket[0];
