@@ -12,7 +12,7 @@ function EnviarMensaje(departamento, ticket, msg){
     headers: { "Content-Type": "application/json" },
   }).then(async (result) => {
     let data = result.data;
-    //console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(data, null, 2));
     let date = new Date();
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
     await TicketService.agregarMensaje({
@@ -20,7 +20,7 @@ function EnviarMensaje(departamento, ticket, msg){
         wamid: data.messages[0].id,
         content: JSON.stringify(msg),
         direction: "OUTGOING",
-        created_at: sequelize.literal('NOW()')
+        created_at: mysqlDatetimeString
       });
     ticket.update({last_updated_message_at: sequelize.literal('NOW()')});
   }).catch((error) => {
