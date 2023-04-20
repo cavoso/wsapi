@@ -1,11 +1,11 @@
 const db = require('../models');
 const { Op } = require('sequelize');
 
-async function buscarOCrearTicket(waid) {
+async function buscarOCrearTicket(waid, deptoid) {
   try {
     // Buscar un ticket existente con el waid y estado no finalizado
     const ticket = await db.Ticket.findOrCreate({
-      where: { waid, status: { [Op.ne]: 'CLOSED' } },
+      where: { waid, department_id: deptoid, status: { [Op.ne]: 'CLOSED' } },
       defaults: { waid, status: 'OPEN'}
     });
     // Devolver el objeto ticket (tanto si ya existía como si se acaba de crear)

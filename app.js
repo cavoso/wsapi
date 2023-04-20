@@ -13,6 +13,7 @@ const validacion = require('./config/validaciones');
 const utils = require('./utils');
 
 const ClienteService = require('./services/clienteServices');
+const TicketService = require('./services/ticketServices');
 
 
 function delay(ms) {
