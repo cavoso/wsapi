@@ -12,6 +12,8 @@ const db = require('./models');
 const validacion = require('./config/validaciones');
 const utils = require('./utils');
 
+const ClienteService = require('./services/clienteServices');
+
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -39,7 +41,17 @@ app.post("/webhook", async (req, res) => {
     
     if("metadata" in datos){
       Departamento = await db.Department.findOne({ where: { phone_number: datos.metadata.display_phone_number, phone_number_id: datos.metadata.phone_number_id } });
-      console.log(JSON.stringify(Departamento, null, 2));
+    }
+    if ("contacts" in datos){
+      waid = datos.contacts[0].wa_id;
+      Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
+      Ticket = await TicketService.buscarOCrearTicket(waid);
+    }
+    
+    let context = conversations.get(waid);
+    if (!context){
+      context = {};
+      conversations.set(waid, context);
     }
     
   }
