@@ -31,7 +31,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post("/webhook", async (req, res) => {
   let body = req.body;
   const datos = utils.WSProc(body);
-  console.log(JSON.stringify(datos, null, 2));
+  //console.log(JSON.stringify(datos, null, 2));
   
   if("statuses" in datos){
     //aqui se actualizan los estados de los mensajes
@@ -83,9 +83,10 @@ app.post("/webhook", async (req, res) => {
       if (type === "text") {
         text = message.text.body;
       }
-      console.log(nlp)
+      
+      console.log(JSON.stringify(nlp, null, 2));
       let response = await nlp.process('es', text, context);      
-      console.log(response);
+      
       
       
     }
