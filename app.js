@@ -129,7 +129,7 @@ app.get("/webhook", (req, res) => {
 });
 
 app.get("/departamentos", async (req, res) => {
-  let departamentos = await db.Department.findall();
+  let departamentos = await db.Department.findAll();
   
   res.json(departamentos);
 });
