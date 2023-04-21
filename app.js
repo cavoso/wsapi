@@ -127,3 +127,7 @@ app.get("/webhook", (req, res) => {
     }
   }
 });
+
+app.get("/departamentos", (req, res) => {
+  
+});
