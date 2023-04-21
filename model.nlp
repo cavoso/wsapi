@@ -186,6 +186,26 @@
                 "kTm",
                 "ktM"
               ]
+            },
+            {
+              "option": "HQV",
+              "texts": [
+                "hqv",
+                "HQV",
+                "Hqv",
+                "HQv",
+                "hQv",
+                "hqV",
+                "husqvarna"
+              ]
+            },
+            {
+              "option": "GAS GAS",
+              "texts": [
+                "gas gas",
+                "GAS GAS",
+                "gas GAS"
+              ]
             }
           ]
         },
