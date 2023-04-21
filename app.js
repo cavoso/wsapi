@@ -128,6 +128,8 @@ app.get("/webhook", (req, res) => {
   }
 });
 
-app.get("/departamentos", (req, res) => {
+app.get("/departamentos", async (req, res) => {
+  let departamentos = await db.Department.findall();
   
+  res.json(departamentos);
 });
