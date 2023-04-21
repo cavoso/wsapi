@@ -23,6 +23,10 @@ const Department = sequelize.define('Department', {
   icono: {
     type: DataTypes.STRING(20),
     allowNull: true
+  },
+  mensaje: {
+    type: DataTypes.STRING(255),
+    allowNull: true
   }
 }, {
   tableName: 'departments',
