@@ -19,6 +19,10 @@ const Department = sequelize.define('Department', {
   phone_number_id: {
     type: DataTypes.BIGINT.UNSIGNED,
     allowNull: true
+  },
+  icono: {
+    type: DataTypes.STRING(20),
+    allowNull: true
   }
 }, {
   tableName: 'departments',
