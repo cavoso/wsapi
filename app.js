@@ -4,7 +4,9 @@
 const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
+  cors = require('cors'),
   app = express().use(body_parser.json()); // creates express http server
+app.use(cors());
 const moment = require('moment');
 const nlp = require('./nlp/index');
 
