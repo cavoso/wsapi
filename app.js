@@ -59,7 +59,6 @@ app.post("/webhook", async (req, res) => {
           ticket_id: Ticket.id
         }
       });
-      console.log(TicketData)
     }
     
     let context = conversations.get(waid);
@@ -105,8 +104,12 @@ app.post("/webhook", async (req, res) => {
       //console.log(JSON.stringify(response, null, 2));
       //response.intent
       //response.entities
-      response.entities.forEach((entitie) => {
-        console.log(`${entitie.entity}: ${entitie.option}`); 
+      Departamento.entity.forEach((entity) => {
+        const valor = response.entities.find(entity => entity.entity === entity);
+        console.log(`${entity}: ${valor}`); 
+      });
+      response.entities.forEach((entity) => {
+        console.log(entity)
       });
       
       
