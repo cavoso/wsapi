@@ -201,31 +201,31 @@
               "option": "KTM",
               "texts": [
                 "ktm",
-                "KTM",
-                "Ktm",
-                "KTm",
-                "kTm",
-                "ktM"
+                " KTM",
+                " Ktm",
+                " KTm",
+                " kTm",
+                " ktM"
               ]
             },
             {
               "option": "HQV",
               "texts": [
                 "hqv",
-                "HQV",
-                "Hqv",
-                "HQv",
-                "hQv",
-                "hqV",
-                "husqvarna"
+                " HQV",
+                " Hqv",
+                " HQv",
+                " hQv",
+                " hqV",
+                " husqvarna"
               ]
             },
             {
               "option": "GAS GAS",
               "texts": [
                 "gas gas",
-                "GAS GAS",
-                "gas GAS"
+                " GAS GAS",
+                " gas GAS"
               ]
             }
           ]
@@ -252,9 +252,9 @@
               "option": "200 Duke",
               "texts": [
                 "200 duke",
-                "200 DUKE",
-                "duke 200",
-                "DUKE 200"
+                " 200 DUKE",
+                " duke 200",
+                " DUKE 200"
               ]
             }
           ]

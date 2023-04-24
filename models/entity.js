@@ -20,11 +20,7 @@ const Entity = sequelize.define('entity', {
     allowNull: true,
     get: function () {
       const value = this.getDataValue('synonyms');
-      if (value) {
-        return value.split(', ');
-      } else {
-        return [];
-      }
+      return value ? value.split(',') : [];
     },
     set: function (value) {
       if (value instanceof Array) {

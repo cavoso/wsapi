@@ -30,7 +30,17 @@ const Department = sequelize.define('Department', {
   },
   entity: {
     type: DataTypes.STRING(255),
-    allowNull: true
+    allowNull: true,
+    get() {
+      const value = this.getDataValue('entity');
+      return value ? value.split(',') : [];
+    },
+    set(value) {
+      if (Array.isArray(value)) {
+        value = value.join(',');
+      }
+      this.setDataValue('entity', value);
+    }
   }
 }, {
   tableName: 'departments',
