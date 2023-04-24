@@ -5,15 +5,13 @@ const request = require("request");
 const express = require("express");
 const body_parser = require("body-parser");
 const cors = require('cors');
-const app = express().use(body_parser.json());
-app.use(cors());
-const moment = require('moment');
+const app = express().use(body_parser.json()).use(cors());
+
 const nlp = require('./nlp/index');
-const urlRegex = require('url-regex');
 
 const db = require('./models');
 const validacion = require('./config/validaciones');
-const utils = require('./utils');
+const { WSProc, moment, regex, delay, TsToDateString } = require('./utils');
 
 const ClienteService = require('./services/clienteServices');
 const TicketService = require('./services/ticketServices');
@@ -22,11 +20,9 @@ const MessageService = require('./services/messageServices');
 const whatsappMessage = require('./lib/whatsappMessage');
 const messageInteractive = require('./lib/messageInteractive');
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
 const conversations = new Map();
-const regex = urlRegex({ exact: false });
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -37,7 +33,7 @@ app.post("/webhook", async (req, res) => {
   await nlp.load('model.nlp');
    
   let body = req.body;
-  const datos = utils.WSProc(body);
+  const datos = WSProc(body);
   //console.log(JSON.stringify(datos, null, 2));
   
   if("statuses" in datos){
@@ -68,15 +64,12 @@ app.post("/webhook", async (req, res) => {
     if ("messages" in datos){
       const message = datos.messages[0];
       
-      let date = new Date(parseInt(message.timestamp) * 1000);
-      let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
-      
       await TicketService.agregarMensaje({
         ticket_id: Ticket.id,
         wamid: message.id,
         content: JSON.stringify(message),
         direction: "INCOMING",
-        created_at: mysqlDatetimeString
+        created_at: TsToDateString(message.timestap)
       });
       Ticket.update({last_updated_message_at: db.sequelize.literal('NOW()')});
       
