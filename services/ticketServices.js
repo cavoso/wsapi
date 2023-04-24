@@ -8,12 +8,11 @@ async function buscarOCrearTicket(waid, deptoid) {
       where: { wa_id: waid, department_id: deptoid, status: { [Op.ne]: 'CLOSED' } },
       defaults: { wa_id: waid, status: 'OPEN'}
     });
-    console.log(ticket);
     // Devolver el objeto ticket (tanto si ya existía como si se acaba de crear)
-    return ticket[0];
+    return ticket;
   } catch (error) {
     console.log(error);
-  }
+  } 
 }
 
 async function agregarMensaje(datos) {

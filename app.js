@@ -53,12 +53,17 @@ app.post("/webhook", async (req, res) => {
     if ("contacts" in datos){
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
-      Ticket = await TicketService.buscarOCrearTicket(waid, Departamento.id);
+      const TicketCheck = await TicketService.buscarOCrearTicket(waid, Departamento.id);
+      Ticket = TicketCheck[0];
       TicketData = await db.AdditionalInfo.findAll({
         where: {
           ticket_id: Ticket.id
         }
       });
+      if(TicketCheck[0]){
+        let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(``);      
+        MessageService.EnviarMensaje(Departamento, Ticket, msg)
+      }
     }
     
     let context = conversations.get(waid);
@@ -83,7 +88,7 @@ app.post("/webhook", async (req, res) => {
       let msg = new whatsappMessage(Ticket.wa_id).createTextMessage("Esto es la respuesta");      
       MessageService.EnviarMensaje(Departamento, Ticket, msg)
       */
-      
+      /*
       let text = "";
       let type = message.type;
       if (type === "text") {
