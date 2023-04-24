@@ -104,10 +104,15 @@ app.post("/webhook", async (req, res) => {
       //console.log(JSON.stringify(response, null, 2));
       //response.intent
       //response.entities
-      Departamento.entity.forEach((xentity) => {
-        const marcaEntity = entities.find(entity => entity.entity === 'marca');
-        const marca = marcaEntity ? marcaEntity.option : null;
-        console.log(JSON.stringify(valor, null, 2));
+      Departamento.entity.forEach(async (xentity) => {
+        const marcaEntity = response.entities.find(entity => entity.entity === xentity);
+        const valor = marcaEntity ? marcaEntity.option : null;
+        //console.log(JSON.stringify(valor, null, 2));
+        await db.AdditionalInfo.create({
+            ticket_id: Ticket.id,
+            key_name: xentity,
+            value: valor
+          });
       });
       /*
       response.entities.forEach((entity) => {
