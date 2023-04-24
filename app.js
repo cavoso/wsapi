@@ -105,7 +105,8 @@ app.post("/webhook", async (req, res) => {
       //response.intent
       //response.entities
       Departamento.entity.forEach((xentity) => {
-        const valor = response.entities.find(entity => entity.entity === xentity).option;
+        const marcaEntity = entities.find(entity => entity.entity === 'marca');
+        const marca = marcaEntity ? marcaEntity.option : null;
         console.log(JSON.stringify(valor, null, 2));
       });
       /*
