@@ -60,17 +60,18 @@ app.post("/webhook", async (req, res) => {
           ticket_id: Ticket.id
         }
       });
+      let context = conversations.get(waid);
+      if (!context){
+        conversations.set(waid, {});
+      }
       if(TicketCheck[0]){
+        conversations.set(waid, {});
         let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
         MessageService.EnviarMensaje(Departamento, Ticket, msg)
       }
     }
     
-    let context = conversations.get(waid);
-    if (!context){
-      context = {};
-      conversations.set(waid, context);
-    }
+    
     
     if ("messages" in datos){
       const message = datos.messages[0];
