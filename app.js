@@ -61,7 +61,7 @@ app.post("/webhook", async (req, res) => {
         }
       });
       if(TicketCheck[0]){
-        let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(``);      
+        let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
         MessageService.EnviarMensaje(Departamento, Ticket, msg)
       }
     }
