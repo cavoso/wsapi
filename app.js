@@ -106,6 +106,7 @@ app.post("/webhook", async (req, res) => {
       //response.entities
       Departamento.entity.forEach((entity) => {
         const valor = response.entities.find(entity => entity.entity === entity);
+        console.log(`%${entity}%`); 
         console.log(`${entity}: ${valor}`); 
       });
       response.entities.forEach((entity) => {

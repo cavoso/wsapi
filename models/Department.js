@@ -33,7 +33,7 @@ const Department = sequelize.define('Department', {
     allowNull: true,
     get() {
       const value = this.getDataValue('entity');
-      return value ? value.split(',') : [];
+      return value ? value.split(',').map(s => s.trim()) : [];
     },
     set(value) {
       if (Array.isArray(value)) {
