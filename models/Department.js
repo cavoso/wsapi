@@ -27,6 +27,10 @@ const Department = sequelize.define('Department', {
   mensaje: {
     type: DataTypes.STRING(255),
     allowNull: true
+  },
+  entity: {
+    type: DataTypes.STRING(255),
+    allowNull: true
   }
 }, {
   tableName: 'departments',
