@@ -45,6 +45,7 @@ app.post("/webhook", async (req, res) => {
     let Departamento = null;
     let Cliente = null;
     let Ticket = null;
+    let TicketData = null;
     
     if("metadata" in datos){
       Departamento = await db.Department.findOne({ where: { phone_number: datos.metadata.display_phone_number, phone_number_id: datos.metadata.phone_number_id } });
@@ -53,6 +54,12 @@ app.post("/webhook", async (req, res) => {
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
       Ticket = await TicketService.buscarOCrearTicket(waid, Departamento.id);
+      TicketData = await db.AdditionalInfo.findAll({
+        where: {
+          ticket_id: Ticket.id
+        }
+      });
+      console.log(TicketData)
     }
     
     let context = conversations.get(waid);
@@ -63,13 +70,13 @@ app.post("/webhook", async (req, res) => {
     
     if ("messages" in datos){
       const message = datos.messages[0];
-      
+      //console.log(message)
       await TicketService.agregarMensaje({
         ticket_id: Ticket.id,
         wamid: message.id,
         content: JSON.stringify(message),
         direction: "INCOMING",
-        created_at: TsToDateString(message.timestap)
+        created_at: TsToDateString(message.timestamp)
       });
       Ticket.update({last_updated_message_at: db.sequelize.literal('NOW()')});
       
@@ -85,6 +92,15 @@ app.post("/webhook", async (req, res) => {
       }
       
       const urls = text.match(regex);
+      if(urls){
+        urls.forEach(async url => {
+          await db.AdditionalInfo.create({
+            ticket_id: Ticket.id,
+            key_name: "url",
+            value: url
+          });
+        });
+      }
       let response = await nlp.process('es', text, context);      
       //console.log(JSON.stringify(response, null, 2));
       //response.intent
@@ -92,9 +108,7 @@ app.post("/webhook", async (req, res) => {
       response.entities.forEach((entitie) => {
         console.log(`${entitie.entity}: ${entitie.option}`); 
       });
-      urls.forEach(url => {
-        console.log(`URL encontrada: ${url}`);
-      });
+      
       
     }
     
