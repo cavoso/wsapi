@@ -18,7 +18,8 @@
     "moment": "^2.29.4",
     "node-nlp": "^4.26.1",
     "validator": "^13.9.0",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "url-regex": "^5.0.0"
   },
   "engines": {
     "node": "12.x"

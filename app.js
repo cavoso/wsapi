@@ -1,14 +1,15 @@
 "use strict";
 
 // Imports dependencies and set up http server
-const request = require("request"),
-  express = require("express"),
-  body_parser = require("body-parser"),
-  cors = require('cors'),
-  app = express().use(body_parser.json()); // creates express http server
+const request = require("request");
+const express = require("express");
+const body_parser = require("body-parser");
+const cors = require('cors');
+const app = express().use(body_parser.json());
 app.use(cors());
 const moment = require('moment');
 const nlp = require('./nlp/index');
+const urlRegex = require('url-regex');
 
 const db = require('./models');
 const validacion = require('./config/validaciones');
@@ -25,6 +26,7 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 const conversations = new Map();
+const regex = urlRegex({ exact: false });
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -89,7 +91,7 @@ app.post("/webhook", async (req, res) => {
         text = message.text.body;
       }
       
-      
+      const urls = text.match(regex);
       let response = await nlp.process('es', text, context);      
       //console.log(JSON.stringify(response, null, 2));
       //response.intent
@@ -97,7 +99,9 @@ app.post("/webhook", async (req, res) => {
       response.entities.forEach((entitie) => {
         console.log(`${entitie.entity}: ${entitie.option}`); 
       });
-      
+      urls.forEach(url => {
+        console.log(`URL encontrada: ${url}`);
+      });
       
     }
     

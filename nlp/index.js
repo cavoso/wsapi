@@ -1,5 +1,6 @@
 const { NlpManager  } = require('node-nlp');
 const db = require('../models');
+const urlRegex = require('url-regex');
 
 const nlpManager = new NlpManager({ languages: ['es'] });
 
@@ -26,7 +27,7 @@ const loadDocumentsAndAnswers = async () => {
     entities.forEach(entity => {
       nlpManager.addNamedEntityText(entity.name, entity.value, 'es', entity.synonyms);
     });
-    nlpManager.addRegexEntity('url', /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i, 'es');
+    nlpManager.addRegexEntity('url', 'es', urlRegex({ exact: false }));
     
   } catch (error) {
     console.error('Error al cargar los intents:', error);
