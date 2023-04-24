@@ -54,6 +54,7 @@ app.post("/webhook", async (req, res) => {
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
       const TicketCheck = await TicketService.buscarOCrearTicket(waid, Departamento.id);
+
       Ticket = TicketCheck[0];
       TicketData = await db.AdditionalInfo.findAll({
         where: {
@@ -64,7 +65,7 @@ app.post("/webhook", async (req, res) => {
       if (!context){
         conversations.set(waid, {});
       }
-      if(TicketCheck[0]){
+      if(TicketCheck[1]){
         conversations.set(waid, {});
         let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
         MessageService.EnviarMensaje(Departamento, Ticket, msg)
