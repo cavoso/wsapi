@@ -26,7 +26,7 @@ const loadDocumentsAndAnswers = async () => {
     entities.forEach(entity => {
       nlpManager.addNamedEntityText(entity.name, entity.value, 'es', entity.synonyms);
     });
-    nlpManager.addRegexEntity('url', 'es', /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i);
+    nlpManager.addRegexEntity('url', /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i, 'es');
     
   } catch (error) {
     console.error('Error al cargar los intents:', error);
