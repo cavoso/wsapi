@@ -34,7 +34,7 @@
           "useStemDict": true
         },
         "stemDict": {
-          "%marca%,%modelo%,%year%,cotic,des,hol,mot,una": {
+          "%marca%,%modelo%,%url%,%year%,cotic,des,hol,mot,pagin,una,visit": {
             "intent": "reserva",
             "domain": "default"
           }
@@ -45,7 +45,7 @@
         "sentences": [
           {
             "domain": "default",
-            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
             "intent": "reserva"
           }
         ],
@@ -70,7 +70,10 @@
               "mot": 1,
               "%marca%": 1,
               "%modelo%": 1,
-              "%year%": 1
+              "%year%": 1,
+              "pagin": 1,
+              "visit": 1,
+              "%url%": 1
             },
             "intents": {
               "reserva": 1
@@ -84,7 +87,10 @@
                 "mot": 1,
                 "%marca%": 1,
                 "%modelo%": 1,
-                "%year%": 1
+                "%year%": 1,
+                "pagin": 1,
+                "visit": 1,
+                "%url%": 1
               }
             },
             "featuresToIntent": {
@@ -111,6 +117,15 @@
               ],
               "%year%": [
                 "reserva"
+              ],
+              "pagin": [
+                "reserva"
+              ],
+              "visit": [
+                "reserva"
+              ],
+              "%url%": [
+                "reserva"
               ]
             },
             "neuralNetwork": {
@@ -133,22 +148,28 @@
                 "mot",
                 "%marca%",
                 "%modelo%",
-                "%year%"
+                "%year%",
+                "pagin",
+                "visit",
+                "%url%"
               ],
               "intents": [
                 "reserva"
               ],
               "perceptrons": [
                 [
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  1.6815274953842163,
-                  0.8465411941548168
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  1.5054101943969727,
+                  0.8968386877335413
                 ]
               ]
             }
@@ -160,7 +181,7 @@
     "extraSentences": [
       [
         "es",
-        "hola deseo cotizar una moto %marca% %modelo% %year%"
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
       ]
     ]
   },
@@ -270,6 +291,12 @@
       "year": {
         "intent": "reserva",
         "entity": "year",
+        "mandatory": false,
+        "locales": {}
+      },
+      "url": {
+        "intent": "reserva",
+        "entity": "url",
         "mandatory": false,
         "locales": {}
       }

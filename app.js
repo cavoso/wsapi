@@ -91,11 +91,11 @@ app.post("/webhook", async (req, res) => {
       
       
       let response = await nlp.process('es', text, context);      
-      //console.log(JSON.stringify(response.intent, null, 2));
+      console.log(JSON.stringify(response, null, 2));
       //response.intent
       //response.entities
       response.entities.forEach((entitie) => {
-        console.log(`${entitie.entity}: ${entitie.option}`);
+        console.log(`${entitie.entity}: ${entitie.option}`); 
       });
       
       
