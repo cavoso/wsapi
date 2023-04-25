@@ -102,15 +102,18 @@ app.post("/webhook", async (req, res) => {
       
       let response = await nlp.process('es', text, context);
       
-      //console.log(response)
+      console.log(context)
       if(Cliente.hasData){
-        context.checkupclientdata = true;
-        conversations.set(waid, context);
+        if(context.checkupclientdata){
+          context.checkupclientdata = true;
+          conversations.set(waid, context);
+        }
+        
         MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`))
         await delay(2000);
         let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
           new messageInteractive("button").addBody("¿Actualizar datos?").addAction(
-            new messageAction("button").addButton()
+            new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
           ).toJSON()
         );
         MessageService.EnviarMensaje(Departamento, Ticket, msg);
