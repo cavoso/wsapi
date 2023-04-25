@@ -154,16 +154,14 @@ app.post("/webhook", async (req, res) => {
             let esValido = false;
             for (const key in context.pendingContactData) {
               if (context.pendingContactData[key]) {
-                console.log(response.utterance)
-                console.log(key)
                 switch (key) {
                   case 'full_name':
                     esValido = validacion.validarTexto(response.utterance);
+                    break;
                   case 'email':
                     esValido = validacion.validarEmail(response.utterance);
                     break;
                 }
-                console.log(esValido)
                 if (esValido) {
                   Cliente.update({ [key]: response.utterance });
                   context.pendingContactData[key] = false;
@@ -173,6 +171,7 @@ app.post("/webhook", async (req, res) => {
                 }
                 if (!validacion.hayCampoPendiente(context.pendingContactData)){
                   context.SolicitarContactData = false;
+                  MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(``));
                 }
                 break;
               }
