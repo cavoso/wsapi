@@ -154,6 +154,8 @@ app.post("/webhook", async (req, res) => {
             let esValido = false;
             for (const key in context.pendingContactData) {
               if (context.pendingContactData[key]) {
+                console.log(response.utterance)
+                console.log(key)
                 switch (key) {
                   case 'full_name':
                     esValido = validacion.validarTexto(response.utterance);
@@ -161,6 +163,7 @@ app.post("/webhook", async (req, res) => {
                     esValido = validacion.validarEmail(response.utterance);
                     break;
                 }
+                console.log(esValido)
                 if (esValido) {
                   Cliente.update({ [key]: response.utterance });
                   context.pendingContactData[key] = false;
@@ -178,8 +181,10 @@ app.post("/webhook", async (req, res) => {
             context.SolicitarContactData = false;
           }
         }else{
-          i
-          MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
+          if(Ticket.agent_id === 0 && Ticket.status === 'OPEN'){
+            MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
+          }
+          
         }
       }
       
