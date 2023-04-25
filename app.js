@@ -115,7 +115,6 @@ app.post("/webhook", async (req, res) => {
             new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
           ).toJSON()
         );
-        console.log(msg)
         MessageService.EnviarMensaje(Departamento, Ticket, msg);
       }
       
