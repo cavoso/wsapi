@@ -17,8 +17,13 @@ const ClienteService = require('./services/clienteServices');
 const TicketService = require('./services/ticketServices');
 const MessageService = require('./services/messageServices');
 
-const whatsappMessage = require('./lib/whatsappMessage');
-const messageInteractive = require('./lib/messageInteractive');
+const {
+  whatsappMessage,
+  messageInteractive,
+  messageAction,
+  messageObject,
+  templateComponent
+} = require('./lib');
 
 
 const conversations = new Map();
@@ -101,8 +106,12 @@ app.post("/webhook", async (req, res) => {
       if(Cliente.hasData){
         context.checkupclientdata = true;
         conversations.set(waid, context);
+        MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`))
+        await delay(2000);
         let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
-          new messageInteractive("button").addBody("").addAction()
+          new messageInteractive("button").addBody("¿Actualizar datos?").addAction(
+            new messageAction("button").addButton()
+          ).toJSON()
         );
         MessageService.EnviarMensaje(Departamento, Ticket, msg);
       }
