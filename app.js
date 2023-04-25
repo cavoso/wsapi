@@ -99,7 +99,12 @@ app.post("/webhook", async (req, res) => {
       
       //console.log(response)
       if(Cliente.hasData){
-        
+        context.checkupclientdata = true;
+        conversations.set(waid, context);
+        let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
+          new messageInteractive("button").add
+        );
+        MessageService.EnviarMensaje(Departamento, Ticket, msg);
       }
       
     }
