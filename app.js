@@ -47,6 +47,7 @@ app.post("/webhook", async (req, res) => {
     let Cliente = null;
     let Ticket = null;
     let TicketData = null;
+    let context = null
     
     if("metadata" in datos){
       //revisamos el departamento en base al numero de telefono al cual se le envio el mensaje
@@ -57,7 +58,10 @@ app.post("/webhook", async (req, res) => {
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
       const TicketCheck = await TicketService.buscarOCrearTicket(waid, Departamento.id);
-
+      context = conversations.get(waid);
+      if (!context){
+        conversations.set(waid, {});
+      }
       Ticket = TicketCheck[0];
       TicketData = await db.AdditionalInfo.findAll({
         where: {
@@ -72,13 +76,10 @@ app.post("/webhook", async (req, res) => {
       }
     }
     
-    let context = conversations.get(waid);
-    if (!context){
-      conversations.set(waid, {});
-    }
     
     if ("messages" in datos){
       const message = datos.messages[0];
+      //console.log(JSON.stringify(message, null, 2));
       //agregamos el mensaje entrante 
       await TicketService.agregarMensaje(Ticket, {
         ticket_id: Ticket.id,
@@ -96,7 +97,10 @@ app.post("/webhook", async (req, res) => {
       
       let response = await nlp.process('es', text, context);
       
-      console.log(response.answer)
+      //console.log(response)
+      if(Cliente.full_name){
+        
+      }
       
     }
     
