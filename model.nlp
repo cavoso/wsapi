@@ -37,16 +37,35 @@
           "%marca%,%modelo%,%url%,%year%,cotic,des,hol,mot,pagin,una,visit": {
             "intent": "reserva",
             "domain": "default"
+          },
+          "si": {
+            "intent": "verificacion",
+            "domain": "default"
+          },
+          "no": {
+            "intent": "verificacion",
+            "domain": "default"
           }
         },
         "intentDict": {
-          "reserva": "default"
+          "reserva": "default",
+          "verificacion": "default"
         },
         "sentences": [
           {
             "domain": "default",
             "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
             "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
           }
         ],
         "domains": {
@@ -73,10 +92,13 @@
               "%year%": 1,
               "pagin": 1,
               "visit": 1,
-              "%url%": 1
+              "%url%": 1,
+              "si": 1,
+              "no": 1
             },
             "intents": {
-              "reserva": 1
+              "reserva": 1,
+              "verificacion": 1
             },
             "intentFeatures": {
               "reserva": {
@@ -91,6 +113,10 @@
                 "pagin": 1,
                 "visit": 1,
                 "%url%": 1
+              },
+              "verificacion": {
+                "si": 1,
+                "no": 1
               }
             },
             "featuresToIntent": {
@@ -126,6 +152,12 @@
               ],
               "%url%": [
                 "reserva"
+              ],
+              "si": [
+                "verificacion"
+              ],
+              "no": [
+                "verificacion"
               ]
             },
             "neuralNetwork": {
@@ -151,25 +183,46 @@
                 "%year%",
                 "pagin",
                 "visit",
-                "%url%"
+                "%url%",
+                "si",
+                "no"
               ],
               "intents": [
-                "reserva"
+                "reserva",
+                "verificacion"
               ],
               "perceptrons": [
                 [
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  1.5054101943969727,
-                  0.8968386877335413
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  1.2695027589797974,
+                  -0.31630468368530273,
+                  -0.31354373693466187,
+                  0.31924337044536677
+                ],
+                [
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  -0.6290662288665771,
+                  7.194859981536865,
+                  7.2625956535339355,
+                  6.929559643758947
                 ]
               ]
             }
@@ -182,6 +235,14 @@
       [
         "es",
         "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
       ]
     ]
   },

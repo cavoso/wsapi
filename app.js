@@ -104,6 +104,12 @@ app.post("/webhook", async (req, res) => {
       
       let response = await nlp.process('es', text, context);
       
+      if(response.intent === "verificacion"){
+        if(context.checkupclientdata){
+          
+        }
+      }
+      
       //console.log(context)
       if(Cliente.hasData){
         context.checkupclientdata = true;

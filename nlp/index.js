@@ -23,6 +23,10 @@ const loadDocumentsAndAnswers = async () => {
       }
     }
     
+    //intents manuales
+    nlpManager.addDocument('es',"SI","verificacion");
+    nlpManager.addDocument('es',"NO","verificacion");
+    
     const entities = await db.Entity.findAll();
     entities.forEach(entity => {
       nlpManager.addNamedEntityText(entity.name, entity.value, 'es', entity.synonyms);
