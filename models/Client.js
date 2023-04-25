@@ -30,4 +30,12 @@ const Client = sequelize.define('Client', {
   timestamps: false
 });
 
+Client.prototype.getDisplayName = function() {
+  return this.full_name || this.profile_name;
+};
+
+Client.prototype.hasData = function() {
+  return !!((this.full_name && this.full_name.trim()) || (this.email && this.email.trim()));
+};
+
 module.exports = Client;

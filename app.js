@@ -98,7 +98,7 @@ app.post("/webhook", async (req, res) => {
       let response = await nlp.process('es', text, context);
       
       //console.log(response)
-      if(Cliente.full_name){
+      if(Cliente.hasData){
         
       }
       
