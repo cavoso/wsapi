@@ -44,7 +44,10 @@ app.post("/webhook", async (req, res) => {
   if("statuses" in datos){
     //aqui se actualizan los estados de los mensajes
     let mensaje = await db.Message.findOne({ where: { wamid: datos.statuses[0].id } });
-    mensaje.update({status: datos.statuses[0].status});
+    if(mensaje){
+      mensaje.update({status: datos.statuses[0].status});
+    }
+    
   }else{
     //aqui se procesan los mensajes
     let waid = null;
@@ -125,7 +128,7 @@ app.post("/webhook", async (req, res) => {
       }
       
     }
-    
+    asd
   }
   
   res.sendStatus(200);  
