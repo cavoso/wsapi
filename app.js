@@ -227,7 +227,6 @@ app.post("/webhook", async (req, res) => {
           
         }
       }else{
-        console.log(Ticket.city)
         if(Ticket.city === ""){
           let agentes = await db.Agent.findAll({
             where: {
@@ -245,6 +244,9 @@ app.post("/webhook", async (req, res) => {
             ).toJSON()
           );
           MessageService.EnviarMensaje(Departamento, Ticket, msg);
+        }else{
+          console.log(JSON.stringify(TicketData, null, 2));
+          console.log(JSON.stringify(context, null, 2));
         }
       }
       
