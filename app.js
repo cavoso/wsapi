@@ -103,6 +103,12 @@ app.post("/webhook", async (req, res) => {
       let type = message.type;
       if (type === "text") {
         text = message.text.body;
+      }else if(type === "interactive"){
+        if(message.interactive.type === "list_reply"){
+          text = message.interactive.list_reply.title;
+        }else if(message.interactive.type === "button_reply"){
+          text = message.interactive.button_reply.id;
+        }
       }
       
       let response = await nlp.process('es', text, context);
@@ -115,6 +121,9 @@ app.post("/webhook", async (req, res) => {
       
       //console.log(context)
       if(Cliente.haxsData){
+        if(Cliente.nofilldatabot == 0){
+          
+        }
         context.checkupclientdata = true;
         conversations.set(waid, context);
         MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`))
