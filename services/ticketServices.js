@@ -15,9 +15,10 @@ async function buscarOCrearTicket(waid, deptoid) {
   } 
 }
 
-async function agregarMensaje(datos) {
+async function agregarMensaje(Ticket, datos) {
   try {
     const mensajeCreado = await db.Message.create(datos);
+    Ticket.update({last_updated_message_at: db.sequelize.literal('NOW()')});
     return mensajeCreado;
   } catch (error) {
     console.log(error);
