@@ -49,9 +49,11 @@ app.post("/webhook", async (req, res) => {
     let TicketData = null;
     
     if("metadata" in datos){
+      //revisamos el departamento en base al numero de telefono al cual se le envio el mensaje
       Departamento = await db.Department.findOne({ where: { phone_number: datos.metadata.display_phone_number, phone_number_id: datos.metadata.phone_number_id } });
     }
     if ("contacts" in datos){
+      //aqui se revisa y crea el cliente y el ticket, en caso de que el ticket se cree, se envia un mensaje notificando al cliente de que se a creado un ticket
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
       const TicketCheck = await TicketService.buscarOCrearTicket(waid, Departamento.id);
@@ -91,6 +93,8 @@ app.post("/webhook", async (req, res) => {
       if (type === "text") {
         text = message.text.body;
       }
+      
+      let response = await nlp.process('es', text, context);
       
     }
     
