@@ -22,6 +22,11 @@ const loadDocumentsAndAnswers = async () => {
         );
       }
     }
+    let agentes = db.Agent.findAll();
+    for (const agente of agentes){
+      nlpManager.addDocument('es', intent.texto, "ciudad");
+    }
+    
     
     //intents manuales
     nlpManager.addDocument('es',"SI","verificacion");

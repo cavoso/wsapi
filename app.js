@@ -171,7 +171,7 @@ app.post("/webhook", async (req, res) => {
                 }
                 if (!validacion.hayCampoPendiente(context.pendingContactData)){
                   context.SolicitarContactData = false;
-                  MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(``));
+                  MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`Muchas gracias ${Cliente.getDisplayName()} por proporcionarnos tu informacion.`));
                 }
                 break;
               }
@@ -220,6 +220,18 @@ app.post("/webhook", async (req, res) => {
             }
           }
           
+        }
+      }else{
+        if(Ticket.city === undefined){
+          let agentes = db.Agent.findAll({
+            where: {
+              department_id: Departamento.id
+            }
+          });
+          MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
+          
+          let msg = new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje.");
+          MessageService.EnviarMensaje(Departamento, Ticket, msg);
         }
       }
       
