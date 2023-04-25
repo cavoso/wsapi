@@ -114,7 +114,7 @@ app.post("/webhook", async (req, res) => {
       }
       
       //console.log(context)
-      if(Cliente.hasData){
+      if(Cliente.haxsData){
         context.checkupclientdata = true;
         conversations.set(waid, context);
         MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`))
@@ -128,7 +128,7 @@ app.post("/webhook", async (req, res) => {
       }
       
     }
-    asd
+
   }
   
   res.sendStatus(200);  

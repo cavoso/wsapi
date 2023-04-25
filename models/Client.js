@@ -19,23 +19,28 @@ const Client = sequelize.define('Client', {
   },
   full_name: {
     type: DataTypes.STRING(255),
-    allowNull: true
+    allowNull: false
   },
   email: {
     type: DataTypes.STRING(255),
     allowNull: true
+  },
+  nofilldatabot: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+    defaultValue: 0
   }
 }, {
-  tableName: 'clients',
-  timestamps: false
+  tableName: 'Client',
+  timestamps: false,
+  instanceMethods: {
+    getDisplayName: function() {
+      return this.full_name.trim() ? this.full_name.trim() : this.profile_name.trim();
+    },
+    hasData: function() {
+      return !!(this.full_name && this.full_name.trim() || this.email && this.email.trim());
+    }
+  }
 });
-
-Client.prototype.getDisplayName = function() {
-  return this.full_name || this.profile_name;
-};
-
-Client.prototype.hasData = function() {
-  return !!((this.full_name && this.full_name.trim()) || (this.email && this.email.trim()));
-};
 
 module.exports = Client;
