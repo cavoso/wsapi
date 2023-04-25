@@ -121,14 +121,22 @@ app.post("/webhook", async (req, res) => {
       let response = await nlp.process('es', text, context);
       
       if(response.intent === "verificacion"){
-        if(context.checkupclientdata){
+        if(response.utterance === "SI"){
+          context.SolicitarContactData = true;
+        }
+        else if(response.utterance === "NO"){
+          if(context.checkclientdata){
+            context.SolicitarContactData = false;
+            Cliente.update({nofilldatabot: 1});
+          }
           
         }
       }
       
       //console.log(context)
-      if (validacion.hayCampoPendiente(context.pendingContactData)){
+      if (xvalidacion.hayCampoPendiente(context.pendingContactData)){
         if(Cliente.nofilldatabot == 0){
+          context.checkclientdata = true;
           MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`));
           await delay(2000);
           let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
