@@ -227,16 +227,22 @@ app.post("/webhook", async (req, res) => {
           
         }
       }else{
-        if(Ticket.city === undefined){
+        console.log(Ticket.city)
+        if(Ticket.city === ""){
           let agentes = await db.Agent.findAll({
             where: {
               department_id: Departamento.id
             }
           });
           //MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
-          
+          let lista = new messageObject("Ciudades", "list");
+          for (const agente of agentes){
+            lista.addRow(agente.city, agente.city);
+          }
           let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
-            new messageInteractive("list").addBody("")
+            new messageInteractive("list").addBody("Por favor seleccione la ciudad mas cercana a usted").addAction(
+              new messageAction("list").addButton("Ciudades").addSection(lista.toJSON()).toJSON()
+            ).toJSON()
           );
           MessageService.EnviarMensaje(Departamento, Ticket, msg);
         }
