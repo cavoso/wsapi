@@ -43,7 +43,7 @@ app.post("/webhook", async (req, res) => {
   
   if("statuses" in datos){
     //aqui se actualizan los estados de los mensajes
-    let mensaje = await db.TicketMensajes.findOne({ where: { wamid: datos.statuses[0].id } });
+    let mensaje = await db.Message.findOne({ where: { wamid: datos.statuses[0].id } });
     mensaje.update({status: datos.statuses[0].status});
   }else{
     //aqui se procesan los mensajes
@@ -65,7 +65,8 @@ app.post("/webhook", async (req, res) => {
       const TicketCheck = await TicketService.buscarOCrearTicket(waid, Departamento.id);
       context = conversations.get(waid);
       if (!context){
-        conversations.set(waid, {});
+        context = {};
+        conversations.set(waid, context);
       }
       Ticket = TicketCheck[0];
       TicketData = await db.AdditionalInfo.findAll({
@@ -75,7 +76,8 @@ app.post("/webhook", async (req, res) => {
       });
       
       if(TicketCheck[1]){
-        conversations.set(waid, {});
+        context = {};
+        conversations.set(waid, context);
         let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
         MessageService.EnviarMensaje(Departamento, Ticket, msg)
       }
@@ -104,11 +106,8 @@ app.post("/webhook", async (req, res) => {
       
       console.log(context)
       if(Cliente.hasData){
-        if(context.checkupclientdata){
-          context.checkupclientdata = true;
-          conversations.set(waid, context);
-        }
-        
+        context.checkupclientdata = true;
+        conversations.set(waid, context);
         MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`))
         await delay(2000);
         let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
