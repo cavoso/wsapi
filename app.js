@@ -104,7 +104,7 @@ app.post("/webhook", async (req, res) => {
       
       let response = await nlp.process('es', text, context);
       
-      console.log(context)
+      //console.log(context)
       if(Cliente.hasData){
         context.checkupclientdata = true;
         conversations.set(waid, context);
@@ -115,6 +115,7 @@ app.post("/webhook", async (req, res) => {
             new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
           ).toJSON()
         );
+        console.log(msg)
         MessageService.EnviarMensaje(Departamento, Ticket, msg);
       }
       
