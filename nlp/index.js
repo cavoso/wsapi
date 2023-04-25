@@ -9,22 +9,14 @@ const loadDocumentsAndAnswers = async () => {
     const intents = await db.Intent.findAll();
     for (const intent of intents) {
       if (intent.tipo === 'DOCUMENT') {
-        nlpManager.addDocument(
-          'es',
-          intent.texto,
-          intent.intent
-        );
+        nlpManager.addDocument('es', intent.texto, intent.intent);
       } else if (intent.tipo === 'ANSWER') {
-        nlpManager.addAnswer(
-          'es',
-          intent.intent,
-          intent.texto
-        );
+        nlpManager.addAnswer('es', intent.intent, intent.texto);
       }
     }
-    let agentes = db.Agent.findAll();
+    let agentes = await db.Agent.findAll();
     for (const agente of agentes){
-      nlpManager.addDocument('es', intent.texto, "ciudad");
+      nlpManager.addDocument('es', agente.city, "ciudad");
     }
     
     

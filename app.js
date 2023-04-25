@@ -137,7 +137,7 @@ app.post("/webhook", async (req, res) => {
           }
           
         }
-      }else if (response.intent == 'omitir') {
+      }else if (response.intent === 'omitir') {
         if(context.SolicitarContactData){
           for (const key in context.pendingContactData) {
             if (context.pendingContactData[key]) {
@@ -148,6 +148,11 @@ app.post("/webhook", async (req, res) => {
           Cliente.update({ nofilldatabot: 1 });
         }
         
+      }else if(response.intent === 'ciudad'){
+        let esValido = validacion.validarTexto(response.utterance);
+        if(esValido){
+          Ticket.update({city : response.utterance});
+        }
       }else{
         if(context.SolicitarContactData){
           if (validacion.hayCampoPendiente(context.pendingContactData)) {
@@ -223,14 +228,16 @@ app.post("/webhook", async (req, res) => {
         }
       }else{
         if(Ticket.city === undefined){
-          let agentes = db.Agent.findAll({
+          let agentes = await db.Agent.findAll({
             where: {
               department_id: Departamento.id
             }
           });
-          MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
+          //MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
           
-          let msg = new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje.");
+          let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
+            new messageInteractive("list").addBody("")
+          );
           MessageService.EnviarMensaje(Departamento, Ticket, msg);
         }
       }
