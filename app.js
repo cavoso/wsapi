@@ -86,6 +86,13 @@ app.post("/webhook", async (req, res) => {
       }
     }
     
+    if (!context.pendingContactData) {
+      // Inicializar el objeto pendingData con los datos personales pendientes
+      context.pendingContactData = {
+        full_name: !Cliente.full_name,
+        email: !Cliente.email,
+      };
+    }
     
     if ("messages" in datos){
       const message = datos.messages[0];
@@ -120,26 +127,21 @@ app.post("/webhook", async (req, res) => {
       }
       
       //console.log(context)
-      if(Cliente.haxsData){
+      if (validacion.hayCampoPendiente(context.pendingContactData)){
         if(Cliente.nofilldatabot == 0){
-          
+          MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`));
+          await delay(2000);
+          let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
+            new messageInteractive("button").addBody("¿Actualizar datos?").addAction(
+              new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
+            ).toJSON()
+          );
+          MessageService.EnviarMensaje(Departamento, Ticket, msg);
         }
-        context.checkupclientdata = true;
-        conversations.set(waid, context);
-        MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`))
-        await delay(2000);
-        let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
-          new messageInteractive("button").addBody("¿Actualizar datos?").addAction(
-            new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
-          ).toJSON()
-        );
-        MessageService.EnviarMensaje(Departamento, Ticket, msg);
       }
       
     }
-
   }
-  
   res.sendStatus(200);  
 });
 
