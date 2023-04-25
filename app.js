@@ -122,29 +122,97 @@ app.post("/webhook", async (req, res) => {
       
       if(response.intent === "verificacion"){
         if(response.utterance === "SI"){
-          context.SolicitarContactData = true;
+          if(context.checkclientdata){
+            context.checkclientdata = false;
+            context.SolicitarContactData = true;
+          }          
         }
         else if(response.utterance === "NO"){
           if(context.checkclientdata){
+            context.checkclientdata = false;
             context.SolicitarContactData = false;
             Cliente.update({nofilldatabot: 1});
           }
           
         }
+      }else if (response.intent == 'omitir') {
+        if(context.SolicitarContactData){
+          for (const key in context.pendingContactData) {
+            if (context.pendingContactData[key]) {
+              context.pendingContactData[key] = false;
+              break;
+            }
+          }
+          Cliente.update({ nofilldatabot: 1 });
+        }
+        
+      }else{
+        if(context.SolicitarContactData){
+          if (validacion.hayCampoPendiente(context.pendingContactData)) {
+            let esValido = false;
+            for (const key in context.pendingContactData) {
+              if (context.pendingContactData[key]) {
+                switch (key) {
+                  case 'full_name':
+                    esValido = validacion.validarTexto(response.utterance);
+                  case 'email':
+                    esValido = validacion.validarEmail(response.utterance);
+                    break;
+                }
+                if (esValido) {
+                  Cliente.update({ [key]: response.utterance });
+                  context.pendingContactData[key] = false;
+                  
+                } else {
+                  MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, pero al parecer la información ingresada contiene caracteres no validos"));
+                }
+                if (!validacion.hayCampoPendiente(context.pendingContactData)){
+                  context.SolicitarContactData = false;
+                }
+                break;
+              }
+            }
+          }else{
+            context.SolicitarContactData = false;
+          }
+        }else{
+          MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
+        }
       }
       
       //console.log(context)
-      if (xvalidacion.hayCampoPendiente(context.pendingContactData)){
+      if (validacion.hayCampoPendiente(context.pendingContactData)){
         if(Cliente.nofilldatabot == 0){
-          context.checkclientdata = true;
-          MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`));
-          await delay(2000);
-          let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
-            new messageInteractive("button").addBody("¿Actualizar datos?").addAction(
-              new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
-            ).toJSON()
-          );
-          MessageService.EnviarMensaje(Departamento, Ticket, msg);
+          if(context.SolicitarContactData === undefined){
+            context.checkclientdata = true;
+            MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(`nos gustaría asegurarnos de tener la información de contacto correcta y actualizada en nuestro sistema para ofrecerle la mejor experiencia y servicio`));
+            await delay(2000);
+            let msg = new whatsappMessage(Ticket.wa_id).createInteractiveMessage(
+              new messageInteractive("button").addBody("¿Actualizar datos?").addAction(
+                new messageAction("button").addButton("SI", "SI").addButton("No", "No").toJSON()
+              ).toJSON()
+            );
+            MessageService.EnviarMensaje(Departamento, Ticket, msg);
+          }else{
+            if(context.SolicitarContactData){
+              for (const key in context.pendingContactData) {
+                if (context.pendingContactData[key]) {
+                  let pregunta;
+                  switch (key) {
+                    case 'full_name':
+                      pregunta = 'Ingresa su nombre completo, o escribe "omitir" para saltar.';
+                      break;
+                    case 'email':
+                      pregunta = 'Ingresa tu dirección de correo electrónico o escribe "omitir" para saltar.';
+                      break;
+                  }
+                  MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage(pregunta));
+                  break;
+                }
+              }
+            }
+          }
+          
         }
       }
       

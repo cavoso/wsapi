@@ -26,6 +26,8 @@ const loadDocumentsAndAnswers = async () => {
     //intents manuales
     nlpManager.addDocument('es',"SI","verificacion");
     nlpManager.addDocument('es',"NO","verificacion");
+    nlpManager.addDocument('es', 'omitir', 'omitir');
+    nlpManager.addDocument('es', 'saltar', 'omitir');
     
     const entities = await db.Entity.findAll();
     entities.forEach(entity => {
