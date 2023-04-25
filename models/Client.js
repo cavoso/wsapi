@@ -31,7 +31,7 @@ const Client = sequelize.define('Client', {
     defaultValue: 0
   }
 }, {
-  tableName: 'Client',
+  tableName: 'clients',
   timestamps: false,
   instanceMethods: {
     getDisplayName: function() {

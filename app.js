@@ -120,7 +120,9 @@ app.post("/webhook", async (req, res) => {
       
       let response = await nlp.process('es', text, context);
       
-      if(response.intent === "verificacion"){
+      if(response.intent === "reserva"){
+        
+      }else if(response.intent === "verificacion"){
         if(response.utterance === "SI"){
           if(context.checkclientdata){
             context.checkclientdata = false;
@@ -176,6 +178,7 @@ app.post("/webhook", async (req, res) => {
             context.SolicitarContactData = false;
           }
         }else{
+          i
           MessageService.EnviarMensaje(Departamento, Ticket, new whatsappMessage(Ticket.wa_id).createTextMessage("Lo siento, no puedo entender este tipo de mensaje."));
         }
       }
