@@ -23,13 +23,28 @@ const Middleware = async (req, res, next) => {
     text = message.text.body;
   }else if(type === "interactive"){
     if(message.interactive.type === "list_reply"){
-      text = message.interactive.list_reply.title;
+      text = message.interactive.list_reply.id;
     }else if(message.interactive.type === "button_reply"){
       text = message.interactive.button_reply.id;
     }
   }
   
-  let response = await nlp.process('es', text, context);
+  let response = await req.app.nlp.process('es', text, context);
+  
+  
+  switch(response.intent){
+    case 'reserva':
+      break;
+    case 'verificacion':
+      break;
+    case 'omitir':
+      break;
+    case 'ciudad':
+      break;
+    default:
+      break;
+  }
+  
   
   next();
 };
