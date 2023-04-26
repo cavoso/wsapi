@@ -16,6 +16,8 @@ const {statusesMiddleware} = require('./middlewares');
   console.log('Modelo NLP cargado');
 })();
 
+const conversations = new Map();
+
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
