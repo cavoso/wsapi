@@ -24,7 +24,7 @@ const clientTicketMiddleware = async (req, res, next) => {
       req.app.Cliente = await ClienteService.crearClienteSiNoExiste(req.app.waid, datos.contacts[0].profile.name);
       const TicketCheck = await TicketService.buscarOCrearTicket(req.app.waid, req.app.Departamento.id);
       req.app.context = req.app.conversations.get(req.app.waid);
-      if (!context){
+      if (!req.app.context){
         req.app.context = {};
         req.app.conversations.set(req.app.waid, req.app.context);
       }
