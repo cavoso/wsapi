@@ -30,11 +30,9 @@ app.post("/webhook", async (req, res) => {
 });
 */
 app.post('/webhook', statusesMiddleware, (req, res, next) => {
-  // Después de ejecutar el middleware de estados, determinamos el departamento y ejecutamos el middleware correspondiente
-  const departmentMiddleware = determineDepartment(req);
-  departmentMiddleware(req, res, next);
+
 }, (req, res) => {
-  // Aquí va la lógica de tu endpoint webhook
+
   res.sendStatus(200);
 });
 
