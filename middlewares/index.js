@@ -1,7 +1,7 @@
-const statusesMiddleware = require('./statuses');
-const CheckDepartamentoMiddleware = require('./CheckDepartamento');
+const messageStatusMiddleware = require('./messageStatusMiddleware');
+const departmentMiddleware = require('./departmentMiddleware');
 
 module.exports = {
-  statusesMiddleware,
-  CheckDepartamentoMiddleware
+  messageStatusMiddleware,
+  departmentMiddleware
 };

@@ -9,7 +9,7 @@ const app = express().use(body_parser.json()).use(cors());
 
 const nlp = require('./nlp/');
 
-const {statusesMiddleware, CheckDepartamentoMiddleware} = require('./middlewares');
+const {messageStatusMiddleware, departmentMiddleware} = require('./middlewares');
 
 (async () => {
   await nlp.load('model.nlp');
@@ -35,7 +35,7 @@ app.post("/webhook", async (req, res) => {
   res.sendStatus(200);  
 });
 */
-app.post('/webhook', statusesMiddleware, CheckDepartamentoMiddleware, (req, res) => {
+app.post('/webhook', messageStatusMiddleware, departmentMiddleware, (req, res) => {
 
   res.sendStatus(200);
 });

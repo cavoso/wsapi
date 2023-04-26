@@ -1,7 +1,7 @@
 const db = require('./../models');
 const { WSProc, moment, regex, delay, TsToDateString } = require('./../utils');
 
-const statusesMiddleware = async (req, res, next) => {
+const messageStatusMiddleware = async (req, res, next) => {
   
    const datos = WSProc(req.body);
   
@@ -17,4 +17,4 @@ const statusesMiddleware = async (req, res, next) => {
   next();
 };
 
-module.exports = statusesMiddleware;
+module.exports = messageStatusMiddleware;
