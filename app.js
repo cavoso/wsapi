@@ -7,12 +7,12 @@ const body_parser = require("body-parser");
 const cors = require('cors');
 const app = express().use(body_parser.json()).use(cors());
 
-const nlp = require('./nlp/');
+app.nlp = require('./nlp/');
 
 const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware} = require('./middlewares');
 
 (async () => {
-  await nlp.load('model.nlp');
+  await app.nlp.load('model.nlp');
   console.log('Modelo NLP cargado');
 })();
 

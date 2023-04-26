@@ -1,20 +1,35 @@
 const db = require('../../models');
-const validacion = require('../../config/validaciones');
 const { WSProc, moment, regex, delay, TsToDateString } = require('../../utils');
-
-const {
-  whatsappMessage,
-  messageInteractive,
-  messageAction,
-  messageObject,
-  templateComponent
-} = require('../../lib');
+const { ClienteService, TicketService, MessageService } = require('../../services');
+const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
 
 
-const Middleware = (req, res, next) => {
+
+const Middleware = async (req, res, next) => {
   const datos = WSProc(req.body);
   const message = datos.messages[0];
   
+  await TicketService.agregarMensaje(req.app.Ticket, {
+    ticket_id: req.app.Ticket.id,
+    wamid: message.id,
+    content: JSON.stringify(message),
+    direction: "INCOMING",
+    created_at: TsToDateString(message.timestamp)
+  });
+  
+  let text = "";
+  let type = message.type;
+  if (type === "text") {
+    text = message.text.body;
+  }else if(type === "interactive"){
+    if(message.interactive.type === "list_reply"){
+      text = message.interactive.list_reply.title;
+    }else if(message.interactive.type === "button_reply"){
+      text = message.interactive.button_reply.id;
+    }
+  }
+  
+  let response = await nlp.process('es', text, context);
   
   next();
 };
