@@ -9,7 +9,7 @@ const app = express().use(body_parser.json()).use(cors());
 
 const nlp = require('./nlp/');
 
-const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware} = require('./middlewares');
+const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware} = require('./middlewares');
 
 (async () => {
   await nlp.load('model.nlp');
@@ -27,15 +27,8 @@ app.context = null
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
-// Accepts POST requests at /webhook endpoint
-/*
-app.post("/webhook", async (req, res) => {
-  
-  
-  res.sendStatus(200);  
-});
-*/
-app.post('/webhook', messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, (req, res) => {
+
+app.post('/webhook', messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware, (req, res) => {
 
   res.sendStatus(200);
 });

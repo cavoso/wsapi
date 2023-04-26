@@ -7,17 +7,6 @@ const clientTicketMiddleware = async (req, res, next) => {
   
   const datos = WSProc(req.body);
   
-  if("metadata" in datos){
-    req.app.Departamento = await db.Department.findOne({
-      where: {
-        phone_number: datos.metadata.display_phone_number, 
-        phone_number_id: datos.metadata.phone_number_id 
-      } 
-    });
-    if(req.app.Departamento === null){
-      return res.status(400).json({ error: 'Departamento no encontrado' });
-    }
-  }
   if ("contacts" in datos){
       //aqui se revisa y crea el cliente y el ticket, en caso de que el ticket se cree, se envia un mensaje notificando al cliente de que se a creado un ticket
       req.app.waid = datos.contacts[0].wa_id;
