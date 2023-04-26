@@ -454,6 +454,146 @@
             "domain": "default",
             "utterance": "saltar",
             "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
           }
         ],
         "domains": {
@@ -613,44 +753,44 @@
               ],
               "perceptrons": [
                 [
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
-                  1.2858084440231323,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
+                  1.2858085632324219,
                   -0.16483351588249207,
                   -0.15876823663711548,
                   -0.16107697784900665,
-                  -0.15964889526367188,
-                  -0.15451976656913757,
-                  -0.1508939415216446,
-                  0.14182152911268475
+                  -0.1596490442752838,
+                  -0.15452012419700623,
+                  -0.15089434385299683,
+                  0.1418203749642172
                 ],
                 [
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  -0.32085323333740234,
-                  10.712930679321289,
-                  10.706488609313965,
-                  -3.5179569721221924,
-                  -3.5127921104431152,
-                  -3.5071961879730225,
-                  -3.5011658668518066,
-                  3.528916019248814
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  -0.3219173848628998,
+                  10.729963302612305,
+                  10.725361824035645,
+                  -3.523686170578003,
+                  -3.520307779312134,
+                  -3.5165960788726807,
+                  -3.5125460624694824,
+                  3.5297565722061592
                 ],
                 [
                   -0.3277134597301483,
@@ -664,13 +804,13 @@
                   -0.3277134597301483,
                   -0.3277134597301483,
                   -0.3277134597301483,
-                  -3.502131223678589,
-                  -3.495596170425415,
-                  10.715408325195312,
-                  10.70896053314209,
-                  -3.515493392944336,
-                  -3.5103366374969482,
-                  3.528868600800309
+                  -3.5125372409820557,
+                  -3.5081393718719482,
+                  10.732453346252441,
+                  10.727848052978516,
+                  -3.5212056636810303,
+                  -3.5178327560424805,
+                  3.528764161616902
                 ],
                 [
                   -0.3352113366127014,
@@ -684,13 +824,13 @@
                   -0.3352113366127014,
                   -0.3352113366127014,
                   -0.3352113366127014,
-                  -3.511263847351074,
-                  -3.505643606185913,
-                  -3.499570608139038,
-                  -3.4930436611175537,
-                  10.7179536819458,
-                  10.711496353149414,
-                  3.527871506127146
+                  -3.5176846981048584,
+                  -3.514000654220581,
+                  -3.5099642276763916,
+                  -3.5055716037750244,
+                  10.735016822814941,
+                  10.730402946472168,
+                  3.5270995790911397
                 ]
               ]
             }
@@ -700,6 +840,118 @@
     },
     "intentDomains": {},
     "extraSentences": [
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
       [
         "es",
         "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
@@ -1088,6 +1340,10 @@
           "name": "url",
           "type": "regex",
           "rules": [
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",

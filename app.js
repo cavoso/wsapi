@@ -9,7 +9,7 @@ const app = express().use(body_parser.json()).use(cors());
 
 const nlp = require('./nlp/');
 
-const {statusesMiddleware} = require('./middlewares');
+const {statusesMiddleware, CheckDepartamentoMiddleware} = require('./middlewares');
 
 (async () => {
   await nlp.load('model.nlp');
@@ -17,6 +17,12 @@ const {statusesMiddleware} = require('./middlewares');
 })();
 
 app.conversations = new Map();
+app.waid = null;
+app.Departamento = null;
+app.Cliente = null;
+app.Ticket = null;
+app.TicketData = null;
+app.context = null
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -29,9 +35,7 @@ app.post("/webhook", async (req, res) => {
   res.sendStatus(200);  
 });
 */
-app.post('/webhook', statusesMiddleware, (req, res, next) => {
-
-}, (req, res) => {
+app.post('/webhook', statusesMiddleware, CheckDepartamentoMiddleware, (req, res) => {
 
   res.sendStatus(200);
 });
