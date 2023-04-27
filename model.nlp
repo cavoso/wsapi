@@ -472,19 +472,19 @@
       "es": {
         "saludo": [
           {
-            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Para interactuar conmigo, escribe \"bot\" o \"menú\". ¡Estoy aquí para  ayudarte!"
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Para interactuar conmigo, escribe 'bot' o 'menú'. ¡Estoy aquí para  ayudarte!"
           },
           {
-            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente. Usa \"bot\" o \"menú\" para comunicarte conmigo. ¡Estoy a tu servicio!"
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente. Usa  'bot' o 'menú' para comunicarte conmigo. ¡Estoy a tu servicio!"
           },
           {
-            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Escribe \"bot\" o \"menú\" para empezar. ¡Listo para ayudarte!"
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Escribe  'bot' o 'menú' para empezar. ¡Listo para ayudarte!"
           },
           {
-            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente. Para interactuar, utiliza \"bot\" o \"menú\". ¡Aquí para asistirte!"
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente. Para interactuar, utiliza  'bot' o 'menú'. ¡Aquí para asistirte!"
           },
           {
-            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Menciona \"bot\" o \"menú\" para iniciar nuestra conversación. ¡Siempre dispuesto a ayudar!"
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Menciona  'bot' o 'menú' para iniciar nuestra conversación. ¡Siempre dispuesto a ayudar!"
           }
         ]
       }
