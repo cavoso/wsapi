@@ -1,6 +1,7 @@
-const {  WSProc, moment, regex, delay, TsToDateString  } = require('./../utils');
-const { ClienteService, TicketService, MessageService } = require('../services');
 const db = require('../models');
+const {  WSProc, moment, regex, delay, TsToDateString  } = require('../utils');
+const { ClienteService, TicketService, MessageService } = require('../services');
+const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
 const {
   motosMiddleware,
   repuestosMiddleware,
@@ -8,7 +9,6 @@ const {
   postventaMiddleware,
   otrosMiddleware
 } = require('./departamentos');
-const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
 
 const messageMiddleware = async (req, res, next) => {
   const datos = WSProc(req.body);
@@ -51,8 +51,7 @@ const messageMiddleware = async (req, res, next) => {
     
     if(!req.app.context.saludobot && req.app.response.intent !== "saludo"){
       let msg = new whatsappMessage(req.app.waid).createTextMessage(`¡Hola, ${req.app.Cliente.getDisplayName()} ! Soy tu Asistente Virtual. Para interactuar conmigo, escribe 'bot' o 'menú'. ¡Estoy aquí para  ayudarte!`);      
-      console.log(msg)
-      //MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg);
+      MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg);
       
     }
     

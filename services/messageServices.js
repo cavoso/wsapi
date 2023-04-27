@@ -5,7 +5,7 @@ const TicketService = require('./ticketServices');
 const token = process.env.WHATSAPP_TOKEN;
 
 function EnviarMensaje(departamento, ticket, msg){
-  //console.log(JSON.stringify(msg, null, 2));
+  console.log(JSON.stringify(msg, null, 2));
   axios({
     method : "POST",
     url : "https://graph.facebook.com/v16.0/" + departamento.phone_number_id + "/messages?access_token=" + token,
@@ -13,7 +13,7 @@ function EnviarMensaje(departamento, ticket, msg){
     headers: { "Content-Type": "application/json" },
   }).then(async (result) => {
     let data = result.data;
-    //console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(data, null, 2));
     let date = new Date();
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
     await TicketService.agregarMensaje(ticket, {
