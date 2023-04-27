@@ -56,7 +56,7 @@ const messageMiddleware = async (req, res, next) => {
 
       let msg = new whatsappMessage(req.app.waid).createTextMessage(respuesta.answer.replace("[nombre_usuario]", req.app.Cliente.getDisplayName()));      
       MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
-      req.app.context.saludobot = true; 
+      req.app.context["saludobot"] = true; 
       req.app.conversations.set(req.app.Key_Context, req.app.context);
       
     }

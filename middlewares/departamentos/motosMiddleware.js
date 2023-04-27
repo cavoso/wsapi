@@ -8,7 +8,7 @@ const { whatsappMessage, messageInteractive, messageAction, messageObject, templ
 const Middleware = async (req, res, next) => {
   const datos = WSProc(req.body);
   const message = datos.messages[0]; 
-  
+  /*
   for (const xentity of req.app.Departamento.entity) {
     const encontrado = req.app.TicketData.find(item => item.key_name === xentity);
     console.log(JSON.stringify(encontrado, null, 2));
@@ -17,8 +17,9 @@ const Middleware = async (req, res, next) => {
     if(valor !== null){
       req.app.TicketData = await TicketService.agregarInformacionExtra(req.app.Ticket.id,xentity, valor);
     }
-    */
+    
   }
+
   
   switch(req.app.response.intent){
     case 'reserva':
@@ -33,7 +34,7 @@ const Middleware = async (req, res, next) => {
     default:
       break;
   }
-  
+  */
   
   next();
 };
