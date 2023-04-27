@@ -46,7 +46,7 @@ const messageMiddleware = async (req, res, next) => {
     }
     
     req.app.response = await req.app.nlp.process('es', text, req.app.context);
-    
+    console.log(JSON.stringify(req.app.nlp, null, 2));
     if(!req.app.context.saludobot && req.app.response.intent !== "saludo"){
       const intent = req.app.nlp.container.getIntent("saludo");
       console.log(intent.answers)
