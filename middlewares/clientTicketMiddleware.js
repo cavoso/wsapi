@@ -16,6 +16,12 @@ const clientTicketMiddleware = async (req, res, next) => {
       req.app.context = req.app.conversations.get(req.app.Key_Context);
       if (!req.app.context){
         req.app.context = {
+          enproceso: "",
+          requisitos: {
+            userdata: false,
+            departamentreq: false,
+            ticketreq: false
+          }
           userdata: {
             full_name: !req.app.Cliente.full_name,
             email: !req.app.Cliente.email,

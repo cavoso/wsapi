@@ -45,9 +45,6 @@ const messageMiddleware = async (req, res, next) => {
     }
     
     req.app.response = await req.app.nlp.process('es', text, req.app.context);
-    if(!req.app.context.proceso){
-      req.app.context.proceso = "";
-    }
     
     switch(req.app.Departamento.id){
       case 1:
