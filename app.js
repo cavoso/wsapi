@@ -1,7 +1,7 @@
 "use strict";
 
 // Imports dependencies and set up http server
-const request = require("request");
+//const request = require("request");
 const express = require("express");
 const body_parser = require("body-parser");
 const cors = require('cors');
@@ -18,7 +18,7 @@ app.Departamento = null;
 app.Cliente = null;
 app.Ticket = null;
 app.TicketData = null;
-app.context = null
+app.context = null;
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
