@@ -1,4 +1,6 @@
-const { WSProc } = require('./../utils');
+const {  WSProc, moment, regex, delay, TsToDateString  } = require('./../utils');
+const { ClienteService, TicketService, MessageService } = require('../services');
+const db = require('../models');
 const {
   motosMiddleware,
   repuestosMiddleware,
@@ -10,7 +12,43 @@ const {
 const messageMiddleware = async (req, res, next) => {
   const datos = WSProc(req.body);
   
+  
   if ("messages" in datos){
+    
+    const message = datos.messages[0];
+    
+    await TicketService.agregarMensaje(req.app.Ticket, {
+      ticket_id: req.app.Ticket.id,
+      wamid: message.id,
+      content: JSON.stringify(message),
+      direction: "INCOMING",
+      created_at: TsToDateString(message.timestamp)
+    });
+    
+    let text = "";
+    let type = message.type;
+    if (type === "text") {
+      text = message.text.body;
+    }else if(type === "interactive"){
+      if(message.interactive.type === "list_reply"){
+        text = message.interactive.list_reply.id;
+      }else if(message.interactive.type === "button_reply"){
+        text = message.interactive.button_reply.id;
+      }
+    }
+    
+    const urls = text.match(regex);
+    if(urls){
+      urls.forEach(async url => {
+        await db.AdditionalInfo.create({
+          ticket_id: req.app.Ticket.id,
+          key_name: "url",
+          value: url
+        });
+      });
+    }
+    
+    req.app.response = await req.app.nlp.process('es', text, req.app.context);
     
     switch(req.app.Departamento.id){
       case 1:
