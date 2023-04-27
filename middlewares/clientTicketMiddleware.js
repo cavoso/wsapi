@@ -11,8 +11,14 @@ const clientTicketMiddleware = async (req, res, next) => {
       //aqui se revisa y crea el cliente y el ticket, en caso de que el ticket se cree, se envia un mensaje notificando al cliente de que se a creado un ticket
       req.app.waid = datos.contacts[0].wa_id;
       req.app.Cliente = await ClienteService.crearClienteSiNoExiste(req.app.waid, datos.contacts[0].profile.name);
-      const TicketCheck = await TicketService.buscarOCrearTicket(req.app.waid, req.app.Departamento.id);
-      req.app.Key_Context = `${req.app.waid}_${req.app.Departamento.id}`;
+      const [ticketInstance, ticketCreated] = await TicketService.buscarOCrearTicket(req.app.waid, req.app.Departamento.id);
+      req.app.Key_Context = `${req.app.waid}_${req.app.Departamento.id}`;      
+      req.app.Ticket = TicketCheck[0];
+      req.app.TicketData = await db.AdditionalInfo.findAll({
+        where: {
+          ticket_id: req.app.Ticket.id
+        }
+      });
       req.app.context = req.app.conversations.get(req.app.Key_Context);
       if (!req.app.context){
         req.app.context = {
@@ -21,22 +27,24 @@ const clientTicketMiddleware = async (req, res, next) => {
             userdata: false,
             departamentreq: false,
             ticketreq: false
-          }
+          },
           userdata: {
             full_name: !req.app.Cliente.full_name,
             email: !req.app.Cliente.email,
           },
+          departamentreq: {
+            
+          },
+          ticketreq: {
+            ciudad: false
+          }
           
         };
+        for(const xreq of req.app.TicketData){
+          req.app.context.departamentreq[xreq.key_name] = false;
+        }
         req.app.conversations.set(req.app.Key_Context, req.app.context);
       }
-      req.app.Ticket = TicketCheck[0];
-      req.app.TicketData = await db.AdditionalInfo.findAll({
-        where: {
-          ticket_id: req.app.Ticket.id
-        }
-      });
-      
       if(TicketCheck[1]){
         req.app.context = {};
         req.app.conversations.set(req.app.Key_Context, req.app.context);
