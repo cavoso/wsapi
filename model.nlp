@@ -3884,6 +3884,216 @@
             "domain": "default",
             "utterance": "saltar",
             "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
           }
         ],
         "domains": {
@@ -4060,7 +4270,7 @@
                   -0.1596490442752838,
                   -0.15452012419700623,
                   -0.15089434385299683,
-                  0.14182009051495403
+                  0.14182009037132842
                 ],
                 [
                   -0.3219180107116699,
@@ -4080,7 +4290,7 @@
                   -3.5310559272766113,
                   -3.5310559272766113,
                   -3.5310559272766113,
-                  3.531057175075687
+                  3.5310571751183897
                 ],
                 [
                   -0.3277134597301483,
@@ -4100,7 +4310,7 @@
                   10.757159233093262,
                   -3.5285513401031494,
                   -3.5285511016845703,
-                  3.528552457681208
+                  3.5285524577077068
                 ],
                 [
                   -0.3352113366127014,
@@ -4120,7 +4330,7 @@
                   -3.525963306427002,
                   10.759747505187988,
                   10.759746551513672,
-                  3.52596477691283
+                  3.525964776963511
                 ]
               ]
             }
@@ -4130,6 +4340,174 @@
     },
     "intentDomains": {},
     "extraSentences": [
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
       [
         "es",
         "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
@@ -7370,6 +7748,12 @@
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi",
             "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi"
           ]
         }
@@ -7380,7 +7764,27 @@
     "settings": {
       "tag": "nlg-manager"
     },
-    "responses": {}
+    "responses": {
+      "es": {
+        "saludo": [
+          {
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Para interactuar conmigo, escribe \"bot\" o \"menú\". ¡Estoy aquí para  ayudarte!"
+          },
+          {
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente. Usa \"bot\" o \"menú\" para comunicarte conmigo. ¡Estoy a tu servicio!"
+          },
+          {
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Escribe \"bot\" o \"menú\" para empezar. ¡Listo para ayudarte!"
+          },
+          {
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente. Para interactuar, utiliza \"bot\" o \"menú\". ¡Aquí para asistirte!"
+          },
+          {
+            "answer": "¡Hola, [nombre_usuario]! Soy tu Asistente Virtual. Menciona \"bot\" o \"menú\" para iniciar nuestra conversación. ¡Siempre dispuesto a ayudar!"
+          }
+        ]
+      }
+    }
   },
   "actionManager": {
     "settings": {
