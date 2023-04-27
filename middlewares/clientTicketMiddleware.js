@@ -13,16 +13,17 @@ const clientTicketMiddleware = async (req, res, next) => {
       req.app.Cliente = await ClienteService.crearClienteSiNoExiste(req.app.waid, datos.contacts[0].profile.name);
       const [ticketInstance, ticketCreated] = await TicketService.buscarOCrearTicket(req.app.waid, req.app.Departamento.id);
       req.app.Key_Context = `${req.app.waid}_${req.app.Departamento.id}`;      
-      req.app.Ticket = TicketCheck[0];
+      req.app.Ticket = ticketInstance;
       req.app.TicketData = await db.AdditionalInfo.findAll({
         where: {
           ticket_id: req.app.Ticket.id
         }
       });
       req.app.context = req.app.conversations.get(req.app.Key_Context);
-      if (!req.app.context){
+      if (!req.app.context || ticketCreated){
         req.app.context = {
           enproceso: "",
+          saludobot: false,
           requisitos: {
             userdata: false,
             departamentreq: false,
@@ -32,9 +33,7 @@ const clientTicketMiddleware = async (req, res, next) => {
             full_name: !req.app.Cliente.full_name,
             email: !req.app.Cliente.email,
           },
-          departamentreq: {
-            
-          },
+          departamentreq: {},
           ticketreq: {
             ciudad: false
           }
@@ -45,10 +44,8 @@ const clientTicketMiddleware = async (req, res, next) => {
         }
         req.app.conversations.set(req.app.Key_Context, req.app.context);
       }
-      if(TicketCheck[1]){
-        req.app.context = {};
-        req.app.conversations.set(req.app.Key_Context, req.app.context);
-        let msg = new whatsappMessage(req.app.Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(req.app.Ticket.id).padStart(7, '0')}.`);      
+      if(ticketCreated){
+        let msg = new whatsappMessage(req.app.Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(req.app.Ticket.id).padStart(5, '0')}.`);      
         MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
       }
     }
