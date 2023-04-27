@@ -7,6 +7,7 @@ const body_parser = require("body-parser");
 const cors = require('cors');
 const app = express().use(body_parser.json()).use(cors());
 
+
 app.nlp = require('./nlp/');
 
 const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware} = require('./middlewares');

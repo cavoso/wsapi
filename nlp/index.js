@@ -1,7 +1,7 @@
 const { NlpManager  } = require('node-nlp');
 const db = require('../models');
 const urlRegex = require('url-regex');
-const fs = require('fs');
+  const fs = require('fs');
 
 const nlpManager = new NlpManager({ languages: ['es'] });
 
@@ -38,16 +38,14 @@ const loadDocumentsAndAnswers = async () => {
   }
 };
 
-function deleteModelFile(modelFilePath) {
-  if (fs.existsSync(modelFilePath)) {
-    fs.unlinkSync(modelFilePath);
-  }
-}
 
 (async () => {
-  //eliminamos el archivo antiguo del modelo
-  const modelFilePath = './model.nlp';
-  deleteModelFile(modelFilePath);
+
+
+  if (fs.existsSync("model.nlp")) {
+    fs.unlinkSync("model.nlp");
+    console.log("Se elimina el archivo");
+  }
   // Cargar los intents de la base de datos
   await loadDocumentsAndAnswers();
 
