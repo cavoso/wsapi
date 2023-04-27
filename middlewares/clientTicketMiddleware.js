@@ -12,10 +12,17 @@ const clientTicketMiddleware = async (req, res, next) => {
       req.app.waid = datos.contacts[0].wa_id;
       req.app.Cliente = await ClienteService.crearClienteSiNoExiste(req.app.waid, datos.contacts[0].profile.name);
       const TicketCheck = await TicketService.buscarOCrearTicket(req.app.waid, req.app.Departamento.id);
-      req.app.context = req.app.conversations.get(req.app.waid);
+      req.app.Key_Context = `${req.app.waid}_${req.app.Departamento.id}`;
+      req.app.context = req.app.conversations.get(req.app.Key_Context);
       if (!req.app.context){
-        req.app.context = {};
-        req.app.conversations.set(req.app.waid, req.app.context);
+        req.app.context = {
+          userdata: {
+            full_name: !req.app.Cliente.full_name,
+            email: !req.app.Cliente.email,
+          },
+          
+        };
+        req.app.conversations.set(req.app.Key_Context, req.app.context);
       }
       req.app.Ticket = TicketCheck[0];
       req.app.TicketData = await db.AdditionalInfo.findAll({
@@ -26,7 +33,7 @@ const clientTicketMiddleware = async (req, res, next) => {
       
       if(TicketCheck[1]){
         req.app.context = {};
-        req.app.conversations.set(req.app.waid, req.app.context);
+        req.app.conversations.set(req.app.Key_Context, req.app.context);
         let msg = new whatsappMessage(req.app.Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(req.app.Ticket.id).padStart(7, '0')}.`);      
         MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
       }
