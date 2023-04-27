@@ -47,9 +47,7 @@ const messageMiddleware = async (req, res, next) => {
     
     req.app.response = await req.app.nlp.process('es', text, req.app.context);
     if(!req.app.context.saludobot && req.app.response.intent !== "saludo"){
-      const intent = req.app.nlp.container.intents.get('saludo');
-  
-      console.log(intent.answers)
+      console.log(JSON.stringify(req.app.nlp.nlp.nlgManager.responses.es, null, 2));
       /*
       let msg = new whatsappMessage(req.app.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
       MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
