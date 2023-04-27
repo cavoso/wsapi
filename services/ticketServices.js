@@ -25,7 +25,7 @@ async function agregarMensaje(Ticket, datos) {
   }
 }
 
-const agregarInformacionExtra = async (ticketId, keyName, value) => {
+async function agregarInformacionExtra(ticketId, keyName, value) {
   // Crear un nuevo registro en la base de datos
   await db.AdditionalInfo.create({
     ticket_id: ticketId,
