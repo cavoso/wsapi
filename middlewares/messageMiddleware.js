@@ -51,13 +51,11 @@ const messageMiddleware = async (req, res, next) => {
       const randomIndex = Math.floor(Math.random() * answers.length);
       let respuesta = answers[randomIndex];
 
-      console.log(JSON.stringify(req.app.Cliente.getDisplayName(), null, 2));
-      console.log(respuesta.answer.replace("[nombre_usuario]", req.app.Cliente.getDisplayName()));
-      /*
-      let msg = new whatsappMessage(req.app.wa_id).createTextMessage();      
+      let msg = new whatsappMessage(req.app.wa_id).createTextMessage(respuesta.answer.replace("[nombre_usuario]", req.app.Cliente.getDisplayName()));      
       MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
       req.app.context.saludobot = true;
-      */
+      req.app.conversations.set(req.app.Key_Context, req.app.context);
+      
     }
     
     switch(req.app.Departamento.id){

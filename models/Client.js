@@ -32,15 +32,15 @@ const Client = sequelize.define('Client', {
   }
 }, {
   tableName: 'clients',
-  timestamps: false,
-  instanceMethods: {
-    getDisplayName: function() {
-      return this.full_name.trim() ? this.full_name.trim() : this.profile_name.trim();
-    },
-    hasData: function() {
-      return !!(this.full_name && this.full_name.trim() || this.email && this.email.trim());
-    }
-  }
+  timestamps: false
 });
+
+Client.prototype.getDisplayName = function() {
+  return this.full_name.trim() || this.profile_name.trim();
+};
+
+Client.prototype.hasData = function() {
+  return !!(this.full_name && this.full_name.trim() || this.email && this.email.trim());
+};
 
 module.exports = Client;
