@@ -8,6 +8,7 @@ const {
   postventaMiddleware,
   otrosMiddleware
 } = require('./departamentos');
+const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
 
 const messageMiddleware = async (req, res, next) => {
   const datos = WSProc(req.body);
@@ -45,6 +46,12 @@ const messageMiddleware = async (req, res, next) => {
     }
     
     req.app.response = await req.app.nlp.process('es', text, req.app.context);
+    
+    if(!req.app.context.saludobot){
+      let msg = new whatsappMessage(req.app.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
+      MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
+      req.app.context.saludobot = true;
+    }
     
     switch(req.app.Departamento.id){
       case 1:
