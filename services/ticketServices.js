@@ -25,7 +25,24 @@ async function agregarMensaje(Ticket, datos) {
   }
 }
 
+const agregarInformacionExtra = async (ticketId, keyName, value) => {
+  // Crear un nuevo registro en la base de datos
+  await db.AdditionalInfo.create({
+    ticket_id: ticketId,
+    key_name: keyName,
+    value: value
+  });
+
+  // Actualizar la variable req.app.TicketData con los nuevos datos
+  return await db.AdditionalInfo.findAll({
+    where: {
+      ticket_id: ticketId
+    }
+  });
+};
+
 module.exports = {
   buscarOCrearTicket,
-  agregarMensaje
+  agregarMensaje,
+  agregarInformacionExtra
 };
