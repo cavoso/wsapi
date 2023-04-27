@@ -47,7 +47,7 @@ const messageMiddleware = async (req, res, next) => {
     
     req.app.response = await req.app.nlp.process('es', text, req.app.context);
     
-    if(!req.app.context.saludobot){
+    if(!req.app.context.saludobot && req.app.response){
       let msg = new whatsappMessage(req.app.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
       MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
       req.app.context.saludobot = true;
