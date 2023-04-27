@@ -40,8 +40,7 @@ const loadDocumentsAndAnswers = async () => {
 
 
 (async () => {
-
-
+  //elimina el modelo
   if (fs.existsSync("model.nlp")) {
     fs.unlinkSync("model.nlp");
     console.log("Se elimina el archivo");
@@ -53,7 +52,19 @@ const loadDocumentsAndAnswers = async () => {
   await nlpManager.train();
 
   // Exportar el modelo de NLP
-  nlpManager.save('model.nlp');
+  try {
+    nlpManager.save('model.nlp');
+    console.log('Modelo NLP guardado');
+  } catch (error) {
+    console.error('Error al guardar el modelo NLP:', error);
+  }
+  
+  try {
+    await nlpManager.load('model.nlp');
+    console.log('Modelo NLP cargado');
+  } catch (error) {
+    console.error('Error al cargar el modelo NLP:', error);
+  }
 })();
 
 module.exports = nlpManager;

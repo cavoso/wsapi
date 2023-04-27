@@ -12,11 +12,6 @@ app.nlp = require('./nlp/');
 
 const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware} = require('./middlewares');
 
-(async () => {
-  await app.nlp.load('model.nlp');
-  console.log('Modelo NLP cargado');
-})();
-
 app.conversations = new Map();
 app.waid = null;
 app.Departamento = null;
