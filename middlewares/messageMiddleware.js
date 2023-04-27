@@ -46,15 +46,15 @@ const messageMiddleware = async (req, res, next) => {
     
     req.app.response = await req.app.nlp.process('es', text, req.app.context);
     
-   console.log(JSON.stringify(req.app.TicketData, null, 2));
+    console.log(JSON.stringify(req.app.TicketData, null, 2));
     
-    req.app.Departamento.entity.forEach(async (xentity) => {
+    for (const xentity of req.app.Departamento.entity) {
       const marcaEntity = req.app.response.entities.find(entity => entity.entity === xentity);
       const valor = marcaEntity ? marcaEntity.option : null;
       req.app.TicketData = await TicketService.agregarInformacionExtra(req.app.Ticket.id,xentity, valor);
-    });
+    }
     
-     console.log(JSON.stringify(req.app.TicketData, null, 2));
+    console.log(JSON.stringify(req.app.TicketData, null, 2));
     
     switch(req.app.Departamento.id){
       case 1:
