@@ -29,7 +29,7 @@ const Middleware = async (req, res, next) => {
     }
   }
   
-  let response = await req.app.nlp.process('es', text, context);
+  let response = await req.app.nlp.process('es', text, req.app.context);
   
   
   switch(response.intent){
