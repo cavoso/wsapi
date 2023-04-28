@@ -24,7 +24,7 @@ app.context = null;
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
-xapp.post('/webhook', messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware, (req, res) => {
+app.post('/webhook', messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware, (req, res) => {
 
   res.sendStatus(200);
 });
