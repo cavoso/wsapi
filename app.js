@@ -37,9 +37,17 @@ app.post('/webhook', async (req, res) => {
       TicketData: null,
       context: null,
     };
-
-    await metadataEvents(eventData, metadata);
-    await contactsEvents(eventData, contacts[0]);
+    if(metadata){
+      await metadataEvents(eventData, metadata);
+    }
+    if(contacts){
+      await contactsEvents(eventData, conversations, contacts[0]);
+    }
+    if(metadata){
+      
+    }
+    
+    
     //console.log(eventData)
   }
   
