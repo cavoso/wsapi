@@ -35,6 +35,14 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   let response = await nlp.process('es', text, eventData.context);
   //console.log(response.intent)
   let detectedEntities = response.entities;
+  for(let dentity of eventData.Departamento.entity){
+    let detectedEntity = detectedEntities.find(entity => entity.option === dentity);
+    if (detectedEntity){
+      
+    }
+  }
+  /*
+  
   let entitiesToUpdate = [];
   for (let entity of detectedEntities) {
     let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === entity.option);
@@ -51,7 +59,7 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
       eventData.context.enproceso = "ChangeEntity";
     }
   }
-  
+  */
   
   
   switch(eventData.Departamento.id){
