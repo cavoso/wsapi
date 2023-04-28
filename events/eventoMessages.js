@@ -1,3 +1,37 @@
-module.exports = async function evento(eventData) {
+const db = require('../models');
+const {  WSProc, moment, regex, delay, TsToDateString  } = require('../utils');
+const { ClienteService, TicketService, MessageService } = require('../services');
+const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
+
+
+module.exports = async function evento(eventData, conversations, message, nlp) {
+  
+  await TicketService.agregarMensaje(eventData.Ticket, {
+    ticket_id: eventData.Ticket.id,
+    wamid: message.id,
+    content: JSON.stringify(message),
+    direction: "INCOMING",
+    created_at: TsToDateString(message.timestamp)
+  });
+  
+  let text = "";
+  if (message.type === "text") {
+    text = message.text.body;
+  }else if(message.type === "interactive"){
+    if(message.interactive.type === "list_reply"){
+      text = message.interactive.list_reply.id;
+    }else if(message.interactive.type === "button_reply"){
+      text = message.interactive.button_reply.id;
+    }
+  }
+  
+  const urls = text.match(regex);
+  if(urls){
+    urls.forEach(async url => {
+      eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id,"url", url);
+    });
+  }
+  
+  let response = await nlp.process('es', text, eventData.context);
 
 };

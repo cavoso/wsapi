@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express().use(body_parser.json()).use(cors());
 
 const db = require('./models');
-app.nlp = require('./nlp/');
+const nlp = require('./nlp/');
 
 const { WSProc, moment, regex, delay, TsToDateString } = require('./utils');
 const { statusEvents, metadataEvents, contactsEvents,  messageEvents } = require('./events');
@@ -24,10 +24,10 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post('/webhook', async (req, res) => {
   
   const {statuses, metadata, contacts, messages} = WSProc(req.body);
-  console.log(JSON.stringify(statuses, null, 2));
+  console.log(JSON.stringify(messages, null, 2));
   //console.log(JSON.stringify(contacts, null, 2));
   if(statuses){
-    console.log("entra en status");
+    await statusEvents(statuses[0]);
   }else{
     let eventData = {
       KeyContext: null,
@@ -43,12 +43,10 @@ app.post('/webhook', async (req, res) => {
     if(contacts){
       await contactsEvents(eventData, conversations, contacts[0]);
     }
-    if(metadata){
-      
+    if(messages){
+      await messageEvents(eventData, conversations, messages[0], nlp);
     }
     
-    
-    //console.log(eventData)
   }
   
   res.sendStatus(200);

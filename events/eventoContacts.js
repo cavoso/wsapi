@@ -3,7 +3,6 @@ const db = require('../models');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
 
 module.exports = async function evento(eventData, conversations, data) {
-  console.log(JSON.stringify(data, null, 2));
   
   let wa_id = data.wa_id;
   eventData.KeyContext = `${wa_id}_${eventData.Departamento.id}`;
@@ -16,9 +15,7 @@ module.exports = async function evento(eventData, conversations, data) {
     }
   });
   eventData.context = conversations.get(eventData.Key_Context);
-  console.log("--Context--")
-  console.log(JSON.stringify(eventData.context, null, 2));
-  console.log("--Context--")
+
   if (!eventData.context || ticketCreated){
     eventData.context = {
       enproceso: "",
