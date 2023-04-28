@@ -33,5 +33,17 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   }
   
   let response = await nlp.process('es', text, eventData.context);
-
+  
+  switch(eventData.Departamento.id){
+    case 1: await motosEvents(response, eventData, conversations);
+      break
+    case 2: await repuestosEvents(response, eventData, conversations);
+      break
+    case 3: await tallerEvents(response, eventData, conversations);
+      break
+    case 4: await postventaEvents(response, eventData, conversations);
+      break
+    default: await otrosEvents(response, eventData, conversations);
+      break
+  }
 };
