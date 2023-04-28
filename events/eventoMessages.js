@@ -33,6 +33,12 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   }
   
   let response = await nlp.process('es', text, eventData.context);
+  //console.log(response.intent)
+  let detectedEntities = response.entities;
+  for (let entity of detectedEntities) {
+    let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === entity.option);
+    console.log(existingEntity)
+  }
   
   switch(eventData.Departamento.id){
     case 1: await motosEvents(response, eventData, conversations);
