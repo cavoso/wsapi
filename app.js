@@ -66,20 +66,20 @@ app.post("/webhook", async (req, res) => {
       //aqui se revisa y crea el cliente y el ticket, en caso de que el ticket se cree, se envia un mensaje notificando al cliente de que se a creado un ticket
       waid = datos.contacts[0].wa_id;
       Cliente = await ClienteService.crearClienteSiNoExiste(waid, datos.contacts[0].profile.name);
-      const TicketCheck = await TicketService.buscarOCrearTicket(waid, Departamento.id);
+      const {ticketintent, ticketcreated} = await TicketService.buscarOCrearTicket(waid, Departamento.id);
       context = conversations.get(waid);
       if (!context){
         context = {};
         conversations.set(waid, context);
       }
-      Ticket = TicketCheck[0];
+      Ticket = ticketintent;
       TicketData = await db.AdditionalInfo.findAll({
         where: {
           ticket_id: Ticket.id
         }
       });
       
-      if(TicketCheck[1]){
+      if(ticketcreated){
         context = {};
         conversations.set(waid, context);
         let msg = new whatsappMessage(Ticket.wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(Ticket.id).padStart(7, '0')}.`);      
