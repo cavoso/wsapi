@@ -30,7 +30,7 @@ app.post('/webhook', (req, res) => {
   
   let body = req.body;
   const {statuses, metadata, contacts, messages} = WSProc(body);
-  console.log(JSON.stringify(metadata, null, 2));
+  console.log(JSON.stringify(statuses, null, 2));
   
   
   res.sendStatus(200);
