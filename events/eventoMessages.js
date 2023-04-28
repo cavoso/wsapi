@@ -38,8 +38,23 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   for(let dentity of eventData.Departamento.entity){
     let detectedEntity = detectedEntities.find(entity => entity.option === dentity);
     if (detectedEntity){
-      
+      let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === detectedEntity.option);
+      if (!existingEntity){
+        eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.option, detectedEntity.sourceText);
+        eventData.context.departamentreq[dentity] = true; // Marcar como true después de registrar el valor
+      } else if (existingEntity.value !== detectedEntity.sourceText){
+        eventData.context.entitiesToUpdate.push({
+          key_name: detectedEntity.option,
+          oldValue: existingEntity.value,
+          newValue: detectedEntity.sourceText,
+          process: false
+        });
+        eventData.context.departamentreq[dentity] = true;
+      }
     }
+  }
+  if (eventData.context.entitiesToUpdate.length > 0) {
+    eventData.context.enproceso = "ChangeEntity";
   }
   /*
   
