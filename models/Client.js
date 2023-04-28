@@ -19,7 +19,7 @@ const Client = sequelize.define('Client', {
   },
   full_name: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: true
   },
   email: {
     type: DataTypes.STRING(255),

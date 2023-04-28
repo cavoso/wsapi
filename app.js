@@ -24,8 +24,8 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post('/webhook', async (req, res) => {
   
   const {statuses, metadata, contacts, messages} = WSProc(req.body);
-  //console.log(JSON.stringify(statuses, null, 2));
-  console.log(JSON.stringify(contacts, null, 2));
+  console.log(JSON.stringify(statuses, null, 2));
+  //console.log(JSON.stringify(contacts, null, 2));
   if(statuses){
     console.log("entra en status");
   }else{
