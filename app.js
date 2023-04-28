@@ -23,6 +23,11 @@ app.context = null;
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal server error');
+});
+
 
 app.post('/webhook', messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware, (req, res) => {
 

@@ -52,7 +52,7 @@ const messageMiddleware = async (req, res, next) => {
     if(!req.app.context.saludobot && req.app.response.intent !== "saludo"){
       //let msg = new whatsappMessage(req.app.waid).createTextMessage(`¡Hola, ${req.app.Cliente.getDisplayName()} ! Soy tu Asistente Virtual. Para interactuar conmigo, escribe 'bot' o 'menú'. ¡Estoy aquí para  ayudarte!`);     
       let msg = new whatsappMessage(req.app.waid).createTextMessage("mensaje basico de prueba");      
-      MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg);
+      await MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg);
       
     }
     

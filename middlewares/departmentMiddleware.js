@@ -13,7 +13,7 @@ const departmentMiddleware = async (req, res, next) => {
       } 
     });
     if(req.app.Departamento === null){
-      return res.status(400).json({ error: 'Departamento no encontrado' });
+      //return res.status(400).json({ error: 'Departamento no encontrado' });
     }
   }
 

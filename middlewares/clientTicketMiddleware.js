@@ -46,7 +46,7 @@ const clientTicketMiddleware = async (req, res, next) => {
       }
       if(ticketCreated){
         let msg = new whatsappMessage(req.app.waid).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(req.app.Ticket.id).padStart(5, '0')}.`);      
-        MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
+        await MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg)
       }
     }
 
