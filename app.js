@@ -11,16 +11,11 @@ const db = require('./models');
 app.nlp = require('./nlp/');
 
 const { WSProc, moment, regex, delay, TsToDateString } = require('./utils');
+const { statusEvents, metadataEvents, contactsEvents,  messageEvents } = require('./events');
 
 //const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware} = require('./middlewares');
 
-app.conversations = new Map();
-app.waid = null;
-app.Departamento = null;
-app.Cliente = null;
-app.Ticket = null;
-app.TicketData = null;
-app.context = null;
+const conversations = new Map();
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -28,10 +23,21 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 app.post('/webhook', (req, res) => {
   
-  let body = req.body;
-  const {statuses, metadata, contacts, messages} = WSProc(body);
-  console.log(JSON.stringify(statuses, null, 2));
-  
+  const {statuses, metadata, contacts, messages} = WSProc(req.body);
+  //console.log(JSON.stringify(statuses, null, 2));
+  if(!statuses){
+    
+  }else{
+    let eventData = {
+      KeyContext: null,
+      Departamento: null,
+      Cliente: null,
+      Ticket: null,
+      TicketData: null,
+      conversations: conversations,
+      context: context,
+    };
+  }
   
   res.sendStatus(200);
 });
