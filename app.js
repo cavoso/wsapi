@@ -21,10 +21,10 @@ const conversations = new Map();
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
-app.post('/webhook', (req, res) => {
+app.post('/webhook', async (req, res) => {
   
   const {statuses, metadata, contacts, messages} = WSProc(req.body);
-  //console.log(JSON.stringify(statuses, null, 2));
+  console.log(JSON.stringify(metadata, null, 2));
   if(!statuses){
     
   }else{
@@ -37,6 +37,8 @@ app.post('/webhook', (req, res) => {
       conversations: conversations,
       context: context,
     };
+    await metadataEvents(eventData, metadata);
+    console.log(eventData)
   }
   
   res.sendStatus(200);
