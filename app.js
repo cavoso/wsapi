@@ -35,7 +35,6 @@ app.post('/webhook', async (req, res) => {
       Cliente: null,
       Ticket: null,
       TicketData: null,
-      conversations: conversations,
       context: null,
     };
 
