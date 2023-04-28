@@ -2,7 +2,7 @@ const db = require('../models');
 const {  WSProc, moment, regex, delay, TsToDateString  } = require('../utils');
 const { ClienteService, TicketService, MessageService } = require('../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
-
+const { motosEvents, repuestosEvents, tallerEvents, postventaEvents, otrosEvents} = require('./departament');
 
 module.exports = async function evento(eventData, conversations, message, nlp) {
   
