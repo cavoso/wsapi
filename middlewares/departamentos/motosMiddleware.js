@@ -36,7 +36,7 @@ const Middleware = async (req, res, next) => {
   }
   */
   
-  next();
+  return next();
 };
 
 

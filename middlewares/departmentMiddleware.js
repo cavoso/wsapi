@@ -18,7 +18,7 @@ const departmentMiddleware = async (req, res, next) => {
   }
 
   // Pasa al siguiente middleware
-  next();
+  return next();
 };
 
 module.exports = departmentMiddleware;

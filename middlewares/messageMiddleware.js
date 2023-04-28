@@ -50,7 +50,8 @@ const messageMiddleware = async (req, res, next) => {
     console.log(JSON.stringify(req.app.context, null, 2));
     
     if(!req.app.context.saludobot && req.app.response.intent !== "saludo"){
-      let msg = new whatsappMessage(req.app.waid).createTextMessage(`¡Hola, ${req.app.Cliente.getDisplayName()} ! Soy tu Asistente Virtual. Para interactuar conmigo, escribe 'bot' o 'menú'. ¡Estoy aquí para  ayudarte!`);      
+      //let msg = new whatsappMessage(req.app.waid).createTextMessage(`¡Hola, ${req.app.Cliente.getDisplayName()} ! Soy tu Asistente Virtual. Para interactuar conmigo, escribe 'bot' o 'menú'. ¡Estoy aquí para  ayudarte!`);     
+      let msg = new whatsappMessage(req.app.waid).createTextMessage("mensaje basico de prueba");      
       MessageService.EnviarMensaje(req.app.Departamento, req.app.Ticket, msg);
       
     }
@@ -58,23 +59,23 @@ const messageMiddleware = async (req, res, next) => {
     
     switch(req.app.Departamento.id){
       case 1:
-        motosMiddleware(req, res, next);
+        return motosMiddleware(req, res, next);
         break;
       case 2:
-        repuestosMiddleware(req, res, next);
+        return repuestosMiddleware(req, res, next);
         break;
       case 3:
-        tallerMiddleware(req, res, next);
+        return tallerMiddleware(req, res, next);
         break;
       case 4:
-        postventaMiddleware(req, res, next);
+        return postventaMiddleware(req, res, next);
         break;
       case 5:
-        otrosMiddleware(req, res, next);
+        return otrosMiddleware(req, res, next);
         break;
       default:
         // Si no se encuentra un departamento válido, maneja el error o simplemente llama a next()
-        next();
+        return next();
     }
     
   }
