@@ -24,9 +24,10 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.post('/webhook', async (req, res) => {
   
   const {statuses, metadata, contacts, messages} = WSProc(req.body);
-  console.log(JSON.stringify(metadata, null, 2));
-  if(!statuses){
-    
+  //console.log(JSON.stringify(statuses, null, 2));
+  //console.log(JSON.stringify(metadata, null, 2));
+  if(statuses){
+    console.log("entra en status");
   }else{
     let eventData = {
       KeyContext: null,
@@ -35,9 +36,10 @@ app.post('/webhook', async (req, res) => {
       Ticket: null,
       TicketData: null,
       conversations: conversations,
-      context: context,
+      context: null,
     };
-    await metadataEvents(eventData, metadata);
+    console.log(eventData)
+    eventData = await metadataEvents(eventData, metadata);
     console.log(eventData)
   }
   

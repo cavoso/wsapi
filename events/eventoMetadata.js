@@ -8,4 +8,6 @@ module.exports = async function evento(eventData, datos) {
         phone_number_id: datos.phone_number_id 
       } 
     });
+  console.log(eventData.Departamento)
+  return eventData;
 };
