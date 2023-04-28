@@ -55,27 +55,9 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   }
   if (eventData.context.entitiesToUpdate.length > 0) {
     eventData.context.enproceso = "ChangeEntity";
+    conversations.set(eventData.Key_Context, eventData.context);
   }
-  /*
-  
-  let entitiesToUpdate = [];
-  for (let entity of detectedEntities) {
-    let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === entity.option);
-    if (!existingEntity) {
-      eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, entity.option, entity.sourceText);
-    } else if (existingEntity.value !== entity.sourceText) {
-      // Si la entidad ya está presente en eventData.TicketData y su valor es diferente, añade la entidad y su nuevo valor al array entitiesToUpdate
-      eventData.context.entitiesToUpdate.push({
-        key_name: entity.option,
-        oldValue: existingEntity.value,
-        newValue: entity.sourceText,
-        process: false
-      });
-      eventData.context.enproceso = "ChangeEntity";
-    }
-  }
-  */
-  
+
   
   switch(eventData.Departamento.id){
     case 1: await motosEvents(response, eventData, conversations);
