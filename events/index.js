@@ -1,7 +1,7 @@
 const statusEvents = require('./eventoStatus');
-const metadataEvents = require('./eventoStatus');
-const contactsEvents = require('./eventoStatus');
-const messageEvents = require('./eventoStatus');
+const metadataEvents = require('./eventoMetadata');
+const contactsEvents = require('./eventoContacts');
+const messageEvents = require('./eventoMessages');
 
 module.exports = {
   statusEvents,

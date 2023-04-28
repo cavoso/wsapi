@@ -25,7 +25,7 @@ app.post('/webhook', async (req, res) => {
   
   const {statuses, metadata, contacts, messages} = WSProc(req.body);
   //console.log(JSON.stringify(statuses, null, 2));
-  //console.log(JSON.stringify(metadata, null, 2));
+  console.log(JSON.stringify(contacts, null, 2));
   if(statuses){
     console.log("entra en status");
   }else{
@@ -38,9 +38,10 @@ app.post('/webhook', async (req, res) => {
       conversations: conversations,
       context: null,
     };
-    console.log(eventData)
-    eventData = await metadataEvents(eventData, metadata);
-    console.log(eventData)
+
+    await metadataEvents(eventData, metadata);
+    await contactsEvents(eventData, contacts[0]);
+    //console.log(eventData)
   }
   
   res.sendStatus(200);
