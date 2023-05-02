@@ -35,6 +35,7 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   let response = await nlp.process('es', text, eventData.context);
   //console.log(response.intent)
   let detectedEntities = response.entities;
+  eventData.context.entitiesToUpdate = [];
   for(let dentity of eventData.Departamento.entity){
     let detectedEntity = detectedEntities.find(entity => entity.option === dentity);
     if (detectedEntity){

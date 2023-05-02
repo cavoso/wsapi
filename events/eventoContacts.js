@@ -34,8 +34,8 @@ module.exports = async function evento(eventData, conversations, data) {
         ciudad: false
       }
     };
-    for(const xreq of eventData.TicketData){
-      eventData.context.departamentreq[xreq.key_name] = false;
+    for(const xreq of eventData.Departamento.entity){
+      eventData.context.departamentreq[xreq] = false;
     }
     conversations.set(eventData.Key_Context, eventData.context);
   }
