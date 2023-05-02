@@ -26,8 +26,8 @@ module.exports = async function evento(eventData, conversations, data) {
         ticketreq: false
       },
       userdata: {
-        full_name: !eventData.Cliente.full_name,
-        email: !eventData.Cliente.email,
+        full_name: eventData.Cliente.full_name,
+        email: eventData.Cliente.email,
       },
       departamentreq: {},
       ticketreq: {
@@ -36,6 +36,9 @@ module.exports = async function evento(eventData, conversations, data) {
     };
     for(const xreq of eventData.Departamento.entity){
       eventData.context.departamentreq[xreq] = false;
+    }
+    if(eventData.context.userdata.full_name && eventData.context.userdata.email){
+      eventData.context.requisitos.userdata = true;
     }
     conversations.set(eventData.Key_Context, eventData.context);
   }
