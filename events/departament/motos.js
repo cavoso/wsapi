@@ -16,7 +16,7 @@ module.exports = async function evento(response, eventData, conversations) {
         eventData.context.saludobot = false;
       }else{
         msg = new whatsappMessage(eventData.Ticket.wa_id)
-        .createTextMessage(`¡Hola de nuevo! Bienvenido de vuelta a RSAsist, tu asistente virtual. Si necesitas ayuda o tienes más preguntas sobre motocicletas, repuestos y más, no dudes en preguntar. Recuerda que puedes escribir "menu" en cualquier momento para ver las opciones disponibles. ¡Estoy aquí para ayudarte!`);
+        .createTextMessage(`¡Hola de nuevo! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Recuerda que puedes escribir "menu" en cualquier momento para ver opciones.`);
       }
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       break;
