@@ -26,8 +26,8 @@ module.exports = async function evento(eventData, conversations, data) {
         ticketreq: false
       },
       userdata: {
-        full_name: eventData.Cliente.full_name,
-        email: eventData.Cliente.email,
+        full_name: eventData.Cliente.full_name ? true : false,
+        email: eventData.Cliente.email ? true : false,
       },
       departamentreq: {},
       ticketreq: {
