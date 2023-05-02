@@ -4,9 +4,15 @@ const { ClienteService, TicketService, MessageService } = require('../../service
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
 
 module.exports = async function evento(response, eventData, conversations) {
+  eventData.updateRequisites();
   console.log(JSON.stringify(eventData, null, 2));
   switch(response.intent){
     case 'saludo':
+      if(eventData.context.saludobot){
+        //esto indica que es el primer saludo
+      }else{
+        
+      }
       /*
       let msg = new whatsappMessage("").createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(eventData.Ticket.id).padStart(5, '0')}.`);
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);

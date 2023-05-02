@@ -40,6 +40,21 @@ module.exports = async function evento(eventData, conversations, data) {
     if(eventData.context.userdata.full_name && eventData.context.userdata.email){
       eventData.context.requisitos.userdata = true;
     }
+    eventData.updateRequisites = function() {
+      this.context.requisitos.userdata = this.context.userdata.full_name && this.context.userdata.email;
+      
+      let isDepartmentReqSatisfied = true;
+      for (const key in this.context.departamentreq) {
+        if (this.context.departamentreq.hasOwnProperty(key)) {
+          if (!this.context.departamentreq[key]) {
+            isDepartmentReqSatisfied = false;
+            break;
+          }
+        }
+      }
+      this.context.requisitos.departamentreq = isDepartmentReqSatisfied;
+      this.context.requisitos.ticketreq = this.context.ticketreq.ciudad;
+    };
     conversations.set(eventData.Key_Context, eventData.context);
   }
   if(ticketCreated){
