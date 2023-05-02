@@ -11,7 +11,7 @@ module.exports = async function evento(response, eventData, conversations) {
       let msg = "";
       if(!eventData.context.saludobot){
         msg = new whatsappMessage(eventData.Ticket.wa_id)
-        .createTextMessage(`¡Hola! Soy RSAsist, tu asistente virtual. Estoy aquí para ayudarte con tus consultas sobre la compra de motocicletas. Si necesitas ayuda o información sobre nuestros modelos, precios y disponibilidad, simplemente escribe "menu" en cualquier momento y te mostraré las opciones disponibles. ¡Estoy aquí para ayudarte en tu búsqueda de la motocicleta perfecta!`);
+        .createTextMessage(`¡Hola! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Escribe "menu" en cualquier momento para ver opciones.`);
         
         eventData.context.saludobot = false;
       }else{
