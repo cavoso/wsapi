@@ -11,7 +11,8 @@ module.exports = async function evento(response, eventData, conversations) {
       if(eventData.context.saludobot){
         //esto indica que es el primer saludo
       }else{
-        
+        let msg = new whatsappMessage(eventData.Ticket.wa_id).createTextMessage(``);
+        await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       }
       /*
       let msg = new whatsappMessage("").createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(eventData.Ticket.id).padStart(5, '0')}.`);
