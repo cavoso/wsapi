@@ -22,7 +22,7 @@ module.exports = async function evento(response, eventData, conversations) {
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       delay(2000);
       if(!eventData.context.departamentreq.marca){
-        eventData.context.enproceso = "UPMar";
+        eventData.context.enproceso = "UPMarca";
         let msgobject = new messageObject("Menu", "list");
         let marcas = await db.MenuVehiculos.findAll({
           where: {
