@@ -5,7 +5,7 @@ const { whatsappMessage, messageInteractive, messageAction, messageObject, templ
 
 module.exports = async function evento(response, eventData, conversations) {
   eventData.updateRequisites();
-  //console.log(JSON.stringify(eventData, null, 2));
+  console.log(JSON.stringify(eventData, null, 2));
   switch(response.intent){
     case 'saludo':
       let msg = "";
