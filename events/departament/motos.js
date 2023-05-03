@@ -55,7 +55,7 @@ module.exports = async function evento(response, eventData, conversations) {
         eventData.Departamento, 
         eventData.Ticket, 
         new whatsappMessage(eventData.Ticket.wa_id)
-        .createTextMessage(`Mi no entender`)
+        .createImageMessage("https://cdn.memegenerator.es/descargar/31142846")
       );
       break;
   }
