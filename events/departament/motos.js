@@ -21,27 +21,7 @@ module.exports = async function evento(response, eventData, conversations) {
         }
         await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
         delay(2000);
-        if(!eventData.context.departamentreq.marca){
-          eventData.context.enproceso = "Menu";
-          let msgobject = new messageObject("Menu", "list");
-          let marcas = await db.MenuVehiculos.findAll({
-            where: {
-              padre: 0
-            }
-          });
-          for(let marca of marcas){
-            msgobject.addRow(marca.nombre, marca.nombre);
-          }
-          await MessageService.EnviarMensaje(
-            eventData.Departamento, 
-            eventData.Ticket,  
-            new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-              new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
-                new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
-              ).toJSON()
-            )
-          );
-        }
+        await GenerarMenu(eventData);
         break;
       case 'verificacion':
         break;
@@ -71,4 +51,27 @@ module.exports = async function evento(response, eventData, conversations) {
   
 };
 
-async
+async function GenerarMenu(eventData){
+  eventData.context.enproceso = "Menu";
+  let msgobject = new messageObject("Menu", "list");
+  let marcas = await db.MenuVehiculos.findAll({
+    where: {
+      padre: 0
+    }
+  });
+  if(!eventData.context.departamentreq.marca){    
+    
+    for(let marca of marcas){
+      msgobject.addRow(marca.nombre, marca.nombre);
+    }
+  }
+  await MessageService.EnviarMensaje(
+    eventData.Departamento,
+    eventData.Ticket,
+    new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+      new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
+        new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+      ).toJSON()
+    )
+  );
+}
