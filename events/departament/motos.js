@@ -51,6 +51,12 @@ module.exports = async function evento(response, eventData, conversations) {
     case 'omitir':
       break;
     default:
+      await MessageService.EnviarMensaje(
+        eventData.Departamento, 
+        eventData.Ticket, 
+        new whatsappMessage(eventData.Ticket.wa_id)
+        .createTextMessage(`Mi no entender`)
+      );
       break;
   }
   
