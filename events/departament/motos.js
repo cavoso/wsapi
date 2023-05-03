@@ -14,7 +14,7 @@ module.exports = async function evento(response, eventData, conversations) {
         msg = new whatsappMessage(eventData.Ticket.wa_id)
         .createTextMessage(`¡Hola! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Escribe "menu" en cualquier momento para ver opciones.`);
         
-        eventData.context.saludobot = false;
+        eventData.context.saludobot = true;
       }else{
         msg = new whatsappMessage(eventData.Ticket.wa_id)
         .createTextMessage(`¡Hola de nuevo! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Recuerda que puedes escribir "menu" en cualquier momento para ver opciones.`);
@@ -22,6 +22,7 @@ module.exports = async function evento(response, eventData, conversations) {
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       delay(2000);
       if(!eventData.context.departamentreq.marca){
+        eventData.context.enproceso = "UPMar";
         let msgobject = new messageObject("Menu", "list");
         let marcas = await db.MenuVehiculos.findAll({
           where: {
