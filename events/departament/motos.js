@@ -5,8 +5,8 @@ const { whatsappMessage, messageInteractive, messageAction, messageObject, templ
 
 module.exports = async function evento(response, eventData, conversations) {
   eventData.updateRequisites();
-  console.log(JSON.stringify(eventData, null, 2));
-  console.log(response);
+  //console.log(JSON.stringify(eventData, null, 2));
+  console.log(JSON.stringify(response.intent, null, 2));
   switch(response.intent){
     case 'saludo':
       let msg = "";
@@ -22,7 +22,17 @@ module.exports = async function evento(response, eventData, conversations) {
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       
       if(!eventData.context.departamentreq.marca){
-        let msgobject = new messageObject()
+        let msgobject = new messageObject("Menu", "list");
+        let marcas = await db.MenuVehiculos.findAll({
+          where: {
+            padre: 0
+          }
+        });
+        for(let marca of marcas){
+          msgobject.addRow(marca.nombre, marca.nombre);
+        }
+       console.log(JSON.stringify(marcas, null, 2));
+        /*
          await MessageService.EnviarMensaje(
            eventData.Departamento, 
            eventData.Ticket,  
@@ -32,6 +42,7 @@ module.exports = async function evento(response, eventData, conversations) {
              ).toJSON()
            )
          );
+         */
       }
       
       break;
