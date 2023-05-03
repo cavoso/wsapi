@@ -41,17 +41,19 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   let detectedEntities = response.entities;
   eventData.context.entitiesToUpdate = [];
   for(let dentity of eventData.Departamento.entity){
-    let detectedEntity = detectedEntities.find(entity => entity.option === dentity);
+    console.log(JSON.stringify(dentity, null, 2));
+    let detectedEntity = detectedEntities.find(entity => entity.entity === dentity);
+    console.log(JSON.stringify(detectedEntity, null, 2));
     if (detectedEntity){
-      let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === detectedEntity.option);
+      let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === detectedEntity.entity);
       if (!existingEntity){
-        eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.option, detectedEntity.sourceText);
+        eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
         eventData.context.departamentreq[dentity] = true; // Marcar como true después de registrar el valor
       } else if (existingEntity.value !== detectedEntity.sourceText){
         eventData.context.entitiesToUpdate.push({
-          key_name: detectedEntity.option,
+          key_name: detectedEntity.entity,
           oldValue: existingEntity.value,
-          newValue: detectedEntity.sourceText,
+          newValue: detectedEntity.option,
           process: false
         });
         eventData.context.departamentreq[dentity] = true;
