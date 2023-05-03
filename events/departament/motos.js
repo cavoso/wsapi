@@ -6,6 +6,7 @@ const { whatsappMessage, messageInteractive, messageAction, messageObject, templ
 module.exports = async function evento(response, eventData, conversations) {
   eventData.updateRequisites();
   console.log(JSON.stringify(eventData, null, 2));
+  console.log(response);
   switch(response.intent){
     case 'saludo':
       let msg = "";
@@ -21,7 +22,15 @@ module.exports = async function evento(response, eventData, conversations) {
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       
       if(!eventData.context.departamentreq.marca){
-        
+         await MessageService.EnviarMensaje(
+           eventData.Departamento, 
+           eventData.Ticket,  
+           new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+             new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
+               new messageAction("list").addButton("Menu").addSection().toJSON()
+             ).toJSON()
+           )
+         );
       }
       
       break;
