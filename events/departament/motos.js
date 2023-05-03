@@ -22,6 +22,7 @@ module.exports = async function evento(response, eventData, conversations) {
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
       
       if(!eventData.context.departamentreq.marca){
+        let msgobject = new messageObject()
          await MessageService.EnviarMensaje(
            eventData.Departamento, 
            eventData.Ticket,  
