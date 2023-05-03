@@ -54,22 +54,23 @@ module.exports = async function evento(response, eventData, conversations) {
 async function GenerarMenu(eventData){
   eventData.context.enproceso = "Menu";
   let msgobject = new messageObject("Menu", "list");
+  let msgmenu = "";
   let marcas = await db.MenuVehiculos.findAll({
     where: {
       padre: 0
     }
   });
   if(!eventData.context.departamentreq.marca){    
-    
+    msgmenu = "Por favor seleccione la marca";
     for(let marca of marcas){
-      msgobject.addRow(marca.nombre, marca.nombre);
+      msgobject.addRow(marca.nombre, marca.id);
     }
   }
   await MessageService.EnviarMensaje(
     eventData.Departamento,
     eventData.Ticket,
     new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-      new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
+      new messageInteractive("list").addBody(msgmenu).addFooter("RSAsist Menu").addAction(
         new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
       ).toJSON()
     )
