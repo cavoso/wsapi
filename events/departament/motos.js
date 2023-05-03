@@ -20,7 +20,7 @@ module.exports = async function evento(response, eventData, conversations) {
         .createTextMessage(`¡Hola de nuevo! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Recuerda que puedes escribir "menu" en cualquier momento para ver opciones.`);
       }
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
-      
+      delay(2000);
       if(!eventData.context.departamentreq.marca){
         let msgobject = new messageObject("Menu", "list");
         let marcas = await db.MenuVehiculos.findAll({
@@ -31,18 +31,16 @@ module.exports = async function evento(response, eventData, conversations) {
         for(let marca of marcas){
           msgobject.addRow(marca.nombre, marca.nombre);
         }
-       console.log(JSON.stringify(marcas, null, 2));
-        /*
          await MessageService.EnviarMensaje(
            eventData.Departamento, 
            eventData.Ticket,  
            new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
              new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
-               new messageAction("list").addButton("Menu").addSection().toJSON()
+               new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
              ).toJSON()
            )
          );
-         */
+
       }
       
       break;
