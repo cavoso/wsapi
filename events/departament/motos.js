@@ -55,7 +55,7 @@ module.exports = async function evento(response, eventData, conversations) {
         eventData.Departamento, 
         eventData.Ticket, 
         new whatsappMessage(eventData.Ticket.wa_id)
-        .createImageMessage("https://cdn.memegenerator.es/descargar/31142846")
+        .createImageMessage("https://cdn.memegenerator.es/imagenes/memes/full/31/14/31142846.jpg")
       );
       break;
   }

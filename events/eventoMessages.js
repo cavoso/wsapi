@@ -14,6 +14,8 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
     created_at: TsToDateString(message.timestamp)
   });
   
+  console.log(JSON.stringify(message, null, 2));
+  
   let text = "";
   if (message.type === "text") {
     text = message.text.body;
