@@ -14,7 +14,8 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
     created_at: TsToDateString(message.timestamp)
   });
   
-  console.log(JSON.stringify(message, null, 2));
+  //console.log(JSON.stringify(message, null, 2));
+  console.log(message);
   
   let text = "";
   if (message.type === "text") {
@@ -36,7 +37,8 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   
   let response = await nlp.process('es', text, eventData.context);
   
-  console.log(JSON.stringify(response, null, 2));
+  //console.log(JSON.stringify(response, null, 2));
+  console.log(response)
   
   let detectedEntities = response.entities;
   eventData.context.entitiesToUpdate = [];
