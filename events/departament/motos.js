@@ -31,15 +31,16 @@ module.exports = async function evento(response, eventData, conversations, messa
     case 'omitir':
       break;
     default:
-      if(response.utternace.includes(keyReply)){
-        let rev = response.utternace.split("_");
-        if(rev[0] === 'req'){
-          if(rev[1] === 'marca'){
-            let marcas = await db.MenuVehiculos.findAll({
+      if(response.utterance.includes(keyReply)){
+        let rev = response.utterance.split("_");
+        if(rev[1] === 'req'){
+          if(rev[2] === 'marca'){
+            let marca = await db.MenuVehiculos.findOne({
               where: {
-                padre: 0
+                [rev[3]]: parseInt(rev[4], 10)
               }
             });
+            console.log(marca)
           }
           
         }
