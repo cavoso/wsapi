@@ -32,11 +32,15 @@ module.exports = async function evento(response, eventData, conversations, messa
       break;
     default:
       if(response.utternace.includes(keyReply)){
-        let marcas = await db.MenuVehiculos.findAll({
+        let rev = response.utternace.split("_");
+        if(rev[0] === 'req'){
+          let marcas = await db.MenuVehiculos.findAll({
           where: {
             padre: 0
           }
         });
+        }
+        
         console.log("entra aqui");
       }else{
         await MessageService.EnviarMensaje(
