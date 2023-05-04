@@ -31,7 +31,7 @@ module.exports = async function evento(response, eventData, conversations, messa
     case 'omitir':
       break;
     default:
-      if(eventData.context.enproceso === 'SelectMarca'){
+      if(response.utternace.includes(keyReply)){
         let marcas = await db.MenuVehiculos.findAll({
           where: {
             padre: 0
