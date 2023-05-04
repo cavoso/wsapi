@@ -86,3 +86,13 @@ app.get("/departamentos", async (req, res) => {
   
   res.json(departamentos);
 });
+
+app.get("/marcas", async (req, res) => {
+   let marcas = await db.MenuVehiculos.findAll({
+    where: {
+      padre: 0
+    }
+  });
+  
+  res.json(marcas);
+})
