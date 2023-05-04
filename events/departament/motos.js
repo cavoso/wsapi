@@ -8,7 +8,7 @@ const keyReply = "8fK2s";
 module.exports = async function evento(response, eventData, conversations, message) {
   eventData.updateRequisites();
   //console.log(JSON.stringify(eventData, null, 2));
-  console.log(JSON.stringify(response.intent, null, 2));
+  //console.log(response);
   switch(response.intent){
     case 'saludo':
       let msg = "";
