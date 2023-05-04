@@ -3,6 +3,8 @@ const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils'
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
 
+const keyReply = "8fK2s";
+
 module.exports = async function evento(response, eventData, conversations, message) {
   eventData.updateRequisites();
   //console.log(JSON.stringify(eventData, null, 2));
@@ -63,10 +65,9 @@ async function GenerarMenu(eventData){
     }
   });
   if(!eventData.context.departamentreq.marca){
-    eventData.context.enproceso = "SelectMarca";
     msgmenu = "Por favor seleccione la marca";
     for(let marca of marcas){
-      msgobject.addRow(marca.nombre, marca.id);
+      msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
     }
   }
   await MessageService.EnviarMensaje(
