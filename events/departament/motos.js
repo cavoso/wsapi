@@ -3,7 +3,7 @@ const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils'
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
 
-module.exports = async function evento(response, eventData, conversations) {
+module.exports = async function evento(response, eventData, conversations, message) {
   eventData.updateRequisites();
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(JSON.stringify(response.intent, null, 2));

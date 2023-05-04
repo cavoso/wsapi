@@ -67,15 +67,15 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
 
   
   switch(eventData.Departamento.id){
-    case 1: await motosEvents(response, eventData, conversations);
+    case 1: await motosEvents(response, eventData, conversations, message);
       break
-    case 2: await repuestosEvents(response, eventData, conversations);
+    case 2: await repuestosEvents(response, eventData, conversations, message);
       break
-    case 3: await tallerEvents(response, eventData, conversations);
+    case 3: await tallerEvents(response, eventData, conversations, message);
       break
-    case 4: await postventaEvents(response, eventData, conversations);
+    case 4: await postventaEvents(response, eventData, conversations, message);
       break
-    default: await otrosEvents(response, eventData, conversations);
+    default: await otrosEvents(response, eventData, conversations, message);
       break
   }
 };
