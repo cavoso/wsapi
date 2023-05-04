@@ -1,4 +1,4 @@
-const { sequelize } = require('sequelize');
+const sequelize = require('sequelize');
 const axios = require("axios").default;
 const TicketService = require('./ticketServices');
 
@@ -25,7 +25,8 @@ function EnviarMensaje(departamento, ticket, msg){
       });
     ticket.update({last_updated_message_at: sequelize.literal('NOW()')});
   }).catch((error) => {
-    console.log(JSON.stringify(error, null, 2));
+    //console.log(JSON.stringify(error, null, 2));
+    console.log(error);
   });
 }
 

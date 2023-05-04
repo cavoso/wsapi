@@ -43,9 +43,7 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   let detectedEntities = response.entities;
   eventData.context.entitiesToUpdate = [];
   for(let dentity of eventData.Departamento.entity){
-    console.log(JSON.stringify(dentity, null, 2));
     let detectedEntity = detectedEntities.find(entity => entity.entity === dentity);
-    console.log(JSON.stringify(detectedEntity, null, 2));
     if (detectedEntity){
       let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === detectedEntity.entity);
       if (!existingEntity){
