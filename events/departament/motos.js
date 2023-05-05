@@ -67,10 +67,6 @@ module.exports = async function evento(response, eventData, conversations, messa
     
   }
   
-  if(){
-    
-  }
-  
   switch(response.intent){
     case 'saludo':
       break;
@@ -85,6 +81,15 @@ module.exports = async function evento(response, eventData, conversations, messa
     default:
       break;
   }
+  
+  
+  if(!eventData.context.requisitos.userdata){
+    if(!eventData.context.userdata.full_name){
+      
+    }
+  }
+  
+  
   
   
   
