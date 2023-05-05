@@ -60,7 +60,7 @@ module.exports = async function evento(response, eventData, conversations, messa
         eventData.Departamento, 
         eventData.Ticket, 
         new whatsappMessage(eventData.Ticket.wa_id)
-            .createTextMessage("")
+            .createTextMessage("La marca ya se encuentra registrada, si desea cambiarla ingrese “menú”")
         );
     }
     
