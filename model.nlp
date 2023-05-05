@@ -38,163 +38,71 @@
             "intent": "reserva",
             "domain": "default"
           },
-          "%marca%,de,el,hol,inform,mot,quer,sobr": {
+          "hol": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,ayud,con,me,par,pod,repuest": {
+          "buen": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,buen,de,dia,el,en,estar,interes,par,servic,tall": {
+          "buen,dia": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,buen,de,el,gust,mas,me,postvent,sab,sobr,tard": {
+          "buen,tard": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,conoc,de,el,promocion,que,quer,tal": {
+          "buen,noch": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,busc,como,en,esta,estar,financ,inform,sobr": {
+          "como,esta,hol": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,adicional,como,conoc,de,el,gust,ir,me,servic,tod": {
+          "hol,que,tal": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,ayud,cit,como,de,el,en,ir,necesit,par,program,tall,te,una": {
+          "onda,que": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,de,el,gust,hey,me,model,mot,ver": {
+          "que,tal": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,busc,de,estar,hol,mot,una": {
+          "buen,dia,hol": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,dispon,el,mas,par,quer,repuest,sab,salud,sobr": {
+          "buen,hol,tard": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,ayud,con,de,el,inform,par,pod,servic,sobr,tall": {
+          "buen,hol,noch": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,de,el,en,estar,interes,promocion": {
+          "oir": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,conoc,de,el,en,financ,opcion,quer": {
+          "eh,hol": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,de,el,gust,inform,me,obten,postvent,sobr": {
+          "amig,hol": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,ayud,cit,de,el,en,necesit,par,program,tall,una": {
+          "bro,hol": {
             "intent": "saludo",
             "domain": "default"
           },
-          "%marca%,de,el,inform,mot,sobr,ten": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,dispon,mostr,par,pod,repuest": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,de,ofrec,par,que,servic,tall": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,de,opcion,par,postvent,que,ten": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,con,el,mot,oir,onda,que": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,el,me,mostr,mot,pod,que,ten": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,cont,de,el,me,mot,pod,que": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,el,mot,par,repuest,ten": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,como,del,el,esta,par,tall,tem": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,el,en,postvent,que,tal": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,cual,el,en,prom,ser": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,el,financ,mot,par,que,ten": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,cual,el,en,extra,ofrec,que,ser,servic": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,al,como,el,hac,llev,mi,mot,necesit,tall": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,bacan,cual,de,el,mas,model,ser": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,busc,estar,me,mot,que,recomend,una": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,dond,encontr,mi,mot,par,repuest": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,a,el,en,hac,le,manten,mot,que,tall": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,algun,en,mot,ofert,ten": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,condicion,cual,el,financ,mot,pa,ser,una": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,el,en,garant,gust,me,sab,sobr": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,agend,como,el,en,mi,mot,par,revision,tall,una": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,cual,de,el,gam,mot,ser": {
-            "intent": "saludo",
-            "domain": "default"
-          },
-          "%marca%,mi,mot,pa,repuest,ten": {
+          "herman,hol": {
             "intent": "saludo",
             "domain": "default"
           },
@@ -238,202 +146,97 @@
           },
           {
             "domain": "default",
-            "utterance": "Hola, quiero información sobre las motos de %marca%.",
+            "utterance": "Hola",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Me pueden ayudar con repuestos para %marca%?",
+            "utterance": "Buenas",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¡Buenos días! Estoy interesado en los servicios de taller para %marca%.",
+            "utterance": "Buen día",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¡Buenas tardes! Me gustaría saber más sobre el postventa de %marca%.",
+            "utterance": "Buenos días",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Qué tal? Quiero conocer las promociones de %marca%.",
+            "utterance": "Buenas tardes",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Cómo estás? Estoy buscando información sobre financiamiento en %marca%.",
+            "utterance": "Buenas noches",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Cómo va todo? Me gustaría conocer los servicios adicionales de %marca%.",
+            "utterance": "Hola, ¿cómo estás?",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Cómo te va? Necesito ayuda para programar una cita en el taller de %marca%.",
+            "utterance": "Hola, ¿qué tal?",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¡Hey! Me gustaría ver los modelos de motos de %marca%.",
+            "utterance": "¿Qué onda?",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¡Hola! Estoy buscando una moto de %marca%.",
+            "utterance": "¿Qué tal?",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "Saludos, quiero saber más sobre los repuestos disponibles para %marca%.",
+            "utterance": "Hola, buen día",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Puedes ayudarme con información sobre los servicios de taller para %marca%?",
+            "utterance": "Hola, buenos días",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "Estoy interesado en las promociones de %marca%.",
+            "utterance": "Hola, buenas tardes",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "Quiero conocer las opciones de financiamiento en %marca%.",
+            "utterance": "Hola, buenas noches",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "Me gustaría obtener información sobre el postventa de %marca%.",
+            "utterance": "Oye",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "Necesito ayuda para programar una cita en el taller de %marca%.",
+            "utterance": "Eh, hola",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Tienes información sobre las motos de %marca%?",
+            "utterance": "Hola, amigo",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Puedes mostrarme repuestos disponibles para %marca%?",
+            "utterance": "Hola, bro",
             "intent": "saludo"
           },
           {
             "domain": "default",
-            "utterance": "¿Qué servicios de taller ofrecen para %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Qué opciones de postventa tienen para %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "Oye, ¿qué onda con las motos %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Me podrías mostrar las motos %marca% que tienen?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Qué me puedes contar de las motos de %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Tienen repuestos para las motos %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cómo está el tema del taller para %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Qué tal el postventa en %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cuáles son las promos en %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Qué financiamiento tienen para las motos %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cuáles son los servicios extras que ofrecen en %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "Necesito llevar mi moto %marca% al taller, ¿cómo lo hago?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cuáles son los modelos más bacanes de %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "Estoy buscando una moto %marca%, ¿qué me recomiendas?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Dónde encuentro repuestos para mi moto %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Qué mantenimiento le hacen a las motos %marca% en el taller?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Tienen alguna oferta en motos %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cuáles son las condiciones pa' financiar una moto %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "Me gustaría saber sobre las garantías en %marca%.",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cómo agendo una revisión en el taller para mi moto %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Cuál es la gama de motos de %marca%?",
-            "intent": "saludo"
-          },
-          {
-            "domain": "default",
-            "utterance": "¿Tienen repuestos pa' mi moto %marca%?",
+            "utterance": "Hola, hermano",
             "intent": "saludo"
           },
           {
@@ -492,82 +295,20 @@
               "pagin": 1,
               "visit": 1,
               "%url%": 1,
-              "quer": 1,
-              "inform": 1,
-              "sobr": 1,
-              "el": 1,
-              "de": 1,
-              "me": 1,
-              "pod": 1,
-              "ayud": 1,
-              "con": 1,
-              "repuest": 1,
-              "par": 1,
               "buen": 1,
               "dia": 1,
-              "estar": 1,
-              "interes": 1,
-              "en": 1,
-              "servic": 1,
-              "tall": 1,
               "tard": 1,
-              "gust": 1,
-              "sab": 1,
-              "mas": 1,
-              "postvent": 1,
-              "que": 1,
-              "tal": 1,
-              "conoc": 1,
-              "promocion": 1,
+              "noch": 1,
               "como": 1,
               "esta": 1,
-              "busc": 1,
-              "financ": 1,
-              "ir": 1,
-              "tod": 1,
-              "adicional": 1,
-              "te": 1,
-              "necesit": 1,
-              "program": 1,
-              "cit": 1,
-              "hey": 1,
-              "ver": 1,
-              "model": 1,
-              "salud": 1,
-              "dispon": 1,
-              "opcion": 1,
-              "obten": 1,
-              "ten": 1,
-              "mostr": 1,
-              "ofrec": 1,
-              "oir": 1,
+              "que": 1,
+              "tal": 1,
               "onda": 1,
-              "cont": 1,
-              "tem": 1,
-              "del": 1,
-              "cual": 1,
-              "ser": 1,
-              "prom": 1,
-              "extra": 1,
-              "llev": 1,
-              "mi": 1,
-              "al": 1,
-              "hac": 1,
-              "bacan": 1,
-              "recomend": 1,
-              "dond": 1,
-              "encontr": 1,
-              "manten": 1,
-              "le": 1,
-              "a": 1,
-              "algun": 1,
-              "ofert": 1,
-              "condicion": 1,
-              "pa": 1,
-              "garant": 1,
-              "agend": 1,
-              "revision": 1,
-              "gam": 1,
+              "oir": 1,
+              "eh": 1,
+              "amig": 1,
+              "bro": 1,
+              "herman": 1,
               "santiag": 1,
               "concepcion": 1,
               "si": 1,
@@ -598,85 +339,20 @@
               },
               "saludo": {
                 "hol": 1,
-                "quer": 1,
-                "inform": 1,
-                "sobr": 1,
-                "el": 1,
-                "mot": 1,
-                "de": 1,
-                "%marca%": 1,
-                "me": 1,
-                "pod": 1,
-                "ayud": 1,
-                "con": 1,
-                "repuest": 1,
-                "par": 1,
                 "buen": 1,
                 "dia": 1,
-                "estar": 1,
-                "interes": 1,
-                "en": 1,
-                "servic": 1,
-                "tall": 1,
                 "tard": 1,
-                "gust": 1,
-                "sab": 1,
-                "mas": 1,
-                "postvent": 1,
-                "que": 1,
-                "tal": 1,
-                "conoc": 1,
-                "promocion": 1,
+                "noch": 1,
                 "como": 1,
                 "esta": 1,
-                "busc": 1,
-                "financ": 1,
-                "ir": 1,
-                "tod": 1,
-                "adicional": 1,
-                "te": 1,
-                "necesit": 1,
-                "program": 1,
-                "una": 1,
-                "cit": 1,
-                "hey": 1,
-                "ver": 1,
-                "model": 1,
-                "salud": 1,
-                "dispon": 1,
-                "opcion": 1,
-                "obten": 1,
-                "ten": 1,
-                "mostr": 1,
-                "ofrec": 1,
-                "oir": 1,
+                "que": 1,
+                "tal": 1,
                 "onda": 1,
-                "cont": 1,
-                "tem": 1,
-                "del": 1,
-                "cual": 1,
-                "ser": 1,
-                "prom": 1,
-                "extra": 1,
-                "llev": 1,
-                "mi": 1,
-                "al": 1,
-                "hac": 1,
-                "bacan": 1,
-                "recomend": 1,
-                "dond": 1,
-                "encontr": 1,
-                "manten": 1,
-                "le": 1,
-                "a": 1,
-                "algun": 1,
-                "ofert": 1,
-                "condicion": 1,
-                "pa": 1,
-                "garant": 1,
-                "agend": 1,
-                "revision": 1,
-                "gam": 1
+                "oir": 1,
+                "eh": 1,
+                "amig": 1,
+                "bro": 1,
+                "herman": 1
               },
               "ciudad": {
                 "santiag": 1,
@@ -703,16 +379,13 @@
                 "reserva"
               ],
               "una": [
-                "reserva",
-                "saludo"
+                "reserva"
               ],
               "mot": [
-                "reserva",
-                "saludo"
+                "reserva"
               ],
               "%marca%": [
-                "reserva",
-                "saludo"
+                "reserva"
               ],
               "%modelo%": [
                 "reserva"
@@ -729,85 +402,16 @@
               "%url%": [
                 "reserva"
               ],
-              "quer": [
-                "saludo"
-              ],
-              "inform": [
-                "saludo"
-              ],
-              "sobr": [
-                "saludo"
-              ],
-              "el": [
-                "saludo"
-              ],
-              "de": [
-                "saludo"
-              ],
-              "me": [
-                "saludo"
-              ],
-              "pod": [
-                "saludo"
-              ],
-              "ayud": [
-                "saludo"
-              ],
-              "con": [
-                "saludo"
-              ],
-              "repuest": [
-                "saludo"
-              ],
-              "par": [
-                "saludo"
-              ],
               "buen": [
                 "saludo"
               ],
               "dia": [
                 "saludo"
               ],
-              "estar": [
-                "saludo"
-              ],
-              "interes": [
-                "saludo"
-              ],
-              "en": [
-                "saludo"
-              ],
-              "servic": [
-                "saludo"
-              ],
-              "tall": [
-                "saludo"
-              ],
               "tard": [
                 "saludo"
               ],
-              "gust": [
-                "saludo"
-              ],
-              "sab": [
-                "saludo"
-              ],
-              "mas": [
-                "saludo"
-              ],
-              "postvent": [
-                "saludo"
-              ],
-              "que": [
-                "saludo"
-              ],
-              "tal": [
-                "saludo"
-              ],
-              "conoc": [
-                "saludo"
-              ],
-              "promocion": [
+              "noch": [
                 "saludo"
               ],
               "como": [
@@ -816,145 +420,28 @@
               "esta": [
                 "saludo"
               ],
-              "busc": [
+              "que": [
                 "saludo"
               ],
-              "financ": [
-                "saludo"
-              ],
-              "ir": [
-                "saludo"
-              ],
-              "tod": [
-                "saludo"
-              ],
-              "adicional": [
-                "saludo"
-              ],
-              "te": [
-                "saludo"
-              ],
-              "necesit": [
-                "saludo"
-              ],
-              "program": [
-                "saludo"
-              ],
-              "cit": [
-                "saludo"
-              ],
-              "hey": [
-                "saludo"
-              ],
-              "ver": [
-                "saludo"
-              ],
-              "model": [
-                "saludo"
-              ],
-              "salud": [
-                "saludo"
-              ],
-              "dispon": [
-                "saludo"
-              ],
-              "opcion": [
-                "saludo"
-              ],
-              "obten": [
-                "saludo"
-              ],
-              "ten": [
-                "saludo"
-              ],
-              "mostr": [
-                "saludo"
-              ],
-              "ofrec": [
-                "saludo"
-              ],
-              "oir": [
+              "tal": [
                 "saludo"
               ],
               "onda": [
                 "saludo"
               ],
-              "cont": [
+              "oir": [
                 "saludo"
               ],
-              "tem": [
+              "eh": [
                 "saludo"
               ],
-              "del": [
+              "amig": [
                 "saludo"
               ],
-              "cual": [
+              "bro": [
                 "saludo"
               ],
-              "ser": [
-                "saludo"
-              ],
-              "prom": [
-                "saludo"
-              ],
-              "extra": [
-                "saludo"
-              ],
-              "llev": [
-                "saludo"
-              ],
-              "mi": [
-                "saludo"
-              ],
-              "al": [
-                "saludo"
-              ],
-              "hac": [
-                "saludo"
-              ],
-              "bacan": [
-                "saludo"
-              ],
-              "recomend": [
-                "saludo"
-              ],
-              "dond": [
-                "saludo"
-              ],
-              "encontr": [
-                "saludo"
-              ],
-              "manten": [
-                "saludo"
-              ],
-              "le": [
-                "saludo"
-              ],
-              "a": [
-                "saludo"
-              ],
-              "algun": [
-                "saludo"
-              ],
-              "ofert": [
-                "saludo"
-              ],
-              "condicion": [
-                "saludo"
-              ],
-              "pa": [
-                "saludo"
-              ],
-              "garant": [
-                "saludo"
-              ],
-              "agend": [
-                "saludo"
-              ],
-              "revision": [
-                "saludo"
-              ],
-              "gam": [
+              "herman": [
                 "saludo"
               ],
               "santiag": [
@@ -1000,82 +487,20 @@
                 "pagin",
                 "visit",
                 "%url%",
-                "quer",
-                "inform",
-                "sobr",
-                "el",
-                "de",
-                "me",
-                "pod",
-                "ayud",
-                "con",
-                "repuest",
-                "par",
                 "buen",
                 "dia",
-                "estar",
-                "interes",
-                "en",
-                "servic",
-                "tall",
                 "tard",
-                "gust",
-                "sab",
-                "mas",
-                "postvent",
-                "que",
-                "tal",
-                "conoc",
-                "promocion",
+                "noch",
                 "como",
                 "esta",
-                "busc",
-                "financ",
-                "ir",
-                "tod",
-                "adicional",
-                "te",
-                "necesit",
-                "program",
-                "cit",
-                "hey",
-                "ver",
-                "model",
-                "salud",
-                "dispon",
-                "opcion",
-                "obten",
-                "ten",
-                "mostr",
-                "ofrec",
-                "oir",
+                "que",
+                "tal",
                 "onda",
-                "cont",
-                "tem",
-                "del",
-                "cual",
-                "ser",
-                "prom",
-                "extra",
-                "llev",
-                "mi",
-                "al",
-                "hac",
-                "bacan",
-                "recomend",
-                "dond",
-                "encontr",
-                "manten",
-                "le",
-                "a",
-                "algun",
-                "ofert",
-                "condicion",
-                "pa",
-                "garant",
-                "agend",
-                "revision",
-                "gam",
+                "oir",
+                "eh",
+                "amig",
+                "bro",
+                "herman",
                 "santiag",
                 "concepcion",
                 "si",
@@ -1092,484 +517,174 @@
               ],
               "perceptrons": [
                 [
-                  0.9582975506782532,
-                  1.8230236768722534,
-                  1.8230236768722534,
-                  0.7972386479377747,
-                  0.15966154634952545,
-                  -0.25271233916282654,
-                  1.8230236768722534,
-                  1.8230236768722534,
-                  1.8230236768722534,
-                  1.8230236768722534,
-                  1.8230236768722534,
-                  -0.23484142124652863,
-                  -0.2491394579410553,
-                  -0.3028227984905243,
-                  -0.8605068325996399,
-                  -1.0650392770767212,
-                  -0.3477404713630676,
-                  -0.125270277261734,
-                  -0.10498965531587601,
-                  -0.15765000879764557,
-                  -0.23058374226093292,
-                  -0.34252041578292847,
-                  -0.08318137377500534,
-                  -0.0396893285214901,
-                  -0.8371797800064087,
-                  -0.0396893285214901,
-                  -0.2829025089740753,
-                  -0.0634886771440506,
-                  -0.14419987797737122,
-                  -0.024316582828760147,
-                  -0.08380087465047836,
-                  -0.024316582828760147,
-                  -0.024316582828760147,
-                  -0.024316582828760147,
-                  -0.26052045822143555,
-                  -0.021330056712031364,
-                  -0.036509715020656586,
-                  -0.021330056712031364,
-                  -0.13842467963695526,
-                  -0.03101533092558384,
-                  -0.7610788345336914,
-                  -0.20245963335037231,
-                  -0.03095058724284172,
-                  -0.004995082970708609,
-                  -0.004995082970708609,
-                  -0.02325030416250229,
-                  -0.05847371742129326,
-                  -0.02325030416250229,
-                  -0.02325030416250229,
-                  -0.03429090604186058,
-                  -0.03429090604186058,
-                  -0.03429090604186058,
-                  0,
-                  -0.013912531547248363,
-                  0,
-                  0,
-                  -0.14879046380519867,
-                  -0.031014282256364822,
-                  0,
-                  -0.06337764859199524,
-                  -0.06337764859199524,
-                  0,
-                  0,
-                  0,
-                  -0.14597944915294647,
-                  -0.14597944915294647,
-                  0,
-                  0,
-                  -0.018691085278987885,
-                  -0.12134644389152527,
-                  -0.018691085278987885,
-                  -0.018691085278987885,
-                  0,
-                  -0.105601467192173,
-                  -0.06030208617448807,
-                  -0.06030208617448807,
-                  0,
-                  0,
-                  0,
-                  -0.08926773816347122,
-                  -0.08926773816347122,
-                  -0.14597944915294647,
-                  -0.1767512410879135,
-                  0,
-                  -0.003738857340067625,
-                  -0.003738857340067625,
-                  0,
-                  -0.002502984367311001,
-                  -0.002399487653747201,
-                  -0.0023002694360911846,
-                  -0.0022051536943763494,
-                  -0.002113969996571541,
-                  -0.0020265565253794193,
-                  -0.1379688674873215
+                  -0.19890308380126953,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  1.474244236946106,
+                  -0.5460002422332764,
+                  -0.25840920209884644,
+                  -0.09404940903186798,
+                  -0.07741116732358932,
+                  -0.17668841779232025,
+                  -0.17668841779232025,
+                  -0.2253447324037552,
+                  -0.18319226801395416,
+                  -0.02081035077571869,
+                  -0.027249986305832863,
+                  -0.13331642746925354,
+                  -0.11953052878379822,
+                  -0.10575699806213379,
+                  -0.09281182289123535,
+                  -0.006818488240242004,
+                  -0.006538715213537216,
+                  -0.006270417477935553,
+                  -0.006013123784214258,
+                  -0.005766383837908506,
+                  -0.005529764108359814,
+                  -0.2578249999395098
                 ],
                 [
-                  0.5555738806724548,
-                  -1.447636604309082,
-                  -1.447636604309082,
-                  -0.2529543936252594,
-                  1.3345537185668945,
-                  7.545803070068359,
-                  -1.447636604309082,
-                  -1.447636604309082,
-                  -1.447636604309082,
-                  -1.447636604309082,
-                  -1.447636604309082,
-                  0.13606663048267365,
-                  0.16533832252025604,
-                  0.3706244230270386,
-                  0.9140473008155823,
-                  2.1486966609954834,
-                  0.9970649480819702,
-                  0.1582910120487213,
-                  -0.08278235048055649,
-                  0.9706497192382812,
-                  2.0747005939483643,
-                  1.3224002122879028,
-                  -0.5457034111022949,
-                  -0.6273993849754333,
-                  0.8851511478424072,
-                  -0.2204391211271286,
-                  1.911551594734192,
-                  -0.5497924089431763,
-                  0.39797574281692505,
-                  0.07526902109384537,
-                  0.6663193702697754,
-                  0.20025047659873962,
-                  0.0314302071928978,
-                  0.7837619185447693,
-                  1.150046706199646,
-                  0.9787807464599609,
-                  0.3380889892578125,
-                  0.05963031202554703,
-                  0.4346243143081665,
-                  0.49079447984695435,
-                  1.1048568487167358,
-                  0.42780837416648865,
-                  -0.12047391384840012,
-                  0.40224936604499817,
-                  0.40224936604499817,
-                  -0.5274707078933716,
-                  0.21481963992118835,
-                  -0.38970673084259033,
-                  -0.38970673084259033,
-                  -0.34938278794288635,
-                  -0.34938278794288635,
-                  0.23207350075244904,
-                  -0.6224958896636963,
-                  1.2395814657211304,
-                  -0.11805691570043564,
-                  -0.20984013378620148,
-                  0.46690085530281067,
-                  0.765874445438385,
-                  1.2031159400939941,
-                  0.6669310331344604,
-                  0.6669310331344604,
-                  -0.9018001556396484,
-                  1.118178367614746,
-                  1.118178367614746,
-                  0.9422816634178162,
-                  0.9422816634178162,
-                  1.130117416381836,
-                  -0.6972689032554626,
-                  0.6058336496353149,
-                  0.8135620355606079,
-                  0.6058336496353149,
-                  0.4728620946407318,
-                  0.5791608691215515,
-                  0.5077592134475708,
-                  0.140174001455307,
-                  0.140174001455307,
-                  -0.13303159177303314,
-                  -0.13303159177303314,
-                  -0.13303159177303314,
-                  1.0529965162277222,
-                  1.0529965162277222,
-                  0.44707241654396057,
-                  1.0625317096710205,
-                  0.7485267519950867,
-                  -0.5454882383346558,
-                  -0.5454882383346558,
-                  -0.5134960412979126,
-                  -0.9483129382133484,
-                  -0.9446905255317688,
-                  -0.9418500065803528,
-                  -0.9387909173965454,
-                  -0.9355173707008362,
-                  -0.932033360004425,
-                  0.9501775752208214
+                  0.47645124793052673,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  -1.3118880987167358,
+                  2.518080949783325,
+                  -0.5369919538497925,
+                  -0.5304505228996277,
+                  -0.523313581943512,
+                  0.8902418613433838,
+                  0.8902418613433838,
+                  1.4481121301651,
+                  0.5695082545280457,
+                  0.8828954100608826,
+                  2.4373159408569336,
+                  1.9037100076675415,
+                  1.9190009832382202,
+                  1.9320753812789917,
+                  1.9440858364105225,
+                  -11.829378128051758,
+                  -11.824793815612793,
+                  -11.820201873779297,
+                  -11.815600395202637,
+                  -11.810988426208496,
+                  -11.806364059448242,
+                  11.928895089950865
                 ],
                 [
-                  -0.21196898818016052,
-                  -0.11497186124324799,
-                  -0.11497186124324799,
-                  -0.17155876755714417,
-                  -0.591671347618103,
-                  -1.6382559537887573,
-                  -0.11497186124324799,
-                  -0.11497186124324799,
-                  -0.11497186124324799,
-                  -0.11497186124324799,
-                  -0.11497186124324799,
-                  -0.1424747109413147,
-                  -0.17982728779315948,
-                  -0.2364572286605835,
-                  -0.6144794821739197,
-                  -0.4500775635242462,
-                  -0.232990100979805,
-                  -0.3263150155544281,
-                  -0.11750323325395584,
-                  -0.1761183738708496,
-                  -0.4799332618713379,
-                  -0.5362647771835327,
-                  -0.08589178323745728,
-                  -0.0341838039457798,
-                  -0.21184882521629333,
-                  -0.051062408834695816,
-                  -0.5179510712623596,
-                  -0.14633555710315704,
-                  -0.1816103756427765,
-                  -0.03465119004249573,
-                  -0.05866819620132446,
-                  -0.04735732078552246,
-                  -0.1041572168469429,
-                  -0.1334908902645111,
-                  -0.31546393036842346,
-                  -0.12915542721748352,
-                  -0.08355595916509628,
-                  -0.07551789283752441,
-                  -0.1729881763458252,
-                  -0.14518645405769348,
-                  -0.15476346015930176,
-                  -0.1064799502491951,
-                  -0.00764219556003809,
-                  -0.00764219556003809,
-                  -0.00764219556003809,
-                  0,
-                  -0.013429535552859306,
-                  0,
-                  0,
-                  0,
-                  0,
-                  -0.05848846212029457,
-                  0,
-                  -0.18385449051856995,
-                  -0.03308058902621269,
-                  0,
-                  -0.32170161604881287,
-                  -0.18385449051856995,
-                  -0.08074893802404404,
-                  -0.03424684330821037,
-                  -0.03424684330821037,
-                  0,
-                  -0.030014965683221817,
-                  -0.030014965683221817,
-                  -0.2121291607618332,
-                  -0.2121291607618332,
-                  -0.15355850756168365,
-                  0,
-                  -0.013429535552859306,
-                  -0.16995717585086823,
-                  -0.013429535552859306,
-                  -0.013429535552859306,
-                  -0.05848846212029457,
-                  -0.03177952393889427,
-                  -0.006988292094320059,
-                  -0.006988292094320059,
-                  0,
-                  0,
-                  0,
-                  -0.13919930160045624,
-                  -0.13919930160045624,
-                  0,
-                  -0.14557409286499023,
-                  -0.001688614604063332,
-                  0,
-                  0,
-                  0,
-                  10.56669807434082,
-                  10.554679870605469,
-                  -3.233835458755493,
-                  -3.2096173763275146,
-                  -3.1848132610321045,
-                  -3.159453868865967,
-                  3.349878187356433
+                  -2.458371877670288,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -0.10251711308956146,
+                  -2.458371639251709,
+                  -0.512959361076355,
+                  -0.36453545093536377,
+                  -0.3411191701889038,
+                  -0.2294546216726303,
+                  -0.2294546216726303,
+                  -1.6389167308807373,
+                  -0.819456160068512,
+                  -0.8194617629051208,
+                  -2.458371639251709,
+                  -0.23648180067539215,
+                  -0.22000642120838165,
+                  -0.20548886060714722,
+                  -0.1934717297554016,
+                  11.827337265014648,
+                  11.827336311340332,
+                  -2.4583961963653564,
+                  -2.458373785018921,
+                  -2.458371877670288,
+                  -2.458371877670288,
+                  2.458373391047466
                 ],
                 [
-                  -0.22447451949119568,
-                  -0.10634616762399673,
-                  -0.10634616762399673,
-                  -0.17384245991706848,
-                  -0.5987105369567871,
-                  -1.6551787853240967,
-                  -0.10634616762399673,
-                  -0.10634616762399673,
-                  -0.10634616762399673,
-                  -0.10634616762399673,
-                  -0.10634616762399673,
-                  -0.14395834505558014,
-                  -0.1846167892217636,
-                  -0.2440919429063797,
-                  -0.6214045882225037,
-                  -0.46432778239250183,
-                  -0.23869948089122772,
-                  -0.3325251340866089,
-                  -0.1271084100008011,
-                  -0.18655231595039368,
-                  -0.4840519428253174,
-                  -0.5404496788978577,
-                  -0.09323563426733017,
-                  -0.03718482330441475,
-                  -0.21606525778770447,
-                  -0.05550194904208183,
-                  -0.5218760371208191,
-                  -0.1472310870885849,
-                  -0.17676666378974915,
-                  -0.037511344999074936,
-                  -0.058208074420690536,
-                  -0.043436963111162186,
-                  -0.1032899022102356,
-                  -0.13378357887268066,
-                  -0.3067028522491455,
-                  -0.12882833182811737,
-                  -0.08380109816789627,
-                  -0.07559706270694733,
-                  -0.17667442560195923,
-                  -0.14733123779296875,
-                  -0.1540459245443344,
-                  -0.10548906028270721,
-                  -0.00826386921107769,
-                  -0.00826386921107769,
-                  -0.00826386921107769,
-                  0,
-                  -0.014036279171705246,
-                  0,
-                  0,
-                  0,
-                  0,
-                  -0.05397940054535866,
-                  0,
-                  -0.1787690371274948,
-                  -0.03533104062080383,
-                  0,
-                  -0.31920939683914185,
-                  -0.1787690371274948,
-                  -0.07601165771484375,
-                  -0.03402695804834366,
-                  -0.03402695804834366,
-                  0,
-                  -0.024547699838876724,
-                  -0.024547699838876724,
-                  -0.20740985870361328,
-                  -0.20740985870361328,
-                  -0.15334783494472504,
-                  0,
-                  -0.014036279171705246,
-                  -0.16732825338840485,
-                  -0.014036279171705246,
-                  -0.014036279171705246,
-                  -0.05397940054535866,
-                  -0.023382017388939857,
-                  -0.006374158430844545,
-                  -0.006374158430844545,
-                  0,
-                  0,
-                  0,
-                  -0.13737916946411133,
-                  -0.13737916946411133,
-                  0,
-                  -0.14223384857177734,
-                  -0.000025978524718084373,
-                  0,
-                  0,
-                  0,
-                  -3.160503625869751,
-                  -3.1331260204315186,
-                  10.567440032958984,
-                  10.555407524108887,
-                  -3.233120918273926,
-                  -3.208916664123535,
-                  3.3659125855353804
+                  -2.458815097808838,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -0.11128240823745728,
+                  -2.4588000774383545,
+                  -0.5435904264450073,
+                  -0.3770640194416046,
+                  -0.35158875584602356,
+                  -0.244462788105011,
+                  -0.244462788105011,
+                  -1.6429628133773804,
+                  -0.817575216293335,
+                  -0.8247975707054138,
+                  -2.45879864692688,
+                  -0.24276570975780487,
+                  -0.22419923543930054,
+                  -0.2087649554014206,
+                  -0.1956489235162735,
+                  -2.458798408508301,
+                  -2.458798408508301,
+                  11.826910972595215,
+                  11.826910972595215,
+                  -2.458805799484253,
+                  -2.45879864692688,
+                  2.45880016227637
                 ],
                 [
-                  -0.242784783244133,
-                  -0.1154291182756424,
-                  -0.1154291182756424,
-                  -0.17915764451026917,
-                  -0.6190690994262695,
-                  -1.7153704166412354,
-                  -0.1154291182756424,
-                  -0.1154291182756424,
-                  -0.1154291182756424,
-                  -0.1154291182756424,
-                  -0.1154291182756424,
-                  -0.15595602989196777,
-                  -0.199428528547287,
-                  -0.2545630931854248,
-                  -0.6445037722587585,
-                  -0.4853082299232483,
-                  -0.2496696263551712,
-                  -0.3480182886123657,
-                  -0.1374940127134323,
-                  -0.200984925031662,
-                  -0.5007846355438232,
-                  -0.5590919256210327,
-                  -0.10120635479688644,
-                  -0.04044920578598976,
-                  -0.22341251373291016,
-                  -0.060327205806970596,
-                  -0.5418840050697327,
-                  -0.14986099302768707,
-                  -0.17526844143867493,
-                  -0.040606237947940826,
-                  -0.05931221321225166,
-                  -0.040606237947940826,
-                  -0.10541877150535583,
-                  -0.13839146494865417,
-                  -0.31214213371276855,
-                  -0.13289381563663483,
-                  -0.09042025357484818,
-                  -0.08153509348630905,
-                  -0.18213970959186554,
-                  -0.15127144753932953,
-                  -0.15602420270442963,
-                  -0.11338350921869278,
-                  -0.00893570389598608,
-                  -0.00893570389598608,
-                  -0.00893570389598608,
-                  0,
-                  -0.014704310335218906,
-                  0,
-                  0,
-                  0,
-                  0,
-                  -0.052183471620082855,
-                  0,
-                  -0.18206879496574402,
-                  -0.03405862674117088,
-                  0,
-                  -0.3244597315788269,
-                  -0.18206879496574402,
-                  -0.07252761721611023,
-                  -0.036331918090581894,
-                  -0.036331918090581894,
-                  0,
-                  -0.019860461354255676,
-                  -0.019860461354255676,
-                  -0.20625607669353485,
-                  -0.20625607669353485,
-                  -0.15233880281448364,
-                  0,
-                  -0.014704310335218906,
-                  -0.16666379570960999,
-                  -0.014704310335218906,
-                  -0.014704310335218906,
-                  -0.052183471620082855,
-                  -0.017543885856866837,
-                  -0.006845638621598482,
-                  -0.006845638621598482,
-                  0,
-                  0,
-                  0,
-                  -0.1396179050207138,
-                  -0.1396179050207138,
-                  0,
-                  -0.14044341444969177,
-                  0,
-                  0,
-                  0,
-                  0,
-                  -3.2073333263397217,
-                  -3.1811442375183105,
-                  -3.154402494430542,
-                  -3.1271400451660156,
-                  10.573312759399414,
-                  10.561165809631348,
-                  3.372402060300598
+                  -2.461918592453003,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -0.12079593539237976,
+                  -2.4588985443115234,
+                  -0.5761789083480835,
+                  -0.3904441297054291,
+                  -0.3633679747581482,
+                  -0.2603341042995453,
+                  -0.2603341042995453,
+                  -1.669479250907898,
+                  -0.8270391225814819,
+                  -0.839497983455658,
+                  -2.456455707550049,
+                  -0.24983184039592743,
+                  -0.23040057718753815,
+                  -0.21370244026184082,
+                  -0.1992194950580597,
+                  -2.4564547538757324,
+                  -2.4564545154571533,
+                  -2.4564545154571533,
+                  -2.4564545154571533,
+                  11.829255104064941,
+                  11.829254150390625,
+                  2.456456295046332
                 ]
               ]
             }
@@ -1585,163 +700,79 @@
       ],
       [
         "es",
-        "Hola, quiero información sobre las motos de %marca%."
+        "Hola"
       ],
       [
         "es",
-        "¿Me pueden ayudar con repuestos para %marca%?"
+        "Buenas"
       ],
       [
         "es",
-        "¡Buenos días! Estoy interesado en los servicios de taller para %marca%."
+        "Buen día"
       ],
       [
         "es",
-        "¡Buenas tardes! Me gustaría saber más sobre el postventa de %marca%."
+        "Buenos días"
       ],
       [
         "es",
-        "¿Qué tal? Quiero conocer las promociones de %marca%."
+        "Buenas tardes"
       ],
       [
         "es",
-        "¿Cómo estás? Estoy buscando información sobre financiamiento en %marca%."
+        "Buenas noches"
       ],
       [
         "es",
-        "¿Cómo va todo? Me gustaría conocer los servicios adicionales de %marca%."
+        "Hola, ¿cómo estás?"
       ],
       [
         "es",
-        "¿Cómo te va? Necesito ayuda para programar una cita en el taller de %marca%."
+        "Hola, ¿qué tal?"
       ],
       [
         "es",
-        "¡Hey! Me gustaría ver los modelos de motos de %marca%."
+        "¿Qué onda?"
       ],
       [
         "es",
-        "¡Hola! Estoy buscando una moto de %marca%."
+        "¿Qué tal?"
       ],
       [
         "es",
-        "Saludos, quiero saber más sobre los repuestos disponibles para %marca%."
+        "Hola, buen día"
       ],
       [
         "es",
-        "¿Puedes ayudarme con información sobre los servicios de taller para %marca%?"
+        "Hola, buenos días"
       ],
       [
         "es",
-        "Estoy interesado en las promociones de %marca%."
+        "Hola, buenas tardes"
       ],
       [
         "es",
-        "Quiero conocer las opciones de financiamiento en %marca%."
+        "Hola, buenas noches"
       ],
       [
         "es",
-        "Me gustaría obtener información sobre el postventa de %marca%."
+        "Oye"
       ],
       [
         "es",
-        "Necesito ayuda para programar una cita en el taller de %marca%."
+        "Eh, hola"
       ],
       [
         "es",
-        "¿Tienes información sobre las motos de %marca%?"
+        "Hola, amigo"
       ],
       [
         "es",
-        "¿Puedes mostrarme repuestos disponibles para %marca%?"
+        "Hola, bro"
       ],
       [
         "es",
-        "¿Qué servicios de taller ofrecen para %marca%?"
-      ],
-      [
-        "es",
-        "¿Qué opciones de postventa tienen para %marca%?"
-      ],
-      [
-        "es",
-        "Oye, ¿qué onda con las motos %marca%?"
-      ],
-      [
-        "es",
-        "¿Me podrías mostrar las motos %marca% que tienen?"
-      ],
-      [
-        "es",
-        "¿Qué me puedes contar de las motos de %marca%?"
-      ],
-      [
-        "es",
-        "¿Tienen repuestos para las motos %marca%?"
-      ],
-      [
-        "es",
-        "¿Cómo está el tema del taller para %marca%?"
-      ],
-      [
-        "es",
-        "¿Qué tal el postventa en %marca%?"
-      ],
-      [
-        "es",
-        "¿Cuáles son las promos en %marca%?"
-      ],
-      [
-        "es",
-        "¿Qué financiamiento tienen para las motos %marca%?"
-      ],
-      [
-        "es",
-        "¿Cuáles son los servicios extras que ofrecen en %marca%?"
-      ],
-      [
-        "es",
-        "Necesito llevar mi moto %marca% al taller, ¿cómo lo hago?"
-      ],
-      [
-        "es",
-        "¿Cuáles son los modelos más bacanes de %marca%?"
-      ],
-      [
-        "es",
-        "Estoy buscando una moto %marca%, ¿qué me recomiendas?"
-      ],
-      [
-        "es",
-        "¿Dónde encuentro repuestos para mi moto %marca%?"
-      ],
-      [
-        "es",
-        "¿Qué mantenimiento le hacen a las motos %marca% en el taller?"
-      ],
-      [
-        "es",
-        "¿Tienen alguna oferta en motos %marca%?"
-      ],
-      [
-        "es",
-        "¿Cuáles son las condiciones pa' financiar una moto %marca%?"
-      ],
-      [
-        "es",
-        "Me gustaría saber sobre las garantías en %marca%."
-      ],
-      [
-        "es",
-        "¿Cómo agendo una revisión en el taller para mi moto %marca%?"
-      ],
-      [
-        "es",
-        "¿Cuál es la gama de motos de %marca%?"
-      ],
-      [
-        "es",
-        "¿Tienen repuestos pa' mi moto %marca%?"
+        "Hola, hermano"
       ],
       [
         "es",
@@ -1896,14 +927,6 @@
       "url": {
         "intent": "reserva",
         "entity": "url",
-        "mandatory": false,
-        "locales": {}
-      }
-    },
-    "saludo": {
-      "marca": {
-        "intent": "saludo",
-        "entity": "marca",
         "mandatory": false,
         "locales": {}
       }

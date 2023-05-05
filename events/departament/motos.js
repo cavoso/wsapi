@@ -27,6 +27,7 @@ module.exports = async function evento(response, eventData, conversations, messa
       
     }
   }
+  let inentity
   
   eventData.updateRequisites();
   conversations.set(eventData.Key_Context, eventData.context);
