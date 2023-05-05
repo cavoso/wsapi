@@ -67,10 +67,21 @@ module.exports = async function evento(response, eventData, conversations, messa
     
   }
   
+  if(){
+    
+  }
+  
   switch(response.intent){
     case 'saludo':
       break;
-      reserva, ciudad, verificacion, omitir
+    case 'reserva':
+      break;
+    case 'ciudad':
+      break;
+    case 'verificacion':
+      break;
+    case 'omitir':
+      break;
     default:
       break;
   }
