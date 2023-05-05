@@ -24,10 +24,17 @@ module.exports = async function evento(response, eventData, conversations, messa
   }
   
   if(eventData.context.departamentreq.marca === false){
+    //no esta seteada la marca
     let detectedEntity = detectedEntities.find(entity => entity.entity === "marca");
     if (detectedEntity){
-      
+      //se reconocio la marca
+      eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
+      eventData.context.departamentreq.marca = true;
+    }else{
+      //no se encontro la marca
     }
+  }else{
+    //ya esta seteada la marca
   }
   
   
