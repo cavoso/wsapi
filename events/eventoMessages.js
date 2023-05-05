@@ -22,9 +22,11 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
     text = message.text.body;
   }else if(message.type === "interactive"){
     if(message.interactive.type === "list_reply"){
-      text = message.interactive.list_reply.id;
+      text = message.interactive.list_reply.title;
+      eventData.context.reply = message.interactive.list_reply.id;
     }else if(message.interactive.type === "button_reply"){
-      text = message.interactive.button_reply.id;
+      text = message.interactive.button_reply.title;
+      eventData.context.reply = message.interactive.button_reply.id;
     }
   }
   

@@ -55,6 +55,12 @@ module.exports = async function evento(response, eventData, conversations, messa
     }
   }else{
     //ya esta seteada la marca
+    await MessageService.EnviarMensaje(
+      eventData.Departamento, 
+      eventData.Ticket, 
+      new whatsappMessage(eventData.Ticket.wa_id)
+          .createTextMessage("")
+    );
   }
   
   
