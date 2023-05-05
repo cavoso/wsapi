@@ -9,8 +9,8 @@ module.exports = async function evento(response, eventData, conversations, messa
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
   let detectedEntities = response.entities;
-  let inentitys = response.classifications;
-  console.log(inentitys);
+  let intents = response.classifications;
+  console.log(intents);
   console.log(detectedEntities);
   
   if(response.answer){
@@ -61,12 +61,19 @@ module.exports = async function evento(response, eventData, conversations, messa
         eventData.Departamento, 
         eventData.Ticket, 
         new whatsappMessage(eventData.Ticket.wa_id)
-            .createTextMessage("La marca ya se encuentra registrada, si desea cambiarla ingrese “menú”")
+            .createTextMessage("Lo siento, pero la marca ya se encuentra registrada, si desea modificarla por favor utilice el menú")
         );
     }
     
   }
   
+  switch(response.intent){
+    case 'saludo':
+      break;
+      reserva, ciudad, verificacion, omitir
+    default:
+      break;
+  }
   
   
   
