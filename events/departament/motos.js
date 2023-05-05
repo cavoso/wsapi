@@ -11,7 +11,12 @@ module.exports = async function evento(response, eventData, conversations, messa
   console.log(eventData);
   
   if(response.answer){
-    await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
+    await MessageService.EnviarMensaje(
+      eventData.Departamento, 
+      eventData.Ticket, 
+      new whatsappMessage(eventData.Ticket.wa_id)
+          .createTextMessage(response.answer)
+    );
   }
   
   eventData.updateRequisites();
