@@ -40,32 +40,7 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   //console.log(JSON.stringify(response, null, 2));
   console.log(response)
   
-  let detectedEntities = response.entities;
-  eventData.context.entitiesToUpdate = [];
-  for(let dentity of eventData.Departamento.entity){
-    let detectedEntity = detectedEntities.find(entity => entity.entity === dentity);
-    if (detectedEntity){
-      let existingEntity = eventData.TicketData.find(ticketData => ticketData.key_name === detectedEntity.entity);
-      if (!existingEntity){
-        eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
-        eventData.context.departamentreq[dentity] = true; // Marcar como true después de registrar el valor
-      } else if (existingEntity.value !== detectedEntity.sourceText){
-        eventData.context.entitiesToUpdate.push({
-          key_name: detectedEntity.entity,
-          oldValue: existingEntity.value,
-          newValue: detectedEntity.option,
-          process: false
-        });
-        eventData.context.departamentreq[dentity] = true;
-      }
-    }
-  }
-  if (eventData.context.entitiesToUpdate.length > 0) {
-    eventData.context.enproceso = "ChangeEntity";
-    conversations.set(eventData.Key_Context, eventData.context);
-  }
-
-  
+ 
   switch(eventData.Departamento.id){
     case 1: await motosEvents(response, eventData, conversations, message);
       break

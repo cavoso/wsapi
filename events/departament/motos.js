@@ -9,6 +9,7 @@ module.exports = async function evento(response, eventData, conversations, messa
   eventData.updateRequisites();
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
+  let detectedEntities = response.entities;
   
   if(response.answer){
     await MessageService.EnviarMensaje(
@@ -17,6 +18,10 @@ module.exports = async function evento(response, eventData, conversations, messa
       new whatsappMessage(eventData.Ticket.wa_id)
           .createTextMessage(response.answer)
     );
+  }
+  
+  if(eventData.departamentreq.marca === false){
+    
   }
   
   eventData.updateRequisites();
