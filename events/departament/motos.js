@@ -40,7 +40,7 @@ module.exports = async function evento(response, eventData, conversations, messa
         }
       });
       for(let marca of marcas){
-        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
+        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_${marca.id}`);
       }
       await MessageService.EnviarMensaje(
         eventData.Departamento,
@@ -55,12 +55,15 @@ module.exports = async function evento(response, eventData, conversations, messa
     }
   }else{
     //ya esta seteada la marca
-    await MessageService.EnviarMensaje(
-      eventData.Departamento, 
-      eventData.Ticket, 
-      new whatsappMessage(eventData.Ticket.wa_id)
-          .createTextMessage("")
-    );
+    if(eventData.context.reply.includes(`${keyReply}_req_marca_`)){
+      await MessageService.EnviarMensaje(
+        eventData.Departamento, 
+        eventData.Ticket, 
+        new whatsappMessage(eventData.Ticket.wa_id)
+            .createTextMessage("")
+        );
+    }
+    
   }
   
   

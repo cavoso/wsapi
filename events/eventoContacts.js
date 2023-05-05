@@ -20,6 +20,7 @@ module.exports = async function evento(eventData, conversations, data) {
     eventData.context = {
       enproceso: "",
       saludobot: false,
+      reply: '',
       requisitos: {
         userdata: false,
         departamentreq: false,
