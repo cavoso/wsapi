@@ -6,7 +6,6 @@ const { whatsappMessage, messageInteractive, messageAction, messageObject, templ
 const keyReply = "8fK2s";
 
 module.exports = async function evento(response, eventData, conversations, message) {
-  eventData.updateRequisites();
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
   let detectedEntities = response.entities;
@@ -30,16 +29,36 @@ module.exports = async function evento(response, eventData, conversations, messa
       //se reconocio la marca
       eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
       eventData.context.departamentreq.marca = true;
+      eventData.updateRequisites();
+      conversations.set(eventData.Key_Context, eventData.context);
     }else{
       //no se encontro la marca
+      let msgobject = new messageObject("Menu", "list");
+      let marcas = await db.MenuVehiculos.findAll({
+        where: {
+          padre: 0
+        }
+      });
+      for(let marca of marcas){
+        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
+      }
+      await MessageService.EnviarMensaje(
+        eventData.Departamento,
+        eventData.Ticket,
+        new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+          new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
+            new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+          ).toJSON()
+        )
+      );
+      return ;
     }
   }else{
     //ya esta seteada la marca
   }
   
   
-  eventData.updateRequisites();
-  conversations.set(eventData.Key_Context, eventData.context);
+  
   
 };
 
