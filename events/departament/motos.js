@@ -10,6 +10,7 @@ module.exports = async function evento(response, eventData, conversations, messa
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
   let detectedEntities = response.entities;
+  console.log(detectedEntities);
   
   if(response.answer){
     await MessageService.EnviarMensaje(
@@ -20,8 +21,11 @@ module.exports = async function evento(response, eventData, conversations, messa
     );
   }
   
-  if(eventData.departamentreq.marca === false){
-    
+  if(eventData.context.departamentreq.marca === false){
+    let detectedEntity = detectedEntities.find(entity => entity.entity === "marca");
+    if (detectedEntity){
+      
+    }
   }
   
   eventData.updateRequisites();
