@@ -56,6 +56,7 @@ module.exports = async function evento(response, eventData, conversations, messa
   }else{
     //ya esta seteada la marca
     if(eventData.context.reply.includes(`${keyReply}_req_marca_`)){
+      eventData.context.reply = "";
       await MessageService.EnviarMensaje(
         eventData.Departamento, 
         eventData.Ticket, 
