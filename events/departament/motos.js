@@ -10,6 +10,8 @@ module.exports = async function evento(response, eventData, conversations, messa
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
   let detectedEntities = response.entities;
+  let inentitys = response.classifications;
+  console.log(inentitys);
   console.log(detectedEntities);
   
   if(response.answer){
@@ -27,7 +29,7 @@ module.exports = async function evento(response, eventData, conversations, messa
       
     }
   }
-  let inentity
+  
   
   eventData.updateRequisites();
   conversations.set(eventData.Key_Context, eventData.context);
