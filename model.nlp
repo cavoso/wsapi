@@ -1857,7 +1857,15 @@
     "settings": {
       "tag": "nlg-manager"
     },
-    "responses": {}
+    "responses": {
+      "es": {
+        "saludo": [
+          {
+            "answer": "¡Hola! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Escribe \"menu\" en cualquier momento para ver opciones"
+          }
+        ]
+      }
+    }
   },
   "actionManager": {
     "settings": {
