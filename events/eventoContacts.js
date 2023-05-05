@@ -35,14 +35,15 @@ module.exports = async function evento(eventData, conversations, data) {
         ciudad: false
       }
     };
-    for(const xreq of eventData.Departamento.entity){
-      eventData.context.departamentreq[xreq] = false;
-    }
-    if(eventData.context.userdata.full_name && eventData.context.userdata.email){
-      eventData.context.requisitos.userdata = true;
-    }    
-    conversations.set(eventData.Key_Context, eventData.context);
+    
   }
+  for (const xreq of eventData.Departamento.entity) {
+    eventData.context.departamentreq[xreq] = eventData.TicketData.some(additionalInfo => additionalInfo.key_name === xreq);
+  }
+  if(eventData.context.userdata.full_name && eventData.context.userdata.email){
+    eventData.context.requisitos.userdata = true;
+  }
+  conversations.set(eventData.Key_Context, eventData.context);
   eventData.updateRequisites = function() {
     this.context.requisitos.userdata = this.context.userdata.full_name && this.context.userdata.email;
     let isDepartmentReqSatisfied = true;
