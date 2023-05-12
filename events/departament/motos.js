@@ -89,7 +89,6 @@ module.exports = async function evento(response, eventData, conversations, messa
           if(requisito == "departamentreq"){
             console.log(rv);
             if(rv === "marca"){
-              console.log("entra aqui")
               let msgobject = new messageObject("Menu", "list");
               let marcas = await db.MenuVehiculos.findAll({
                 where: {
@@ -109,11 +108,21 @@ module.exports = async function evento(response, eventData, conversations, messa
                 )
               );
               return ;
+            }else if(rv === "modelo" && eventData.context[requisito]["marca"]){
+              await GenerarMenu(eventData);
             }
           } 
           if(requisito == "userdata"){
             if(rv === "full_name"){
-              eventData.context.enproceso =
+              /*
+              eventData.context.enproceso = "full_name";
+              await MessageService.EnviarMensaje(
+                eventData.Departamento,
+                eventData.Ticket,
+                new whatsappMessage(eventData.Ticket.wa_id)
+                .createTextMessage("Mis disculpas, no entendí tu solicitud. Por favor, escribe 'menu' para obtener más opciones.")
+              );
+              */
             }
             if(rv === "email"){
               
@@ -130,3 +139,42 @@ module.exports = async function evento(response, eventData, conversations, messa
   
   
 };
+
+
+async function GenerarMenu(eventData, idMenuVehiculos = 0){
+  let msgmenu = "";
+  let msgobject = new messageObject("Menu", "list");
+  if(idMenuVehiculos > 0){
+    
+  }else{
+    let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
+    console.log(marca_entity);
+    let marcas = await db.MenuVehiculos.findAll({
+      where: Sequelize.where(
+    Sequelize.fn('lower', Sequelize.col('columnName')),
+    Sequelize.fn('lower', 'yourInput')
+  )
+    });
+    if(!eventData.context.departamentreq.marca){
+      msgmenu = "Por favor seleccione la marca";
+      for(let marca of marcas){
+        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
+      }
+    }
+  }
+  
+  /*
+  
+  
+  
+  await MessageService.EnviarMensaje(
+    eventData.Departamento,
+    eventData.Ticket,
+    new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+      new messageInteractive("list").addBody(msgmenu).addFooter("RSAsist Menu").addAction(
+        new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+      ).toJSON()
+    )
+  );
+  */
+}
