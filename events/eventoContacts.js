@@ -6,17 +6,8 @@ module.exports = async function evento(eventData, conversations, data) {
   
   let wa_id = data.wa_id;
   eventData.KeyContext = `${wa_id}_${eventData.Departamento.id}`;
-  eventData.Cliente = await ClienteService.crearClienteSiNoExiste(wa_id, data.profile.name);
-  const [ticketInstance, ticketCreated] = await TicketService.buscarOCrearTicket(wa_id, eventData.Departamento.id);
-  eventData.Ticket = ticketInstance;
-  eventData.TicketData = await db.AdditionalInfo.findAll({
-    where: {
-      ticket_id: eventData.Ticket.id
-    }
-  });
   eventData.context = conversations.get(eventData.Key_Context);
-
-  if (!eventData.context || ticketCreated){
+  if (!eventData.context){
     eventData.context = {
       enproceso: "",
       saludobot: false,
@@ -27,22 +18,44 @@ module.exports = async function evento(eventData, conversations, data) {
         ticketreq: false
       },
       userdata: {
-        full_name: eventData.Cliente.full_name ? true : false,
-        email: eventData.Cliente.email ? true : false,
+        full_name: false,
+        email: false,
       },
       departamentreq: {},
       ticketreq: {
         ciudad: false
       }
     };
-    
+    for (const xreq of eventData.Departamento.entity) {
+      eventData.context.departamentreq[xreq] = eventData.TicketData.some(additionalInfo => additionalInfo.key_name === xreq);
+    }
   }
-  for (const xreq of eventData.Departamento.entity) {
-    eventData.context.departamentreq[xreq] = eventData.TicketData.some(additionalInfo => additionalInfo.key_name === xreq);
+  if(!eventData.Cliente){
+    eventData.Cliente = await ClienteService.crearClienteSiNoExiste(wa_id, data.profile.name);
+    eventData.context.userdata.full_name = (eventData.Cliente.full_name ? true : false);
+    eventData.context.userdata.email =  (eventData.Cliente.email ? true : false);
+    if(eventData.context.userdata.full_name && eventData.context.userdata.email){
+      eventData.context.requisitos.userdata = true;
+    }
   }
-  if(eventData.context.userdata.full_name && eventData.context.userdata.email){
-    eventData.context.requisitos.userdata = true;
+  if(!eventData.Ticket){
+    const [ticketInstance, ticketCreated] = await TicketService.buscarOCrearTicket(wa_id, eventData.Departamento.id);
+    eventData.Ticket = ticketInstance;
   }
+  if(!eventData.TicketData){
+    eventData.TicketData = await db.AdditionalInfo.findAll({
+      where: {
+        ticket_id: eventData.Ticket.id
+      }
+    });
+  }
+  
+  
+  
+
+  
+  
+  
   conversations.set(eventData.Key_Context, eventData.context);
   eventData.updateRequisites = function() {
     this.context.requisitos.userdata = this.context.userdata.full_name && this.context.userdata.email;
