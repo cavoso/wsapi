@@ -17,14 +17,66 @@ module.exports = async function evento(response, eventData, conversations, messa
       new whatsappMessage(eventData.Ticket.wa_id)
           .createTextMessage(response.answer)
     );
-  } 
+  }
+  
+  switch(response.intent){
+    case 'saludo':
+      break;
+    case 'reserva':
+      break;
+    case 'ciudad':
+      break;
+    case 'verificacion':
+      break;
+    case 'omitir':
+      break;
+    default:
+      if(eventData.context.reply !== ""){
+        if(eventData.context.reply.includes(`${keyReply}_req_marca_`)){
+          eventData.context.reply = ""; 
+          await MessageService.EnviarMensaje(
+            eventData.Departamento,
+            eventData.Ticket,
+            new whatsappMessage(eventData.Ticket.wa_id)
+            .createTextMessage("Lo siento, pero la marca ya se encuentra registrada, si desea modificarla por favor utilice el menú")
+          );
+        }
+      }
+      break;
+  }
   
   for(var requisito in eventData.context.requisitos){
     console.log(requisito)
     if(!eventData.context.requisitos[requisito]){
       for(var rv in eventData.context[requisito]){
         if(!eventData.context[requisito][rv]){
-          if(requisito == ""){
+          if(requisito == "departamentreq"){
+            if(rv == "marca"){
+              let msgobject = new messageObject("Menu", "list");
+              let marcas = await db.MenuVehiculos.findAll({
+                where: {
+                  padre: 0
+                }
+              });
+              for(let marca of marcas){
+                msgobject.addRow(marca.nombre, `${keyReply}_req_marca_${marca.nombre}`);
+              }
+              await MessageService.EnviarMensaje(
+                eventData.Departamento,
+                eventData.Ticket,
+                new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+                  new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
+                    new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+                  ).toJSON()
+                )
+              );
+              return ;
+            }
+          }
+          if(requisito == "userdata"){
+            
+          }
+          if(requisito == "ticketreq"){
             
           }
         }
