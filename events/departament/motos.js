@@ -145,25 +145,39 @@ module.exports = async function evento(response, eventData, conversations, messa
 async function GenerarMenu(eventData){
   
   //entData.context.reply
-  let idMenuVehiculos = 0;
-  let msgobject = new messageObject("Menu", "list");
-  if(idMenuVehiculos > 0){
-    
+  if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+    let id = eventData.context.reply.replace(`${keyReply}_menu_`, '');
+    if (Number.isInteger(id)){
+      let msgobject = new messageObject("Menu", "list");
+      let opciones = await db.MenuVehiculos.findAll({
+        where: {
+          padre: id
+        }
+      });
+      msgobject.addRow("Ejecutivo" `${keyReply}_menu_ejecutivo`);
+      msgobject.addRow("Oportunidades" `${keyReply}_menu_oportunidades`);
+    }
   }else{
     let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
     console.log(marca_entity);
-    let marcas = await db.MenuVehiculos.findAll({
+    let marca = await db.MenuVehiculos.findOne({
       where: Sequelize.where(
         Sequelize.fn('lower', Sequelize.col('nombre')),
         Sequelize.fn('lower', marca_entity.value)
       )
     });
-    for(let marca of marcas){
-      msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
-    }
+    eventData.context.reply = `${keyReply}_menu_${marca.id}`;
+    await GenerarMenu(eventData);
   }
-  msgobject.addRow("Ejecutivo" `${keyReply}_menu_ejecutivo`);
-  msgobject.addRow("Oportunidades" `${keyReply}_menu_oportunidades`);
+  
+  
+  if(idMenuVehiculos > 0){
+    
+  }else{
+    
+
+  }
+  
   /*
   await MessageService.EnviarMensaje(
     eventData.Departamento,
