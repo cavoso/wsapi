@@ -1,4 +1,5 @@
 const db = require('../../models');
+const Sequelize = require('sequelize');
 const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils');
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
@@ -151,9 +152,9 @@ async function GenerarMenu(eventData, idMenuVehiculos = 0){
     console.log(marca_entity);
     let marcas = await db.MenuVehiculos.findAll({
       where: Sequelize.where(
-    Sequelize.fn('lower', Sequelize.col('columnName')),
-    Sequelize.fn('lower', 'yourInput')
-  )
+        Sequelize.fn('lower', Sequelize.col('nombre')),
+        Sequelize.fn('lower', marca_entity.value)
+      )
     });
     if(!eventData.context.departamentreq.marca){
       msgmenu = "Por favor seleccione la marca";
