@@ -144,10 +144,11 @@ module.exports = async function evento(response, eventData, conversations, messa
 
 
 async function GenerarMenu(eventData){
-  
+  console.log(eventData.context.reply);
   //entData.context.reply
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
     let id = eventData.context.reply.replace(`${keyReply}_menu_`, '');
+     console.log(Number.isInteger(id));
     if (Number.isInteger(id)){
       let msgobject = new messageObject("Menu", "list");
       let opciones = await db.MenuVehiculos.findAll({
@@ -172,7 +173,7 @@ async function GenerarMenu(eventData){
       );
       
     }else{
-      console.log("aqui acrga");
+      console.log("aqui carga");
     }
   }else{
     let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
