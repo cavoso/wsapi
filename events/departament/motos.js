@@ -56,14 +56,6 @@ module.exports = async function evento(response, eventData, conversations, messa
             eventData.updateRequisites();
             conversations.set(eventData.Key_Context, eventData.context);
           }
-          /*
-          await MessageService.EnviarMensaje(
-            eventData.Departamento,
-            eventData.Ticket,
-            new whatsappMessage(eventData.Ticket.wa_id)
-            .createTextMessage("Lo siento, pero la marca ya se encuentra registrada, si desea modificarla por favor utilice el menú")
-          );
-          */
         }
       }
       break;
