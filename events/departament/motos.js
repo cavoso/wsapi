@@ -56,7 +56,27 @@ module.exports = async function evento(response, eventData, conversations, messa
             eventData.updateRequisites();
             conversations.set(eventData.Key_Context, eventData.context);
           }
+        }else if(eventData.context.reply.includes(`${keyReply}_cambiar_marca_`)){
+          let marca = eventData.context.reply.replace(`${keyReply}_req_marca_`, '');
+          let record = eventData.TicketData.find(record => record.key_name === "marca");
+          if(record){
+            await record.update({ value: marca });
+          }else{
+            eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", marca);
+          }
+          eventData.context.departamentreq.marca = true;
+          eventData.updateRequisites();
+          conversations.set(eventData.Key_Context, eventData.context);
         }
+      }else{
+        if(!eventData.Ticket.agent_id){
+          await MessageService.EnviarMensaje(
+            eventData.Departamento,
+            eventData.Ticket,
+            new whatsappMessage(eventData.Ticket.wa_id)
+              .createTextMessage("Lamentablemente no entiendo tu mensaje.")
+          );
+        }        
       }
       break;
   }
