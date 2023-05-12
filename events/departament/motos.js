@@ -74,7 +74,7 @@ module.exports = async function evento(response, eventData, conversations, messa
             eventData.Departamento,
             eventData.Ticket,
             new whatsappMessage(eventData.Ticket.wa_id)
-              .createTextMessage("Lamentablemente no entiendo tu mensaje.")
+              .createTextMessage("Mis disculpas, no entendí tu solicitud. Por favor, escribe 'menu' para obtener más opciones.")
           );
         }        
       }
@@ -112,7 +112,12 @@ module.exports = async function evento(response, eventData, conversations, messa
             }
           } 
           if(requisito == "userdata"){
-            
+            if(rv === "full_name"){
+              eventData.context.enproceso =
+            }
+            if(rv === "email"){
+              
+            }
           }
           if(requisito == "ticketreq"){
             
