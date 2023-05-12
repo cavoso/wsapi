@@ -33,13 +33,24 @@ module.exports = async function evento(response, eventData, conversations, messa
     default:
       if(eventData.context.reply !== ""){
         if(eventData.context.reply.includes(`${keyReply}_req_marca_`)){
-          eventData.context.reply = ""; 
+          let marca = eventData.context.reply.replace(`${keyReply}_req_marca_`, '');
+          let record = eventData.TicketData.find(record => record.key_name === marca);
+          if (record){
+            
+          }else{
+            eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
+          eventData.context.departamentreq.marca = true;
+      eventData.updateRequisites();
+      conversations.set(eventData.Key_Context, eventData.context);
+          }
+          /*
           await MessageService.EnviarMensaje(
             eventData.Departamento,
             eventData.Ticket,
             new whatsappMessage(eventData.Ticket.wa_id)
             .createTextMessage("Lo siento, pero la marca ya se encuentra registrada, si desea modificarla por favor utilice el menú")
           );
+          */
         }
       }
       break;
