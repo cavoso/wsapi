@@ -146,7 +146,6 @@ async function GenerarMenu(eventData){
   
   //entData.context.reply
   let idMenuVehiculos = 0;
-  let msgmenu = "";
   let msgobject = new messageObject("Menu", "list");
   if(idMenuVehiculos > 0){
     
@@ -159,23 +158,18 @@ async function GenerarMenu(eventData){
         Sequelize.fn('lower', marca_entity.value)
       )
     });
-    if(!eventData.context.departamentreq.marca){
-      msgmenu = "Por favor seleccione la marca";
-      for(let marca of marcas){
-        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
-      }
+    for(let marca of marcas){
+      msgobject.addRow(marca.nombre, `${keyReply}_req_marca_id_${marca.id}`);
     }
   }
-  
+  msgobject.addRow("Ejecutivo" `${keyReply}_menu_ejecutivo`);
+  msgobject.addRow("Oportunidades" `${keyReply}_menu_oportunidades`);
   /*
-  
-  
-  
   await MessageService.EnviarMensaje(
     eventData.Departamento,
     eventData.Ticket,
     new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-      new messageInteractive("list").addBody(msgmenu).addFooter("RSAsist Menu").addAction(
+      new messageInteractive("list").addBody("Por favor seleccione una opción").addFooter("RSAsist Menu").addAction(
         new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
       ).toJSON()
     )
