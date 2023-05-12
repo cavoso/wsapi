@@ -142,7 +142,10 @@ module.exports = async function evento(response, eventData, conversations, messa
 };
 
 
-async function GenerarMenu(eventData, idMenuVehiculos = 0){
+async function GenerarMenu(eventData){
+  
+  //entData.context.reply
+  let idMenuVehiculos = 0;
   let msgmenu = "";
   let msgobject = new messageObject("Menu", "list");
   if(idMenuVehiculos > 0){
