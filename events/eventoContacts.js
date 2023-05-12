@@ -26,9 +26,7 @@ module.exports = async function evento(eventData, conversations, data) {
         ciudad: false
       }
     };
-    for (const xreq of eventData.Departamento.entity) {
-      eventData.context.departamentreq[xreq] = eventData.TicketData.some(additionalInfo => additionalInfo.key_name === xreq);
-    }
+    
   }
   if(!eventData.Cliente){
     eventData.Cliente = await ClienteService.crearClienteSiNoExiste(wa_id, data.profile.name);
@@ -53,7 +51,11 @@ module.exports = async function evento(eventData, conversations, data) {
       }
     });
   }
-  
+  if(Object.keys(eventData.context.departamentreq).length === 0){
+    for (const xreq of eventData.Departamento.entity) {
+      eventData.context.departamentreq[xreq] = eventData.TicketData.some(additionalInfo => additionalInfo.key_name === xreq);
+    }
+  }  
   conversations.set(eventData.Key_Context, eventData.context);
   eventData.updateRequisites = function() {
     this.context.requisitos.userdata = this.context.userdata.full_name && this.context.userdata.email;

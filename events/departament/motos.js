@@ -34,17 +34,21 @@ module.exports = async function evento(response, eventData, conversations, messa
       if(eventData.context.reply !== ""){
         if(eventData.context.reply.includes(`${keyReply}_req_marca_`)){
           let marca = eventData.context.reply.replace(`${keyReply}_req_marca_`, '');
-          let record = eventData.TicketData.find(record => record.key_name === marca);
+          let record = eventData.TicketData.find(record => record.key_name === "marca");
           if (record){
             await MessageService.EnviarMensaje(
                 eventData.Departamento,
                 eventData.Ticket,
                 new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-                  new messageInteractive("button").addBody(`La marca KTM está registrada. ¿Prefieres cambiar a HQV?`).addFooter("RSAsist Menu").addAction(
-                    new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+                  new messageInteractive("button").addBody(`La marca ${record.value} está registrada. ¿Prefieres cambiar a ${marca}?`).addFooter("RSAsist Menu").addAction(
+                    new messageAction("button")
+                      .addButton(`Si, Cambiar a ${marca}`, `${keyReply}_cambiar_marca_${marca}`)
+                      .addButton(`No, me quedare con ${record.value}`, `${keyReply}_nocambiar_marca_${record.value}`)
+                      .toJSON()
                   ).toJSON()
                 )
               );
+              eventData.context.reply = "";
               return ;
           }else{
             eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", marca);
@@ -71,7 +75,9 @@ module.exports = async function evento(response, eventData, conversations, messa
       for(var rv in eventData.context[requisito]){
         if(!eventData.context[requisito][rv]){
           if(requisito == "departamentreq"){
+            console.log(rv);
             if(rv == "marca"){
+              console.log("entra aqui")
               let msgobject = new messageObject("Menu", "list");
               let marcas = await db.MenuVehiculos.findAll({
                 where: {
