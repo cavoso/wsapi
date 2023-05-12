@@ -68,6 +68,9 @@ module.exports = async function evento(response, eventData, conversations, messa
           eventData.context.departamentreq.marca = true;
           eventData.updateRequisites();
           conversations.set(eventData.Key_Context, eventData.context);
+        }else if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+          await GenerarMenu(eventData);
+          return;
         }
       }else{
         if(!eventData.Ticket.agent_id){
