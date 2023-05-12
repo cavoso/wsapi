@@ -159,8 +159,8 @@ async function GenerarMenu(eventData){
       for(let o of opciones){
         msgobject.addRow(o.nombre, `${keyReply}_menu_${o.id}`);
       }
-      msgobject.addRow("Ejecutivo" `${keyReply}_menu_ejecutivo`);
-      msgobject.addRow("Oportunidades" `${keyReply}_menu_oportunidades`);
+      msgobject.addRow("Ejecutivo", `${keyReply}_menu_ejecutivo`);
+      msgobject.addRow("Oportunidades",`${keyReply}_menu_oportunidades`);
       
       await MessageService.EnviarMensaje(
         eventData.Departamento,
