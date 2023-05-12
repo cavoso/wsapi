@@ -147,9 +147,9 @@ async function GenerarMenu(eventData){
   console.log(eventData.context.reply);
   //entData.context.reply
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-    let id = eventData.context.reply.replace(`${keyReply}_menu_`, '');
-     console.log(Number.isInteger(id));
-    if (Number.isInteger(id)){
+    let id = Number(eventData.context.reply.replace(`${keyReply}_menu_`, ''));
+    console.log(id);
+    if (!isNaN(id)){
       let msgobject = new messageObject("Menu", "list");
       let opciones = await db.MenuVehiculos.findAll({
         where: {
