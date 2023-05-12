@@ -111,6 +111,7 @@ module.exports = async function evento(response, eventData, conversations, messa
               return ;
             }else if(rv === "modelo" && eventData.context[requisito]["marca"]){
               await GenerarMenu(eventData);
+              return;
             }
           } 
           if(requisito == "userdata"){
@@ -154,12 +155,27 @@ async function GenerarMenu(eventData){
           padre: id
         }
       });
+      for(let o of opciones){
+        msgobject.addRow(o.nombre, `${keyReply}_menu_${o.id}`);
+      }
       msgobject.addRow("Ejecutivo" `${keyReply}_menu_ejecutivo`);
       msgobject.addRow("Oportunidades" `${keyReply}_menu_oportunidades`);
+      
+      await MessageService.EnviarMensaje(
+        eventData.Departamento,
+        eventData.Ticket,
+        new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+          new messageInteractive("list").addBody("Por favor seleccione una opción").addFooter("RSAsist Menu").addAction(
+            new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+          ).toJSON()
+        )
+      );
+      
+    }else{
+      console.log("aqui acrga");
     }
   }else{
     let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
-    console.log(marca_entity);
     let marca = await db.MenuVehiculos.findOne({
       where: Sequelize.where(
         Sequelize.fn('lower', Sequelize.col('nombre')),
@@ -169,24 +185,5 @@ async function GenerarMenu(eventData){
     eventData.context.reply = `${keyReply}_menu_${marca.id}`;
     await GenerarMenu(eventData);
   }
-  
-  
-  if(idMenuVehiculos > 0){
-    
-  }else{
-    
 
-  }
-  
-  /*
-  await MessageService.EnviarMensaje(
-    eventData.Departamento,
-    eventData.Ticket,
-    new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-      new messageInteractive("list").addBody("Por favor seleccione una opción").addFooter("RSAsist Menu").addAction(
-        new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
-      ).toJSON()
-    )
-  );
-  */
 }
