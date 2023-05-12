@@ -41,6 +41,10 @@ module.exports = async function evento(eventData, conversations, data) {
   if(!eventData.Ticket){
     const [ticketInstance, ticketCreated] = await TicketService.buscarOCrearTicket(wa_id, eventData.Departamento.id);
     eventData.Ticket = ticketInstance;
+    if(ticketCreated){
+      let msg = new whatsappMessage(wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(eventData.Ticket.id).padStart(5, '0')}.`);
+      await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
+    }
   }
   if(!eventData.TicketData){
     eventData.TicketData = await db.AdditionalInfo.findAll({
@@ -49,12 +53,6 @@ module.exports = async function evento(eventData, conversations, data) {
       }
     });
   }
-  
-  
-  
-
-  
-  
   
   conversations.set(eventData.Key_Context, eventData.context);
   eventData.updateRequisites = function() {
@@ -71,8 +69,5 @@ module.exports = async function evento(eventData, conversations, data) {
     this.context.requisitos.departamentreq = isDepartmentReqSatisfied;
     this.context.requisitos.ticketreq = this.context.ticketreq.ciudad;
   };
-  if(ticketCreated){
-    let msg = new whatsappMessage(wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(eventData.Ticket.id).padStart(5, '0')}.`);
-    await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
-  }
+  
 };

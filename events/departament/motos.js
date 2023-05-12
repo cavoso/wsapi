@@ -8,9 +8,7 @@ const keyReply = "8fK2s";
 module.exports = async function evento(response, eventData, conversations, message) {
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
-  let detectedEntities = response.entities;
-
-  console.log(detectedEntities);
+  
   
   if(response.answer){
     await MessageService.EnviarMensaje(

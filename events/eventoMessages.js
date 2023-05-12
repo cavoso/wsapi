@@ -20,12 +20,11 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   let text = "";
   if (message.type === "text") {
     text = message.text.body;
-  }else if(message.type === "interactive"){
+  }
+  if(message.type === "interactive"){
     if(message.interactive.type === "list_reply"){
-      text = message.interactive.list_reply.title;
       eventData.context.reply = message.interactive.list_reply.id;
     }else if(message.interactive.type === "button_reply"){
-      text = message.interactive.button_reply.title;
       eventData.context.reply = message.interactive.button_reply.id;
     }
   }
@@ -40,7 +39,21 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   let response = await nlp.process('es', text, eventData.context);
   
   //console.log(JSON.stringify(response, null, 2));
-  console.log(response)
+  console.log(response);
+  let entitys = await db.Entity.findAll({
+    attributes: ['name'],
+    group : ['name']
+  });
+  let detectedEntities = response.entities;
+  for (let entity of entitys) {
+    let detectedEntity = detectedEntities.find(entity => entity.entity === entity.name);
+    if (detectedEntity){
+      eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
+      eventData.context.departamentreq.marca = true;
+      eventData.updateRequisites();
+      conversations.set(eventData.Key_Context, eventData.context);
+    }
+  }
   
  
   switch(eventData.Departamento.id){
