@@ -23,7 +23,13 @@ module.exports = async function evento(response, eventData, conversations, messa
   
   for(var requisito in eventData.context.requisitos){
     console.log(requisito)
-    console.log(eventData.context.requisitos[requisito])
+    if(!eventData.context.requisitos[requisito]){
+      for(var rv in eventData.context[requisito]){
+        if(!eventData.context[requisito][rv]){
+          
+        }
+      }
+    }
   }
   
   

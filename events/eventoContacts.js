@@ -22,8 +22,8 @@ module.exports = async function evento(eventData, conversations, data) {
       saludobot: false,
       reply: '',
       requisitos: {
-        userdata: false,
         departamentreq: false,
+        userdata: false,        
         ticketreq: false
       },
       userdata: {
