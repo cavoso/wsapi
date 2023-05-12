@@ -24,7 +24,9 @@ module.exports = async function evento(response, eventData, conversations, messa
     if(!eventData.context.requisitos[requisito]){
       for(var rv in eventData.context[requisito]){
         if(!eventData.context[requisito][rv]){
-          
+          if(requisito == ""){
+            
+          }
         }
       }
     }
