@@ -36,7 +36,16 @@ module.exports = async function evento(response, eventData, conversations, messa
           let marca = eventData.context.reply.replace(`${keyReply}_req_marca_`, '');
           let record = eventData.TicketData.find(record => record.key_name === marca);
           if (record){
-            
+            await MessageService.EnviarMensaje(
+                eventData.Departamento,
+                eventData.Ticket,
+                new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+                  new messageInteractive("button").addBody(`La marca KTM está registrada. ¿Prefieres cambiar a HQV?`).addFooter("RSAsist Menu").addAction(
+                    new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+                  ).toJSON()
+                )
+              );
+              return ;
           }else{
             eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", marca);
             eventData.context.departamentreq.marca = true;
