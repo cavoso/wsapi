@@ -42,8 +42,8 @@ module.exports = async function evento(response, eventData, conversations, messa
                 new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
                   new messageInteractive("button").addBody(`La marca ${record.value} está registrada. ¿Prefieres cambiar a ${marca}?`).addFooter("RSAsist Menu").addAction(
                     new messageAction("button")
-                      .addButton(`Si, Cambiar a ${marca}`, `${keyReply}_cambiar_marca_${marca}`)
-                      .addButton(`No, me quedare con ${record.value}`, `${keyReply}_nocambiar_marca_${record.value}`)
+                      .addButton(`Si`, `${keyReply}_cambiar_marca_${marca}`)
+                      .addButton(`No`, `${keyReply}_nocambiar_marca_${record.value}`)
                       .toJSON()
                   ).toJSON()
                 )
@@ -76,7 +76,7 @@ module.exports = async function evento(response, eventData, conversations, messa
         if(!eventData.context[requisito][rv]){
           if(requisito == "departamentreq"){
             console.log(rv);
-            if(rv == "marca"){
+            if(rv === "marca"){
               console.log("entra aqui")
               let msgobject = new messageObject("Menu", "list");
               let marcas = await db.MenuVehiculos.findAll({
@@ -98,7 +98,7 @@ module.exports = async function evento(response, eventData, conversations, messa
               );
               return ;
             }
-          }
+          } 
           if(requisito == "userdata"){
             
           }
