@@ -38,10 +38,10 @@ module.exports = async function evento(response, eventData, conversations, messa
           if (record){
             
           }else{
-            eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, detectedEntity.entity, detectedEntity.option);
-          eventData.context.departamentreq.marca = true;
-      eventData.updateRequisites();
-      conversations.set(eventData.Key_Context, eventData.context);
+            eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", marca);
+            eventData.context.departamentreq.marca = true;
+            eventData.updateRequisites();
+            conversations.set(eventData.Key_Context, eventData.context);
           }
           /*
           await MessageService.EnviarMensaje(
