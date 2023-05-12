@@ -20,7 +20,7 @@ module.exports = async function evento(response, eventData, conversations, messa
       new whatsappMessage(eventData.Ticket.wa_id)
           .createTextMessage(response.answer)
     );
-  }
+  } 
   
   if(eventData.context.departamentreq.marca === false){
     //no esta seteada la marca
