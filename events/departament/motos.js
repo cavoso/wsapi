@@ -110,25 +110,8 @@ module.exports = async function evento(response, eventData, conversations, messa
           if(requisito == "departamentreq"){
             console.log(rv);
             if(rv === "marca"){
-              let msgobject = new messageObject("Menu", "list");
-              let marcas = await db.MenuVehiculos.findAll({
-                where: {
-                  padre: 0
-                }
-              });
-              for(let marca of marcas){
-                msgobject.addRow(marca.nombre, `${keyReply}_req_marca_${marca.nombre}`);
-              }
-              await MessageService.EnviarMensaje(
-                eventData.Departamento,
-                eventData.Ticket,
-                new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-                  new messageInteractive("list").addBody("Por favor seleccione la marca").addFooter("RSAsist Menu").addAction(
-                    new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
-                  ).toJSON()
-                )
-              );
-              return ;
+              await GenerarMenu(eventData);
+              return;              
             }else if(rv === "modelo" && eventData.context[requisito]["marca"]){
               await GenerarMenu(eventData);
               return;
@@ -165,19 +148,41 @@ module.exports = async function evento(response, eventData, conversations, messa
 
 async function GenerarMenu(eventData){  
   console.log(eventData.context.reply);
-  
+  let titulo = "";
+  let _Action = new messageAction("list").addButton("Menu");
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
     
   }else{
-    
+    let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
+    if(!marca_entity){
+      let marcas = await db.MenuVehiculos.findAll({
+        where: {
+          padre: 0
+        }
+      });
+      for(let marca of marcas){
+        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_${marca.nombre}`);
+      }
+    }else{
+      
+    }
   }
   
+  _Action.addSection(
+    new messageObject("Otras Opciones", "list")
+      .addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
+      .addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`)
+    .toJSON()
+  );
+  /*
   await MessageService.EnviarMensaje(
-    eventData.Departamento,          eventData.Ticket,
-          new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-            new messageInteractive("list").addBody(`Por favor seleccione un ${categoria}`).addFooter("RSAsist Menu").addAction(
-              messageAction.toJSON()
-            ).toJSON()
-          )
-        );
+    eventData.Departamento,
+    eventData.Ticket,
+    new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+      new messageInteractive("list").addBody(titulo).addFooter("RSAsist Menu").addAction(
+        _Action.toJSON()
+      ).toJSON()
+    )
+  );
+  */
 }
