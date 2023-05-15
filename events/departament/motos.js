@@ -179,7 +179,10 @@ async function GenerarMenu(eventData){
   for(let o of opciones){
     msgobject.addRow(o.nombre, `${keyReply}_req_${o.categoria}_${o.nombre}`);
   }
+  
+  let msgobject = new messageObject("Menu", "list");
   _Action.addSection(msgobject);
+  
   _Action.addSection(
     new messageObject("Otras Opciones", "list")
       .addRow("Contactar Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
