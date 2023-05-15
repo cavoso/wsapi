@@ -147,7 +147,8 @@ module.exports = async function evento(response, eventData, conversations, messa
 
 
 async function GenerarMenu(eventData){  
-  console.log(eventData.context.reply);
+  
+  let enviar  = false;
   
   let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
   let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
@@ -155,60 +156,44 @@ async function GenerarMenu(eventData){
   let titulo = "";
   let _Action = new messageAction("list").addButton("Menu");
   
-  let opciones = null;
-  let showmenu = false;
-  
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
     
   }else{
-    titulo = "una marca";
     if(!marca_entity){
-      opciones = await db.MenuVehiculos.findAll({
-        where: {
-          categoria: "marca"
-        }
-      });   
-      showmenu = true;
+      
     }else{
-      let marca = await db.MenuVehiculos.findOne({
-        where: Sequelize.where(
-          Sequelize.fn('lower', Sequelize.col('nombre')),
-          Sequelize.fn('lower', marca_entity.value)
-        )
-      });
-      if(marca){
-        opciones = await db.MenuVehiculos.findAll({
-          where: {
-            padre: marca.id
-          }
-        });
-        showmenu = true;
-      }
+      
     }
-  }
-  if(showmenu){
-    let msgobject = new messageObject("Menu", "list");
-    for(let o of opciones){
-      msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
-    }
-    _Action.addSection(msgobject);
   }
   
-  _Action.addSection(
-    new messageObject("Otras Opciones", "list")
+  if(enviar){
+    
+    _Action.addSection(
+      new messageObject("Otras Opciones", "list")
       .addRow("Contactar Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
       .addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`)
-    .toJSON()
-  );
-
-  await MessageService.EnviarMensaje(
-    eventData.Departamento,
-    eventData.Ticket,
-    new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-      new messageInteractive("list").addBody(`Por favor seleccione ${titulo}, clic en menú para abrirlo`).addFooter("RSAsist Menu").addAction(
-        _Action.toJSON()
-      ).toJSON()
-    )
-  );
+      .toJSON()
+    );
+    
+    let ticket_menu = new messageObject("Opciones Ticket", "list");
+    if(marca_entity){
+      ticket_menu.addRow("Cambiar marca", `${keyReply}_menu_cambiar_marca`);
+    }
+    if(modelo_entity){
+      ticket_menu.addRow("Cambiar modelo", `${keyReply}_menu_cambiar_modelo`);
+    }
+    ticket_menu.addRow("Cerrar Ticket", `${keyReply}_menu_cerrar_ticket`);
+    _Action.addSection(ticket_menu.toJSON());
+    
+    await MessageService.EnviarMensaje(
+      eventData.Departamento,
+      eventData.Ticket,
+      new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+        new messageInteractive("list").addBody(`Por favor seleccione ${titulo}, clic en menú para abrirlo`).addFooter("RSAsist Menu").addAction(
+          _Action.toJSON()
+        ).toJSON()
+      )
+    );
+  }
  
 }
