@@ -1,6 +1,6 @@
 const db = require('../../models');
 const Sequelize = require('sequelize');
-const validaciones = require('../../config/validaciones');
+const { variablesMenu } = require('../../config/validaciones');
 const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils');
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
@@ -151,33 +151,36 @@ async function GenerarMenu(eventData){
   console.log(eventData.context.reply);
   //entData.context.reply
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-    const { iddep, tipo, id } = validaciones.variablesMenu(eventData.context.reply);
+    const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
     if(tipo !== "modelo"){
-      if (!isNaN(id)){
+      
+      if (!isNaN(Number(id))){
         let msgobject = new messageObject("Menu", "list");
         let opciones = await db.MenuVehiculos.findAll({
           where: {
             padre: id
           }
         });
+        let categoria = "";
         for(let o of opciones){
-          msgobject.addRow(o.nombre, `${keyReply}_menu_${o.id}`);
+          msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_$${o.id}`);
+          categoria = o.categoria;
         }
         msgobject.addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`);
         msgobject.addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`);
         
-        await MessageService.EnviarMensaje(        eventData.Departamento,
-        eventData.Ticket,
-        new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-          new messageInteractive("list").addBody("Por favor seleccione una opción").addFooter("RSAsist Menu").addAction(
-            new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
-          ).toJSON()
-        )
-      );
-      
-    }else{
-      console.log("aqui carga");
-    }
+        await MessageService.EnviarMensaje(
+          eventData.Departamento,
+          eventData.Ticket,
+          new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+            new messageInteractive("list").addBody(`Por favor seleccione un ${categoria}`).addFooter("RSAsist Menu").addAction(
+              new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+            ).toJSON()
+          )
+        );
+      }else{
+        console.log("aqui carga");
+      }
     }
     
   }else{

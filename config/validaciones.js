@@ -34,5 +34,6 @@ function hayCampoPendiente(pendingData) {
 module.exports = {
   validarTexto, 
   validarEmail,
-  hayCampoPendiente
+  hayCampoPendiente,
+  variablesMenu
 };
