@@ -98,10 +98,12 @@ module.exports = async function evento(response, eventData, conversations, messa
         if(!eventData.context[requisito][rv]){
           if(requisito == "departamentreq"){
             console.log(rv);
+            console.log(eventData.context[requisito]["marca"])
             if(rv === "marca"){
               await GenerarMenu(eventData);
               return;              
             }else if(rv === "modelo" && eventData.context[requisito]["marca"]){
+              console.log("genera menu para modelo")
               await GenerarMenu(eventData);
               return;
             }
@@ -145,8 +147,11 @@ async function GenerarMenu(eventData){
   let titulo = "";
   let _Action = new messageAction("list").addButton("Menu");
   let sec_menu = new messageObject("Menu", "list");
-  if(eventData.context.reply.includes(`${keyReply}_menu_`) && !marca_entity){
+  console.log(marca_entity)
+  console.log(eventData.context.reply);
+  if(eventData.context.reply.includes(`${keyReply}_menu_`)){
     const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
+    console.log(eventData.context.reply);
     console.log(id)
     if (!isNaN(Number(id))){
       let opciones = await db.MenuVehiculos.findAll({
