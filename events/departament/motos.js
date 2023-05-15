@@ -156,6 +156,7 @@ async function GenerarMenu(eventData){
   let _Action = new messageAction("list").addButton("Menu");
   
   let opciones = null;
+  let showmenu = false;
   
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
     
@@ -166,7 +167,8 @@ async function GenerarMenu(eventData){
         where: {
           categoria: "marca"
         }
-      });      
+      });   
+      showmenu = true;
     }else{
       let marca = await db.MenuVehiculos.findOne({
         where: Sequelize.where(
@@ -176,12 +178,15 @@ async function GenerarMenu(eventData){
       });
     }
   }
-  for(let o of opciones){
-    msgobject.addRow(o.nombre, `${keyReply}_req_${o.categoria}_${o.nombre}`);
+  if(showmenu){
+    let msgobject = new messageObject("Menu", "list");
+    for(let o of opciones){
+      msgobject.addRow(o.nombre, `${keyReply}_req_${o.categoria}_${o.nombre}`);
+    }
+    _Action.addSection(msgobject);
   }
   
-  let msgobject = new messageObject("Menu", "list");
-  _Action.addSection(msgobject);
+  
   
   _Action.addSection(
     new messageObject("Otras Opciones", "list")
