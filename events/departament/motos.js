@@ -32,6 +32,10 @@ module.exports = async function evento(response, eventData, conversations, messa
       break;
     case 'omitir':
       break;
+    case 'Menu':
+      await GenerarMenu(eventData);
+      return;
+      break;
     default:
       if(eventData.context.reply !== ""){
         if(eventData.context.reply.includes(`${keyReply}_menu_`)){
@@ -175,56 +179,56 @@ async function GenerarMenu(eventData){
   let sec_menu = new messageObject("Menu", "list");
   console.log(marca_entity)
   console.log(eventData.context.reply);
-  if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-    const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
-    console.log(eventData.context.reply);
-    console.log(id)
-    if (!isNaN(Number(id))){
-      let opciones = await db.MenuVehiculos.findAll({
-        where: {
-          padre: id
+  if(modelo_entity === undefined){
+    if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+      const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
+      if (!isNaN(Number(id))){
+        let opciones = await db.MenuVehiculos.findAll({
+          where: {
+            padre: id
+          }
+        });
+        for(let o of opciones){
+          if(o.categoria == "modelo"){
+            sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.nombre}`);
+          }else{
+            sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
+          }
+          let ultimoCaracter = o.categoria.slice(-1);
+          titulo = `un${ultimoCaracter !== "a" ? '' : ultimoCaracter} ${o.categoria}`;
         }
-      });
-      for(let o of opciones){
-        if(o.categoria == "modelo"){
+        _Action.addSection(sec_menu.toJSON());
+        enviar = true;
+      }else{
+        
+      }
+    }else{
+      if(!marca_entity){
+        titulo = "una marca";
+        let opciones = await db.MenuVehiculos.findAll({
+          where: {
+            categoria: "marca"
+          }
+        }); 
+      
+        for(let o of opciones){
           sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.nombre}`);
-        }else{
-          sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
         }
-        let ultimoCaracter = o.categoria.slice(-1);
-        titulo = `un${ultimoCaracter !== "a" ? '' : ultimoCaracter} ${o.categoria}`;
+        _Action.addSection(sec_menu.toJSON());
+        enviar = true;
+      }else{
+        let marca = await db.MenuVehiculos.findOne({
+          where: Sequelize.where(
+            Sequelize.fn('lower', Sequelize.col('nombre')),
+            Sequelize.fn('lower', marca_entity.value)
+          )
+        });
+        eventData.context.reply = `${keyReply}_menu_${marca.categoria}_${marca.id}`;
+        await GenerarMenu(eventData);
       }
-      _Action.addSection(sec_menu.toJSON());
-      enviar = true;
-    }else{
-      
-    }
-    
-  }else{
-    if(!marca_entity){
-      titulo = "una marca";
-      let opciones = await db.MenuVehiculos.findAll({
-        where: {
-          categoria: "marca"
-        }
-      }); 
-      
-      for(let o of opciones){
-        sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.nombre}`);
-      }
-      _Action.addSection(sec_menu.toJSON());
-      enviar = true;
-    }else{
-      let marca = await db.MenuVehiculos.findOne({
-        where: Sequelize.where(
-          Sequelize.fn('lower', Sequelize.col('nombre')),
-          Sequelize.fn('lower', marca_entity.value)
-        )
-      });
-      eventData.context.reply = `${keyReply}_menu_${marca.categoria}_${marca.id}`;
-      await GenerarMenu(eventData);
     }
   }
+  
   
   if(enviar){
         
