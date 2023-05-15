@@ -58,6 +58,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                     )
                 );
                 eventData.context.reply = "";
+                conversations.set(eventData.Key_Context, eventData.context);
                 return ;
               }else{
                 eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", id);
