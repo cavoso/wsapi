@@ -207,15 +207,12 @@ async function GenerarMenu(eventData){
   }
   
   if(enviar){
-    
-    _Action.addSection(
-      new messageObject("Otras Opciones", "list")
-      .addRow("Contactar Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
-      .addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`)
-      .toJSON()
-    );
-    
-    let ticket_menu = new messageObject("Opciones Ticket", "list");
+        
+    let ticket_menu = new messageObject("Otras Opciones", "list");
+    ticket_menu.addRow("Contactar Ejecutivo", `${keyReply}_menu_general_ejecutivo`);
+    if(modelo_entity){
+      ticket_menu.addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`);
+    }
     if(marca_entity){
       ticket_menu.addRow("Cambiar marca", `${keyReply}_menu_cambiar_marca`);
     }
