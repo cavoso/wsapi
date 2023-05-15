@@ -1,5 +1,6 @@
 const db = require('../../models');
 const Sequelize = require('sequelize');
+const validaciones = require('../../config/validaciones');
 const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils');
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
@@ -150,23 +151,22 @@ async function GenerarMenu(eventData){
   console.log(eventData.context.reply);
   //entData.context.reply
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-    let id = eventData.context.reply.replace(`${keyReply}_menu_`, '');
-    console.log(id);
-    if (!isNaN(id)){
-      let msgobject = new messageObject("Menu", "list");
-      let opciones = await db.MenuVehiculos.findAll({
-        where: {
-          padre: id
+    const { iddep, tipo, id } = validaciones.variablesMenu(eventData.context.reply);
+    if(tipo !== "modelo"){
+      if (!isNaN(id)){
+        let msgobject = new messageObject("Menu", "list");
+        let opciones = await db.MenuVehiculos.findAll({
+          where: {
+            padre: id
+          }
+        });
+        for(let o of opciones){
+          msgobject.addRow(o.nombre, `${keyReply}_menu_${o.id}`);
         }
-      });
-      for(let o of opciones){
-        msgobject.addRow(o.nombre, `${keyReply}_menu_${o.id}`);
-      }
-      msgobject.addRow("Ejecutivo", `${keyReply}_menu_ejecutivo`);
-      msgobject.addRow("Oportunidades",`${keyReply}_menu_oportunidades`);
-      
-      await MessageService.EnviarMensaje(
-        eventData.Departamento,
+        msgobject.addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`);
+        msgobject.addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`);
+        
+        await MessageService.EnviarMensaje(        eventData.Departamento,
         eventData.Ticket,
         new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
           new messageInteractive("list").addBody("Por favor seleccione una opción").addFooter("RSAsist Menu").addAction(
@@ -178,6 +178,8 @@ async function GenerarMenu(eventData){
     }else{
       console.log("aqui carga");
     }
+    }
+    
   }else{
     let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
     let marca = await db.MenuVehiculos.findOne({
@@ -186,7 +188,7 @@ async function GenerarMenu(eventData){
         Sequelize.fn('lower', marca_entity.value)
       )
     });
-    eventData.context.reply = `${keyReply}_menu_${marca.id}`;
+    eventData.context.reply = `${keyReply}_menu_${marca.categoria}_${marca.id}`;
     await GenerarMenu(eventData);
   }
 
