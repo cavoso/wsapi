@@ -148,41 +148,53 @@ module.exports = async function evento(response, eventData, conversations, messa
 
 async function GenerarMenu(eventData){  
   console.log(eventData.context.reply);
+  
+  let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
+  let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
+  
   let titulo = "";
   let _Action = new messageAction("list").addButton("Menu");
+  
+  let opciones = null;
+  
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
     
   }else{
-    let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
+    titulo = "una marca";
     if(!marca_entity){
-      let marcas = await db.MenuVehiculos.findAll({
+      opciones = await db.MenuVehiculos.findAll({
         where: {
-          padre: 0
+          categoria: "marca"
         }
-      });
-      for(let marca of marcas){
-        msgobject.addRow(marca.nombre, `${keyReply}_req_marca_${marca.nombre}`);
-      }
+      });      
     }else{
-      
+      let marca = await db.MenuVehiculos.findOne({
+        where: Sequelize.where(
+          Sequelize.fn('lower', Sequelize.col('nombre')),
+          Sequelize.fn('lower', marca_entity.value)
+        )
+      });
     }
   }
-  
+  for(let o of opciones){
+    msgobject.addRow(o.nombre, `${keyReply}_req_${o.categoria}_${o.nombre}`);
+  }
+  _Action.addSection(msgobject);
   _Action.addSection(
     new messageObject("Otras Opciones", "list")
-      .addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
+      .addRow("Contactar Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
       .addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`)
     .toJSON()
   );
-  /*
+
   await MessageService.EnviarMensaje(
     eventData.Departamento,
     eventData.Ticket,
     new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-      new messageInteractive("list").addBody(titulo).addFooter("RSAsist Menu").addAction(
+      new messageInteractive("list").addBody(`Por favor seleccione ${titulo}, clic en menú para abrirlo`).addFooter("RSAsist Menu").addAction(
         _Action.toJSON()
       ).toJSON()
     )
   );
-  */
+ 
 }
