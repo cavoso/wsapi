@@ -74,7 +74,22 @@ module.exports = async function evento(response, eventData, conversations, messa
               
               let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
               if(modelo_entity){
-                
+                await MessageService.EnviarMensaje(
+                  eventData.Departamento,
+                  eventData.Ticket,
+                  new whatsappMessage(eventData.Ticket.wa_id)
+                    .createInteractiveMessage(
+                    new messageInteractive("button").addBody(`El modelo ${modelo_entity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
+                      .addFooter("RSAsist Menu")
+                      .addAction(
+                        new messageAction("button")
+                          .addButton(`Si`, `${keyReply}_cambiar_modelo_${id}`)
+                          .addButton(`No`, `${keyReply}_nocambiar_modelo_${modelo_entity.value}`)
+                          .toJSON()
+                        )
+                        .toJSON()
+                    )
+                );
               }else{
                 eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "modelo", id);
                 eventData.context.departamentreq.modelo = true;
@@ -91,6 +106,8 @@ module.exports = async function evento(response, eventData, conversations, messa
               
               break;
           }
+        }else if(eventData.context.reply.includes(`${keyReply}_cambiar`)){
+          
         }else{
           
         }
