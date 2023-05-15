@@ -34,15 +34,18 @@ module.exports = async function evento(response, eventData, conversations, messa
       break;
     default:
       if(eventData.context.reply !== ""){
-        if(eventData.context.reply.includes(`${keyReply}_req_marca_`)){
-          let marca = eventData.context.reply.replace(`${keyReply}_req_marca_`, '');
-          let record = eventData.TicketData.find(record => record.key_name === "marca");
-          if (record){
-            await MessageService.EnviarMensaje(
-                eventData.Departamento,
-                eventData.Ticket,
-                new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-                  new messageInteractive("button").addBody(`La marca ${record.value} está registrada. ¿Prefieres cambiar a ${marca}?`).addFooter("RSAsist Menu").addAction(
+        if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+          const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
+          switch(tipo){
+            case 'marca':
+              
+              let marcaEntity = eventData.TicketData.find(record => record.key_name === "marca");
+              if(marcaEntity){
+                await MessageService.EnviarMensaje(
+                  eventData.Departamento,
+                  eventData.Ticket,
+                  new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+                    new messageInteractive("button").addBody(`La marca ${record.value} está registrada. ¿Prefieres cambiar a ${marca}?`).addFooter("RSAsist Menu").addAction(
                     new messageAction("button")
                       .addButton(`Si`, `${keyReply}_cambiar_marca_${marca}`)
                       .addButton(`No`, `${keyReply}_nocambiar_marca_${record.value}`)
@@ -52,52 +55,21 @@ module.exports = async function evento(response, eventData, conversations, messa
               );
               eventData.context.reply = "";
               return ;
-          }else{
-            eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", marca);
-            eventData.context.departamentreq.marca = true;
-            eventData.updateRequisites();
-            conversations.set(eventData.Key_Context, eventData.context);
+              }else{
+                
+              }
+              
+              break;
+            case 'modelo':
+              break;
+            default:
+              break;
           }
-        }else if(eventData.context.reply.includes(`${keyReply}_cambiar_marca_`)){
-          let marca = eventData.context.reply.replace(`${keyReply}_req_marca_`, '');
-          let record = eventData.TicketData.find(record => record.key_name === "marca");
-          if(record){
-            await record.update({ value: marca });
-          }else{
-            eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", marca);
-          }
-          eventData.context.departamentreq.marca = true;
-          eventData.updateRequisites();
-          conversations.set(eventData.Key_Context, eventData.context);
-        }else if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-          if(eventData.context.reply != ""){
-            const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
-            if(tipo == "modelo"){
-              let modelo = await db.MenuVehiculos.findOne({
-                where: {
-                  id: id
-                }
-              });
-              eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "modelo", modelo.nombre);
-              eventData.context.departamentreq.modelo = true;
-              eventData.updateRequisites();
-              conversations.set(eventData.Key_Context, eventData.context);
-            }
-          }else{
-            await GenerarMenu(eventData);
-            return;
-          }          
+        }else{
           
         }
       }else{
-        if(!eventData.Ticket.agent_id){
-          await MessageService.EnviarMensaje(
-            eventData.Departamento,
-            eventData.Ticket,
-            new whatsappMessage(eventData.Ticket.wa_id)
-              .createTextMessage("Mis disculpas, no entendí tu solicitud. Por favor, escribe 'menu' para obtener más opciones.")
-          );
-        }        
+        
       }
       break;
   }
@@ -190,7 +162,7 @@ async function GenerarMenu(eventData){
       }); 
       
       for(let o of opciones){
-        sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
+        sec_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.nombre}`);
       }
       _Action.addSection(sec_menu.toJSON());
       enviar = true;
