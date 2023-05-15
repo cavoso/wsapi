@@ -176,17 +176,23 @@ async function GenerarMenu(eventData){
           Sequelize.fn('lower', marca_entity.value)
         )
       });
+      if(marca){
+        opciones = await db.MenuVehiculos.findAll({
+          where: {
+            padre: marca.id
+          }
+        });
+        showmenu = true;
+      }
     }
   }
   if(showmenu){
     let msgobject = new messageObject("Menu", "list");
     for(let o of opciones){
-      msgobject.addRow(o.nombre, `${keyReply}_req_${o.categoria}_${o.nombre}`);
+      msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
     }
     _Action.addSection(msgobject);
   }
-  
-  
   
   _Action.addSection(
     new messageObject("Otras Opciones", "list")
