@@ -177,8 +177,7 @@ async function GenerarMenu(eventData){
   let titulo = "";
   let _Action = new messageAction("list").addButton("Menu");
   let sec_menu = new messageObject("Menu", "list");
-  console.log(marca_entity)
-  console.log(eventData.context.reply);
+
   if(modelo_entity === undefined){
     if(eventData.context.reply.includes(`${keyReply}_menu_`)){
       const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
@@ -227,14 +226,21 @@ async function GenerarMenu(eventData){
         await GenerarMenu(eventData);
       }
     }
+  }else{
+    enviar = true;
   }
   
   
   if(enviar){
-        
-    let ticket_menu = new messageObject("Otras Opciones", "list");
+    let menu_title = "Menu";
+    if(modelo_entity === undefined){
+      menu_title = "Otras Opciones";
+    }else{
+      titulo = "una opcion";
+    }
+    let ticket_menu = new messageObject(menu_title, "list");
     ticket_menu.addRow("Contactar Ejecutivo", `${keyReply}_menu_general_ejecutivo`);
-    if(modelo_entity){
+    if(!modelo_entity){
       ticket_menu.addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`);
     }
     if(marca_entity){
