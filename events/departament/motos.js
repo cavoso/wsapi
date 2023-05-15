@@ -156,7 +156,7 @@ async function GenerarMenu(eventData){
   let titulo = "";
   let _Action = new messageAction("list").addButton("Menu");
   let sec_menu = new messageObject("Menu", "list");
-  if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+  if(eventData.context.reply.includes(`${keyReply}_menu_`) && !marca_entity){
     const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
     
     if (!isNaN(Number(id))){
