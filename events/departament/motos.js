@@ -157,12 +157,33 @@ async function GenerarMenu(eventData){
   let _Action = new messageAction("list").addButton("Menu");
   
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+    const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
+    
+    if (!isNaN(Number(id))){
+      
+    }
     
   }else{
     if(!marca_entity){
-      
+      let opciones = await db.MenuVehiculos.findAll({
+        where: {
+          categoria: "marca"
+        }
+      }); 
+      let marcas_menu = new messageObject("Menu", "list");
+      for(let o of opciones){
+        marcas_menu.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
+      }
+      _Action.addSection(marcas_menu.toJSON());
     }else{
-      
+      let marca = await db.MenuVehiculos.findOne({
+        where: Sequelize.where(
+          Sequelize.fn('lower', Sequelize.col('nombre')),
+          Sequelize.fn('lower', marca_entity.value)
+        )
+      });
+      eventData.context.reply = `${keyReply}_menu_${marca.categoria}_${marca.id}`;
+      await GenerarMenu(eventData);
     }
   }
   
