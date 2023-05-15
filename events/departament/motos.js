@@ -44,25 +44,39 @@ module.exports = async function evento(response, eventData, conversations, messa
                 await MessageService.EnviarMensaje(
                   eventData.Departamento,
                   eventData.Ticket,
-                  new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-                    new messageInteractive("button").addBody(`La marca ${record.value} está registrada. ¿Prefieres cambiar a ${marca}?`).addFooter("RSAsist Menu").addAction(
-                    new messageAction("button")
-                      .addButton(`Si`, `${keyReply}_cambiar_marca_${marca}`)
-                      .addButton(`No`, `${keyReply}_nocambiar_marca_${record.value}`)
-                      .toJSON()
-                  ).toJSON()
-                )
-              );
-              eventData.context.reply = "";
-              return ;
+                  new whatsappMessage(eventData.Ticket.wa_id)
+                    .createInteractiveMessage(
+                    new messageInteractive("button").addBody(`La marca ${marcaEntity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
+                      .addFooter("RSAsist Menu")
+                      .addAction(
+                        new messageAction("button")
+                          .addButton(`Si`, `${keyReply}_cambiar_marca_${id}`)
+                          .addButton(`No`, `${keyReply}_nocambiar_marca_${marcaEntity.value}`)
+                          .toJSON()
+                        )
+                        .toJSON()
+                    )
+                );
+                eventData.context.reply = "";
+                return ;
               }else{
-                
+                eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", id);
+                eventData.context.departamentreq.marca = true;
+                eventData.updateRequisites();
+                conversations.set(eventData.Key_Context, eventData.context);
               }
               
               break;
             case 'modelo':
+              
+              let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
+              
               break;
             default:
+              
+              await GenerarMenu(eventData);
+              return;
+              
               break;
           }
         }else{
