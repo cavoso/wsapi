@@ -11,6 +11,10 @@ const MenuVehiculos = sequelize.define('menuvehiculos', {
     type: Sequelize.STRING(255),
     allowNull: false
   },
+  categoria: {
+    type: Sequelize.STRING(40),
+    allowNull: true
+  },
   padre: {
     type: Sequelize.BIGINT.UNSIGNED,
     allowNull: true

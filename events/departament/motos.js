@@ -150,7 +150,7 @@ async function GenerarMenu(eventData){
   console.log(eventData.context.reply);
   //entData.context.reply
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-    let id = Number(eventData.context.reply.replace(`${keyReply}_menu_`, ''));
+    let id = eventData.context.reply.replace(`${keyReply}_menu_`, '');
     console.log(id);
     if (!isNaN(id)){
       let msgobject = new messageObject("Menu", "list");
