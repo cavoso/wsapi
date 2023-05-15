@@ -64,6 +64,7 @@ module.exports = async function evento(response, eventData, conversations, messa
               }else{
                 eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", id);
                 eventData.context.departamentreq.marca = true;
+                eventData.context.reply = ""; 
                 eventData.updateRequisites();
                 conversations.set(eventData.Key_Context, eventData.context);
               }
@@ -146,7 +147,7 @@ async function GenerarMenu(eventData){
   let sec_menu = new messageObject("Menu", "list");
   if(eventData.context.reply.includes(`${keyReply}_menu_`) && !marca_entity){
     const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
-    
+    console.log(id)
     if (!isNaN(Number(id))){
       let opciones = await db.MenuVehiculos.findAll({
         where: {
