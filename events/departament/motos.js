@@ -71,13 +71,23 @@ module.exports = async function evento(response, eventData, conversations, messa
           conversations.set(eventData.Key_Context, eventData.context);
         }else if(eventData.context.reply.includes(`${keyReply}_menu_`)){
           if(eventData.context.reply != ""){
-            
+            const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
+            if(tipo == "modelo"){
+              let modelo = await db.MenuVehiculos.findOne({
+                where: {
+                  id: id
+                }
+              });
+              eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "modelo", modelo.nombre);
+              eventData.context.departamentreq.modelo = true;
+              eventData.updateRequisites();
+              conversations.set(eventData.Key_Context, eventData.context);
+            }
           }else{
-            
-          }
-          const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
-          await GenerarMenu(eventData);
-          return;
+            await GenerarMenu(eventData);
+            return;
+          }          
+          
         }
       }else{
         if(!eventData.Ticket.agent_id){
@@ -153,58 +163,12 @@ module.exports = async function evento(response, eventData, conversations, messa
 };
 
 
-async function GenerarMenu(eventData){
+async function GenerarMenu(eventData){  
   console.log(eventData.context.reply);
-  //entData.context.reply
+  
   if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-    const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
-    if(tipo !== "modelo"){
-      
-      if (!isNaN(Number(id))){
-        let msgobject = new messageObject("Menu", "list");
-        let opciones = await db.MenuVehiculos.findAll({
-          where: {
-            padre: id
-          }
-        });
-        let categoria = "";
-        for(let o of opciones){
-          msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
-          categoria = o.categoria;
-        }
-        
-        await MessageService.EnviarMensaje(
-          eventData.Departamento,
-          eventData.Ticket,
-          new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
-            new messageInteractive("list").addBody(`Por favor seleccione un ${categoria}`).addFooter("RSAsist Menu").addAction(
-              new messageAction("list").addButton("Menu")
-                .addSection(msgobject.toJSON())
-                .addSection(
-                  new messageObject("Otras Opciones", "list")
-                    .addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
-                    .addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`)
-                    .toJSON()
-                )
-                .toJSON()
-            ).toJSON()
-          )
-        );
-      }else{
-        console.log("aqui carga");
-      }
-    }
     
   }else{
-    let marca_entity = eventData.TicketData.find(record => record.key_name === "marca");
-    let marca = await db.MenuVehiculos.findOne({
-      where: Sequelize.where(
-        Sequelize.fn('lower', Sequelize.col('nombre')),
-        Sequelize.fn('lower', marca_entity.value)
-      )
-    });
-    eventData.context.reply = `${keyReply}_menu_${marca.categoria}_${marca.id}`;
-    await GenerarMenu(eventData);
+    
   }
-
 }

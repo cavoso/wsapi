@@ -21,6 +21,7 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   if (message.type === "text") {
     text = message.text.body;
   }
+  
   if(message.type === "interactive"){
     if(message.interactive.type === "list_reply"){
       eventData.context.reply = message.interactive.list_reply.id;
