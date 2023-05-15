@@ -166,15 +166,21 @@ async function GenerarMenu(eventData){
           msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_$${o.id}`);
           categoria = o.categoria;
         }
-        msgobject.addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`);
-        msgobject.addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`);
         
         await MessageService.EnviarMensaje(
           eventData.Departamento,
           eventData.Ticket,
           new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
             new messageInteractive("list").addBody(`Por favor seleccione un ${categoria}`).addFooter("RSAsist Menu").addAction(
-              new messageAction("list").addButton("Menu").addSection(msgobject.toJSON()).toJSON()
+              new messageAction("list").addButton("Menu")
+                .addSection(msgobject.toJSON())
+                .addSection(
+                  new messageObject("Otras Opciones", "list")
+                    .addRow("Ejecutivo", `${keyReply}_menu_general_ejecutivo`)
+                    .addRow("Oportunidades",`${keyReply}_menu_general_oportunidades`)
+                    .toJSON()
+                )
+                .toJSON()
             ).toJSON()
           )
         );
