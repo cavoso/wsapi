@@ -73,6 +73,15 @@ module.exports = async function evento(response, eventData, conversations, messa
             case 'modelo':
               
               let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
+              if(modelo_entity){
+                
+              }else{
+                eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "modelo", id);
+                eventData.context.departamentreq.modelo = true;
+                eventData.context.reply = ""; 
+                eventData.updateRequisites();
+                conversations.set(eventData.Key_Context, eventData.context);
+              }
               
               break;
             default:
