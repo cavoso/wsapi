@@ -171,4 +171,13 @@ async function GenerarMenu(eventData){
   }else{
     
   }
+  
+  await MessageService.EnviarMensaje(
+    eventData.Departamento,          eventData.Ticket,
+          new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+            new messageInteractive("list").addBody(`Por favor seleccione un ${categoria}`).addFooter("RSAsist Menu").addAction(
+              messageAction.toJSON()
+            ).toJSON()
+          )
+        );
 }
