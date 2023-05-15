@@ -1,6 +1,5 @@
 const validator = require('validator');
 
-
 function validarTexto(texto) {
   return /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(texto);
 }

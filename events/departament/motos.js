@@ -70,6 +70,12 @@ module.exports = async function evento(response, eventData, conversations, messa
           eventData.updateRequisites();
           conversations.set(eventData.Key_Context, eventData.context);
         }else if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+          if(eventData.context.reply != ""){
+            
+          }else{
+            
+          }
+          const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
           await GenerarMenu(eventData);
           return;
         }
@@ -163,7 +169,7 @@ async function GenerarMenu(eventData){
         });
         let categoria = "";
         for(let o of opciones){
-          msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_$${o.id}`);
+          msgobject.addRow(o.nombre, `${keyReply}_menu_${o.categoria}_${o.id}`);
           categoria = o.categoria;
         }
         
