@@ -35,6 +35,7 @@ module.exports = async function evento(response, eventData, conversations, messa
     default:
       if(eventData.context.reply !== ""){
         if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+          console.log(eventData.context.reply);
           const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
           switch(tipo){
             case 'marca':
