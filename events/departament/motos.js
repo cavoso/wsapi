@@ -1,6 +1,5 @@
 const db = require('../../models');
 const Sequelize = require('sequelize');
-const { variablesMenu } = require('../../config/validaciones');
 const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils');
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
@@ -38,52 +37,55 @@ module.exports = async function evento(response, eventData, conversations, messa
       break;
     default:
       if(eventData.context.reply !== ""){
-        if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-          console.log(eventData.context.reply);
-          const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
-          switch(tipo){
-            case 'marca':
-              
-              let marcaEntity = eventData.TicketData.find(record => record.key_name === "marca");
-              if(marcaEntity){
-                await MessageService.EnviarMensaje(
-                  eventData.Departamento,
-                  eventData.Ticket,
-                  new whatsappMessage(eventData.Ticket.wa_id)
+        const [iddep, sec, tipo, id] = eventData.context.reply.split("_");
+        
+        switch(sec){
+          case 'menu':
+            
+            switch(tipo){
+              case 'marca':
+                
+                let marcaEntity = eventData.TicketData.find(record => record.key_name === "marca");
+                if(marcaEntity){
+                  await MessageService.EnviarMensaje(
+                    eventData.Departamento,
+                    eventData.Ticket,
+                    new whatsappMessage(eventData.Ticket.wa_id)
                     .createInteractiveMessage(
-                    new messageInteractive("button").addBody(`La marca ${marcaEntity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
+                      new messageInteractive("button")
+                      .addBody(`La marca ${marcaEntity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
                       .addFooter("RSAsist Menu")
                       .addAction(
                         new messageAction("button")
-                          .addButton(`Si`, `${keyReply}_cambiar_marca_${id}`)
-                          .addButton(`No`, `${keyReply}_nocambiar_marca_${marcaEntity.value}`)
-                          .toJSON()
-                        )
+                        .addButton(`Si`, `${keyReply}_cambiar_marca_${id}`)
+                        .addButton(`No`, `${keyReply}_nocambiar_marca_${marcaEntity.value}`)
                         .toJSON()
+                      )
+                      .toJSON()
                     )
-                );
-                eventData.context.reply = "";
-                conversations.set(eventData.Key_Context, eventData.context);
-                return ;
-              }else{
-                eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", id);
-                eventData.context.departamentreq.marca = true;
-                eventData.context.reply = ""; 
-                eventData.updateRequisites();
-                conversations.set(eventData.Key_Context, eventData.context);
-              }
-              
-              break;
-            case 'modelo':
-              
-              let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
-              if(modelo_entity){
-                await MessageService.EnviarMensaje(
-                  eventData.Departamento,
-                  eventData.Ticket,
-                  new whatsappMessage(eventData.Ticket.wa_id)
+                  );
+                  eventData.context.reply = "";
+                  conversations.set(eventData.Key_Context, eventData.context);
+                  return ;
+                }else{
+                  eventData.TicketData = await TicketService.agregarInformacionExtra(eventData.Ticket.id, "marca", id);
+                  eventData.context.departamentreq.marca = true;
+                  eventData.context.reply = "";
+                  eventData.updateRequisites();
+                  conversations.set(eventData.Key_Context, eventData.context);
+                }
+                
+                break;
+              case 'modelo':
+                
+                let modelo_entity = eventData.TicketData.find(record => record.key_name === "modelo");
+                if(modelo_entity){
+                  await MessageService.EnviarMensaje(
+                    eventData.Departamento,
+                    eventData.Ticket,
+                    new whatsappMessage(eventData.Ticket.wa_id)
                     .createInteractiveMessage(
-                    new messageInteractive("button").addBody(`El modelo ${modelo_entity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
+                      new messageInteractive("button").addBody(`El modelo ${modelo_entity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
                       .addFooter("RSAsist Menu")
                       .addAction(
                         new messageAction("button")
@@ -110,6 +112,16 @@ module.exports = async function evento(response, eventData, conversations, messa
               
               break;
           }
+            
+            break;
+          default:
+            break;
+        }
+        
+        if(eventData.context.reply.includes(`${keyReply}_menu_`)){
+
+          
+          
         }else if(eventData.context.reply.includes(`${keyReply}_cambiar`)){
           
         }else{
@@ -178,7 +190,8 @@ async function GenerarMenu(eventData){
 
   if(modelo_entity === undefined){
     if(eventData.context.reply.includes(`${keyReply}_menu_`)){
-      const { iddep, tipo, id } = variablesMenu(eventData.context.reply);
+      const [iddep, sec, tipo, id] = eventData.context.reply.split("_");
+
       if (!isNaN(Number(id))){
         let opciones = await db.MenuVehiculos.findAll({
           where: {

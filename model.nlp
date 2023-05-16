@@ -1,0 +1,999 @@
+{
+  "settings": {
+    "languages": [
+      "es"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "es"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "es": {
+        "settings": {
+          "locale": "es",
+          "trainByDomain": false,
+          "tag": "domain-manager-es",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "%marca%,%modelo%,%url%,%year%,cotic,des,hol,mot,pagin,una,visit": {
+            "intent": "reserva",
+            "domain": "default"
+          },
+          "hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen,dia": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen,tard": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen,noch": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "como,esta,hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "hol,que,tal": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "onda,que": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "que,tal": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen,dia,hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen,hol,tard": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "buen,hol,noch": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "oir": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "eh,hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "amig,hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "bro,hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "herman,hol": {
+            "intent": "saludo",
+            "domain": "default"
+          },
+          "santiag": {
+            "intent": "ciudad",
+            "domain": "default"
+          },
+          "concepcion": {
+            "intent": "ciudad",
+            "domain": "default"
+          },
+          "si": {
+            "intent": "verificacion",
+            "domain": "default"
+          },
+          "no": {
+            "intent": "verificacion",
+            "domain": "default"
+          },
+          "omit": {
+            "intent": "omitir",
+            "domain": "default"
+          },
+          "salt": {
+            "intent": "omitir",
+            "domain": "default"
+          },
+          "menu": {
+            "intent": "Menu",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "reserva": "default",
+          "saludo": "default",
+          "ciudad": "default",
+          "verificacion": "default",
+          "omitir": "default",
+          "Menu": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%",
+            "intent": "reserva"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Buenas",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Buen día",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Buenos días",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Buenas tardes",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Buenas noches",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, ¿cómo estás?",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, ¿qué tal?",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "¿Qué onda?",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "¿Qué tal?",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, buen día",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, buenos días",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, buenas tardes",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, buenas noches",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Oye",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Eh, hola",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, amigo",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, bro",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hola, hermano",
+            "intent": "saludo"
+          },
+          {
+            "domain": "default",
+            "utterance": "Santiago",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "Concepcion",
+            "intent": "ciudad"
+          },
+          {
+            "domain": "default",
+            "utterance": "SI",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "NO",
+            "intent": "verificacion"
+          },
+          {
+            "domain": "default",
+            "utterance": "omitir",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "saltar",
+            "intent": "omitir"
+          },
+          {
+            "domain": "default",
+            "utterance": "menu",
+            "intent": "Menu"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "es",
+              "tag": "nlu-es",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hol": 1,
+              "des": 1,
+              "cotic": 1,
+              "una": 1,
+              "mot": 1,
+              "%marca%": 1,
+              "%modelo%": 1,
+              "%year%": 1,
+              "pagin": 1,
+              "visit": 1,
+              "%url%": 1,
+              "buen": 1,
+              "dia": 1,
+              "tard": 1,
+              "noch": 1,
+              "como": 1,
+              "esta": 1,
+              "que": 1,
+              "tal": 1,
+              "onda": 1,
+              "oir": 1,
+              "eh": 1,
+              "amig": 1,
+              "bro": 1,
+              "herman": 1,
+              "santiag": 1,
+              "concepcion": 1,
+              "si": 1,
+              "no": 1,
+              "omit": 1,
+              "salt": 1,
+              "menu": 1
+            },
+            "intents": {
+              "reserva": 1,
+              "saludo": 1,
+              "ciudad": 1,
+              "verificacion": 1,
+              "omitir": 1,
+              "Menu": 1
+            },
+            "intentFeatures": {
+              "reserva": {
+                "hol": 1,
+                "des": 1,
+                "cotic": 1,
+                "una": 1,
+                "mot": 1,
+                "%marca%": 1,
+                "%modelo%": 1,
+                "%year%": 1,
+                "pagin": 1,
+                "visit": 1,
+                "%url%": 1
+              },
+              "saludo": {
+                "hol": 1,
+                "buen": 1,
+                "dia": 1,
+                "tard": 1,
+                "noch": 1,
+                "como": 1,
+                "esta": 1,
+                "que": 1,
+                "tal": 1,
+                "onda": 1,
+                "oir": 1,
+                "eh": 1,
+                "amig": 1,
+                "bro": 1,
+                "herman": 1
+              },
+              "ciudad": {
+                "santiag": 1,
+                "concepcion": 1
+              },
+              "verificacion": {
+                "si": 1,
+                "no": 1
+              },
+              "omitir": {
+                "omit": 1,
+                "salt": 1
+              },
+              "Menu": {
+                "menu": 1
+              }
+            },
+            "featuresToIntent": {
+              "hol": [
+                "reserva",
+                "saludo"
+              ],
+              "des": [
+                "reserva"
+              ],
+              "cotic": [
+                "reserva"
+              ],
+              "una": [
+                "reserva"
+              ],
+              "mot": [
+                "reserva"
+              ],
+              "%marca%": [
+                "reserva"
+              ],
+              "%modelo%": [
+                "reserva"
+              ],
+              "%year%": [
+                "reserva"
+              ],
+              "pagin": [
+                "reserva"
+              ],
+              "visit": [
+                "reserva"
+              ],
+              "%url%": [
+                "reserva"
+              ],
+              "buen": [
+                "saludo"
+              ],
+              "dia": [
+                "saludo"
+              ],
+              "tard": [
+                "saludo"
+              ],
+              "noch": [
+                "saludo"
+              ],
+              "como": [
+                "saludo"
+              ],
+              "esta": [
+                "saludo"
+              ],
+              "que": [
+                "saludo"
+              ],
+              "tal": [
+                "saludo"
+              ],
+              "onda": [
+                "saludo"
+              ],
+              "oir": [
+                "saludo"
+              ],
+              "eh": [
+                "saludo"
+              ],
+              "amig": [
+                "saludo"
+              ],
+              "bro": [
+                "saludo"
+              ],
+              "herman": [
+                "saludo"
+              ],
+              "santiag": [
+                "ciudad"
+              ],
+              "concepcion": [
+                "ciudad"
+              ],
+              "si": [
+                "verificacion"
+              ],
+              "no": [
+                "verificacion"
+              ],
+              "omit": [
+                "omitir"
+              ],
+              "salt": [
+                "omitir"
+              ],
+              "menu": [
+                "Menu"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "es",
+                "tag": "nlu-es",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hol",
+                "des",
+                "cotic",
+                "una",
+                "mot",
+                "%marca%",
+                "%modelo%",
+                "%year%",
+                "pagin",
+                "visit",
+                "%url%",
+                "buen",
+                "dia",
+                "tard",
+                "noch",
+                "como",
+                "esta",
+                "que",
+                "tal",
+                "onda",
+                "oir",
+                "eh",
+                "amig",
+                "bro",
+                "herman",
+                "santiag",
+                "concepcion",
+                "si",
+                "no",
+                "omit",
+                "salt",
+                "menu"
+              ],
+              "intents": [
+                "reserva",
+                "saludo",
+                "ciudad",
+                "verificacion",
+                "omitir",
+                "Menu"
+              ],
+              "perceptrons": [
+                [
+                  -0.19714121520519257,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  1.4743188619613647,
+                  -0.5457051396369934,
+                  -0.2582707703113556,
+                  -0.094007208943367,
+                  -0.07737783342599869,
+                  -0.17651233077049255,
+                  -0.17651233077049255,
+                  -0.2250474989414215,
+                  -0.18303611874580383,
+                  -0.020726798102259636,
+                  -0.027026481926441193,
+                  -0.13322366774082184,
+                  -0.11944958567619324,
+                  -0.105686716735363,
+                  -0.09275099635124207,
+                  -0.006749072577804327,
+                  -0.006472200155258179,
+                  -0.006206681486219168,
+                  -0.005952051375061274,
+                  -0.005707863252609968,
+                  -0.005473689176142216,
+                  -0.005249118432402611,
+                  -0.2603331186857467
+                ],
+                [
+                  0.5549113750457764,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  -1.2842344045639038,
+                  2.8604772090911865,
+                  -0.6008652448654175,
+                  -0.592468798160553,
+                  -0.5840624570846558,
+                  1.0107558965682983,
+                  1.0107558965682983,
+                  1.6523332595825195,
+                  0.6479318141937256,
+                  1.0091476440429688,
+                  2.776588201522827,
+                  2.1590993404388428,
+                  2.1761083602905273,
+                  2.190338611602783,
+                  2.203223705291748,
+                  -11.489048957824707,
+                  -11.484200477600098,
+                  -11.479340553283691,
+                  -11.474470138549805,
+                  -11.469590187072754,
+                  -11.46469783782959,
+                  -11.459794998168945,
+                  11.590149159405849
+                ],
+                [
+                  -2.2637269496917725,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -0.0969398245215416,
+                  -2.2637267112731934,
+                  -0.4720657169818878,
+                  -0.33487823605537415,
+                  -0.3126504719257355,
+                  -0.2122286856174469,
+                  -0.2122286856174469,
+                  -1.5091527700424194,
+                  -0.7545751929283142,
+                  -0.7545785307884216,
+                  -2.2637267112731934,
+                  -0.21600230038166046,
+                  -0.19992169737815857,
+                  -0.1879093497991562,
+                  -0.1766953021287918,
+                  12.021982192993164,
+                  12.021981239318848,
+                  -2.26383900642395,
+                  -2.2637436389923096,
+                  -2.263728618621826,
+                  -2.2637269496917725,
+                  -2.2637269496917725,
+                  2.2637284630689503
+                ],
+                [
+                  -2.26426100730896,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -0.1052246242761612,
+                  -2.264256477355957,
+                  -0.49997010827064514,
+                  -0.3463626503944397,
+                  -0.32235679030418396,
+                  -0.2260061353445053,
+                  -0.2260061353445053,
+                  -1.5110806226730347,
+                  -0.7533756494522095,
+                  -0.7574893832206726,
+                  -2.264256000518799,
+                  -0.22188358008861542,
+                  -0.20480935275554657,
+                  -0.19063691794872284,
+                  -0.1786087453365326,
+                  -2.264256000518799,
+                  -2.264256000518799,
+                  12.021452903747559,
+                  12.021452903747559,
+                  -2.26430606842041,
+                  -2.264260768890381,
+                  -2.264256238937378,
+                  2.2642577111671125
+                ],
+                [
+                  -2.2657909393310547,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -0.11421630531549454,
+                  -2.264038562774658,
+                  -0.5332071185112,
+                  -0.3586142063140869,
+                  -0.3333554267883301,
+                  -0.23206780850887299,
+                  -0.23206780850887299,
+                  -1.5319931507110596,
+                  -0.7595061659812927,
+                  -0.771164059638977,
+                  -2.26287841796875,
+                  -0.22927916049957275,
+                  -0.21068905293941498,
+                  -0.19500358402729034,
+                  -0.18155480921268463,
+                  -2.2628777027130127,
+                  -2.2628777027130127,
+                  -2.2628777027130127,
+                  -2.2628774642944336,
+                  12.022831916809082,
+                  12.022830963134766,
+                  -2.2629387378692627,
+                  2.2628793537182093
+                ],
+                [
+                  -1.1401423215866089,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -0.0671202689409256,
+                  -1.1359384059906006,
+                  -0.27895498275756836,
+                  -0.18602430820465088,
+                  -0.1719551980495453,
+                  -0.1248159259557724,
+                  -0.1248159259557724,
+                  -0.7806624174118042,
+                  -0.38650941848754883,
+                  -0.39223676919937134,
+                  -1.1298714876174927,
+                  -0.11653853207826614,
+                  -0.10707201063632965,
+                  -0.0981689915060997,
+                  -0.09136241674423218,
+                  -1.1298460960388184,
+                  -1.1298437118530273,
+                  -1.1298437118530273,
+                  -1.1298437118530273,
+                  -1.1298437118530273,
+                  -1.1298435926437378,
+                  13.155865669250488,
+                  1.1298445766595036
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "es",
+        "hola deseo cotizar una moto %marca% %modelo% %year%. Página visitada: %url%"
+      ],
+      [
+        "es",
+        "Hola"
+      ],
+      [
+        "es",
+        "Buenas"
+      ],
+      [
+        "es",
+        "Buen día"
+      ],
+      [
+        "es",
+        "Buenos días"
+      ],
+      [
+        "es",
+        "Buenas tardes"
+      ],
+      [
+        "es",
+        "Buenas noches"
+      ],
+      [
+        "es",
+        "Hola, ¿cómo estás?"
+      ],
+      [
+        "es",
+        "Hola, ¿qué tal?"
+      ],
+      [
+        "es",
+        "¿Qué onda?"
+      ],
+      [
+        "es",
+        "¿Qué tal?"
+      ],
+      [
+        "es",
+        "Hola, buen día"
+      ],
+      [
+        "es",
+        "Hola, buenos días"
+      ],
+      [
+        "es",
+        "Hola, buenas tardes"
+      ],
+      [
+        "es",
+        "Hola, buenas noches"
+      ],
+      [
+        "es",
+        "Oye"
+      ],
+      [
+        "es",
+        "Eh, hola"
+      ],
+      [
+        "es",
+        "Hola, amigo"
+      ],
+      [
+        "es",
+        "Hola, bro"
+      ],
+      [
+        "es",
+        "Hola, hermano"
+      ],
+      [
+        "es",
+        "Santiago"
+      ],
+      [
+        "es",
+        "Concepcion"
+      ],
+      [
+        "es",
+        "SI"
+      ],
+      [
+        "es",
+        "NO"
+      ],
+      [
+        "es",
+        "omitir"
+      ],
+      [
+        "es",
+        "saltar"
+      ],
+      [
+        "es",
+        "menu"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {
+      "es": {
+        "marca": {
+          "name": "marca",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "KTM",
+              "texts": [
+                "ktm",
+                " KTM",
+                " Ktm",
+                " KTm",
+                " kTm",
+                " ktM"
+              ]
+            },
+            {
+              "option": "HQV",
+              "texts": [
+                "hqv",
+                " HQV",
+                " Hqv",
+                " HQv",
+                " hQv",
+                " hqV",
+                " husqvarna"
+              ]
+            },
+            {
+              "option": "GAS GAS",
+              "texts": [
+                "gas gas",
+                " GAS GAS",
+                " gas GAS"
+              ]
+            }
+          ]
+        },
+        "year": {
+          "name": "year",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "2023",
+              "texts": []
+            },
+            {
+              "option": "2022",
+              "texts": []
+            }
+          ]
+        },
+        "modelo": {
+          "name": "modelo",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "200 Duke",
+              "texts": [
+                "200 duke",
+                " 200 DUKE",
+                " duke 200",
+                " DUKE 200"
+              ]
+            }
+          ]
+        },
+        "url": {
+          "name": "url",
+          "type": "regex",
+          "rules": [
+            "/(?:(?:(?:[a-z]+:)?\\/\\/)|www\\.)(?:\\S+(?::\\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#][^\\s\"]*)?/gi"
+          ]
+        }
+      }
+    }
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "es": {
+        "saludo": [
+          {
+            "answer": "¡Hola! Soy RSAsist, tu asistente en la búsqueda de la moto ideal. Escribe \"menu\" en cualquier momento para ver opciones"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {
+    "reserva": {
+      "marca": {
+        "intent": "reserva",
+        "entity": "marca",
+        "mandatory": false,
+        "locales": {}
+      },
+      "modelo": {
+        "intent": "reserva",
+        "entity": "modelo",
+        "mandatory": false,
+        "locales": {}
+      },
+      "year": {
+        "intent": "reserva",
+        "entity": "year",
+        "mandatory": false,
+        "locales": {}
+      },
+      "url": {
+        "intent": "reserva",
+        "entity": "url",
+        "mandatory": false,
+        "locales": {}
+      }
+    }
+  }
+}
