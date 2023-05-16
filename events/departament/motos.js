@@ -114,6 +114,14 @@ module.exports = async function evento(response, eventData, conversations, messa
           }
             
             break;
+          case 'cambiar':
+            
+            switch(tipo){
+              case '':
+                break;
+            }
+            
+            break;
           default:
             break;
         }
