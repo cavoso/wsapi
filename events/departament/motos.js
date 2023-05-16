@@ -122,7 +122,6 @@ module.exports = async function evento(response, eventData, conversations, messa
   }
   
   for(var requisito in eventData.context.requisitos){
-    console.log(requisito)
     if(!eventData.context.requisitos[requisito]){
       for(var rv in eventData.context[requisito]){
         if(!eventData.context[requisito][rv]){
@@ -133,7 +132,6 @@ module.exports = async function evento(response, eventData, conversations, messa
               await GenerarMenu(eventData);
               return;              
             }else if(rv === "modelo" && eventData.context[requisito]["marca"]){
-              console.log("genera menu para modelo")
               await GenerarMenu(eventData);
               return;
             }
