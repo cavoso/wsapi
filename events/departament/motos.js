@@ -116,8 +116,31 @@ module.exports = async function evento(response, eventData, conversations, messa
             break;
           case 'cambiar':
             
+            let marcaEntity = eventData.TicketData.find(record => record.key_name === "marca");
+            let modeloEntity = eventData.TicketData.find(record => record.key_name === "modelo");
+            
             switch(tipo){
-              case '':
+              case 'marca':
+                
+                marcaEntity.update({key_name: "marca_cambiada"});
+                eventData.context.departamentreq.marca = false;
+                
+                if(modeloEntity){
+                  modeloEntity.update({key_name: "modelo_cambiada"});
+                  eventData.context.departamentreq.modelo = false;
+                }
+                
+                eventData.context.reply = ""; 
+                eventData.updateRequisites();
+                conversations.set(eventData.Key_Context, eventData.context);
+                break;
+              case 'modelo':
+
+                modeloEntity.update({key_name: "modelo_cambiada"});
+                eventData.context.departamentreq.modelo = false;
+                eventData.context.reply = ""; 
+                eventData.updateRequisites();
+                conversations.set(eventData.Key_Context, eventData.context);
                 break;
             }
             
