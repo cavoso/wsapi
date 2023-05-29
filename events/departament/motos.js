@@ -109,7 +109,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                 const lastTicket = await db.Ticket.findOne({
                   where: { id: id,}
                 });
-                eventData.
+                eventData.Ticket.update({city: lastTicket.city});
                 eventData.context.reply = ""; 
                 eventData.updateRequisites();
                 conversations.set(eventData.Key_Context, eventData.context);
