@@ -105,6 +105,15 @@ module.exports = async function evento(response, eventData, conversations, messa
               }
               
               break;
+              case 'agente':
+                const lastTicket = await db.Ticket.findOne({
+                  where: { id: id,}
+                });
+                eventData.
+                eventData.context.reply = ""; 
+                eventData.updateRequisites();
+                conversations.set(eventData.Key_Context, eventData.context);
+                break;
             default:
               
               await GenerarMenu(eventData);
@@ -238,7 +247,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                     .addFooter("RSAsist Menu")
                     .addAction(
                       new messageAction("button")
-                      .addButton(`Si`, `${keyReply}_agente_${lastTicket.id}`)
+                      .addButton(`Si`, `${keyReply}_menu_agente_${lastTicket.id}`)
                       .addButton(`No`, `${keyReply}_no`)
                       .toJSON()
                     )
@@ -366,12 +375,13 @@ async function GenerarListadoCiudad(eventData){
   
   let _Action = new messageAction("list").addButton("Ver Ciudades");
   let sec_menu = new messageObject("Ciudades", "list");
-  let ciudades = db.Agent.findAll({
+  
+  let ciudades = await db.Agent.findAll({
     attributes: [
       [Sequelize.fn('DISTINCT', Sequelize.col('city')), 'city']
     ]
   });
-  console.log(ciudades)
+  
   for(let c of ciudades){
     sec_menu.addRow(c.city, `${keyReply}_menu_ciudad_${c.city}`);
   }
