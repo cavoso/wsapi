@@ -179,8 +179,6 @@ module.exports = async function evento(response, eventData, conversations, messa
       for(var rv in eventData.context[requisito]){
         if(!eventData.context[requisito][rv]){
           if(requisito == "departamentreq"){
-            console.log(rv);
-            console.log(eventData.context[requisito]["marca"])
             if(rv === "marca"){
               await GenerarMenu(eventData);
               return;              
