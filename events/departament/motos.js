@@ -159,14 +159,16 @@ module.exports = async function evento(response, eventData, conversations, messa
       }else{
         if(eventData.context.enproceso != ""){
           switch(eventData.context.enproceso){
-            case "full_name":
-              
-              eventData.Cliente.update({full_name: response.utterance});
-              eventData.updateRequisites();
-              conversations.set(eventData.Key_Context, eventData.context);
-              
+            case "full_name":              
+              eventData.Cliente.update({full_name: response.utterance});              
+              break;
+            case "email":              
+              eventData.Cliente.update({email: response.utterance});
               break;
           }
+          eventData.context.enproceso = "";
+          eventData.updateRequisites();
+          conversations.set(eventData.Key_Context, eventData.context);
         }else{
           
         }
@@ -200,11 +202,20 @@ module.exports = async function evento(response, eventData, conversations, messa
               return;
             }
             if(rv === "email"){
-              
+              eventData.context.enproceso = "email";
+              await MessageService.EnviarMensaje(
+                eventData.Departamento,
+                eventData.Ticket,
+                new whatsappMessage(eventData.Ticket.wa_id)
+                .createTextMessage("Para mejorar la atención, por favor ingrese su email")
+              );
+              return;
             }
           }
           if(requisito == "ticketreq"){
-            
+            if(rv === "ciudad"){
+              console.log("aqui va el listado de ciudades")
+            }
           }
         }
       }
