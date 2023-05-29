@@ -218,6 +218,11 @@ module.exports = async function evento(response, eventData, conversations, messa
                 department_id: eventData.Ticket.department_id,
                 wa_id: eventData.Ticket.wa_id
               });
+              if(count > 1){
+                
+              }else{
+                
+              }
               console.log(count)
               console.log("aqui va el listado de ciudades")
             }
