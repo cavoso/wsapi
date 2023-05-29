@@ -199,7 +199,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                 new whatsappMessage(eventData.Ticket.wa_id)
                 .createTextMessage("Para mejorar la atención, por favor ingrese su nombre")
               );
-              
+              return;
             }
             if(rv === "email"){
               
