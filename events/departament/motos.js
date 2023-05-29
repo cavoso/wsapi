@@ -107,9 +107,14 @@ module.exports = async function evento(response, eventData, conversations, messa
               break;
               case 'agente':
                 const lastTicket = await db.Ticket.findOne({
-                  where: { id: id,}
+                  where: { id: id}
                 });
-                eventData.Ticket.update({city: lastTicket.city});
+                eventData.Ticket.update({
+                  agent_id: lastTicket.agent_id,
+                  status: 'IN_PROGRESS',
+                  city: lastTicket.city,
+                  available_to_all: true
+                });
                 eventData.context.reply = ""; 
                 eventData.updateRequisites();
                 conversations.set(eventData.Key_Context, eventData.context);
@@ -378,10 +383,11 @@ async function GenerarListadoCiudad(eventData){
   
   let ciudades = await db.Agent.findAll({
     attributes: [
+      'id',
       [Sequelize.fn('DISTINCT', Sequelize.col('city')), 'city']
     ]
   });
-  
+  console.log(ciudades)
   for(let c of ciudades){
     sec_menu.addRow(c.city, `${keyReply}_menu_ciudad_${c.city}`);
   }
