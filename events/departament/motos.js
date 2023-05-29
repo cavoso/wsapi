@@ -158,7 +158,15 @@ module.exports = async function evento(response, eventData, conversations, messa
         }
       }else{
         if(eventData.context.enproceso != ""){
-          
+          switch(eventData.context.enproceso){
+            case "full_name":
+              
+              eventData.Cliente.update({full_name: response.utterance});
+              eventData.updateRequisites();
+              conversations.set(eventData.Key_Context, eventData.context);
+              
+              break;
+          }
         }else{
           
         }
