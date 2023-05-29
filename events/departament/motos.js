@@ -238,18 +238,19 @@ module.exports = async function evento(response, eventData, conversations, messa
                     .addFooter("RSAsist Menu")
                     .addAction(
                       new messageAction("button")
-                      .addButton(`Si`, `${keyReply}_cambiar_modelo_${lastTicket.id}`)
-                      .addButton(`No`, `${keyReply}_nocambiar_modelo_${modelo_entity.value}`)
+                      .addButton(`Si`, `${keyReply}_agente_${lastTicket.id}`)
+                      .addButton(`No`, `${keyReply}_no`)
                       .toJSON()
                     )
                     .toJSON()
                   )
                 );
+                return;
               }else{
-                
+                await GenerarListadoCiudad(eventData);
+                return;
               }
-              console.log(count)
-              console.log("aqui va el listado de ciudades")
+
             }
           }
         }
@@ -359,4 +360,31 @@ async function GenerarMenu(eventData){
     );
   }
  
+}
+
+async function GenerarListadoCiudad(eventData){
+  
+  let _Action = new messageAction("list").addButton("Ver Ciudades");
+  let sec_menu = new messageObject("Ciudades", "list");
+  let ciudades = db.Agent.findAll({
+    attributes: [
+      [Sequelize.fn('DISTINCT', Sequelize.col('city')), 'city']
+    ]
+  });
+  console.log(ciudades)
+  for(let c of ciudades){
+    sec_menu.addRow(c.city, `${keyReply}_menu_ciudad_${c.city}`);
+  }
+  
+  _Action.addSection(sec_menu.toJSON());
+  
+  await MessageService.EnviarMensaje(
+      eventData.Departamento,
+      eventData.Ticket,
+      new whatsappMessage(eventData.Ticket.wa_id).createInteractiveMessage(
+        new messageInteractive("list").addBody(`Por favor seleccione la ciudad mas cercana a usted para buscar el agente más cercano a usted.`).addFooter("RSAsist Menu").addAction(
+          _Action.toJSON()
+        ).toJSON()
+      )
+    );
 }
