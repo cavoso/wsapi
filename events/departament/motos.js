@@ -234,7 +234,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                   eventData.Ticket,
                   new whatsappMessage(eventData.Ticket.wa_id)
                   .createInteractiveMessage(
-                    new messageInteractive("button").addBody(`El modelo ${modelo_entity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
+                    new messageInteractive("button").addBody(`¿Desea ser atendido por el ultimo agente que lo atendió?`)
                     .addFooter("RSAsist Menu")
                     .addAction(
                       new messageAction("button")
