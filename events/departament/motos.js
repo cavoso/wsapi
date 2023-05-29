@@ -383,7 +383,6 @@ async function GenerarListadoCiudad(eventData){
   
   let ciudades = await db.Agent.findAll({
     attributes: [
-      'id',
       [Sequelize.fn('DISTINCT', Sequelize.col('city')), 'city']
     ]
   });
