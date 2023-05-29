@@ -219,7 +219,32 @@ module.exports = async function evento(response, eventData, conversations, messa
                 wa_id: eventData.Ticket.wa_id
               });
               if(count > 1){
-                
+                const lastTicket = await db.Ticket.findOne({
+                  where: {
+                    department_id: eventData.Ticket.department_id,
+                    wa_id: eventData.Ticket.wa_id,
+                    id: {
+                      [db.Sequelize.Op.lt]: eventData.Ticket.id
+                    }
+                  },
+                  order: [['id', 'DESC']]
+                });
+                await MessageService.EnviarMensaje(
+                  eventData.Departamento,
+                  eventData.Ticket,
+                  new whatsappMessage(eventData.Ticket.wa_id)
+                  .createInteractiveMessage(
+                    new messageInteractive("button").addBody(`El modelo ${modelo_entity.value} está registrada. ¿Prefieres cambiar a ${id}?`)
+                    .addFooter("RSAsist Menu")
+                    .addAction(
+                      new messageAction("button")
+                      .addButton(`Si`, `${keyReply}_cambiar_modelo_${lastTicket.id}`)
+                      .addButton(`No`, `${keyReply}_nocambiar_modelo_${modelo_entity.value}`)
+                      .toJSON()
+                    )
+                    .toJSON()
+                  )
+                );
               }else{
                 
               }
