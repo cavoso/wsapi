@@ -218,6 +218,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                 department_id: eventData.Ticket.department_id,
                 wa_id: eventData.Ticket.wa_id
               });
+              console.log(count)
               console.log("aqui va el listado de ciudades")
             }
           }
