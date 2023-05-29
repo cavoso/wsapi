@@ -119,6 +119,15 @@ module.exports = async function evento(response, eventData, conversations, messa
                 eventData.updateRequisites();
                 conversations.set(eventData.Key_Context, eventData.context);
                 break;
+              case 'ciudad':
+                let ciudades = await db.Agent.find
+                eventData.Ticket.update({
+                  city: lastTicket.city
+                });
+                eventData.context.reply = ""; 
+                eventData.updateRequisites();
+                conversations.set(eventData.Key_Context, eventData.context);
+                break;
             default:
               
               await GenerarMenu(eventData);
@@ -382,13 +391,13 @@ async function GenerarListadoCiudad(eventData){
   let sec_menu = new messageObject("Ciudades", "list");
   
   let ciudades = await db.Agent.findAll({
-    attributes: [
-      [Sequelize.fn('DISTINCT', Sequelize.col('city')), 'city']
-    ]
+    attributes: ['id', 'city'],
+    raw: true,
+    group: ['city']
   });
   console.log(ciudades)
   for(let c of ciudades){
-    sec_menu.addRow(c.city, `${keyReply}_menu_ciudad_${c.city}`);
+    sec_menu.addRow(c.city, `${keyReply}_menu_ciudad_${c.id}`);
   }
   
   _Action.addSection(sec_menu.toJSON());
