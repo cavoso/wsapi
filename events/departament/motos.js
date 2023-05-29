@@ -120,9 +120,11 @@ module.exports = async function evento(response, eventData, conversations, messa
                 conversations.set(eventData.Key_Context, eventData.context);
                 break;
               case 'ciudad':
-                let ciudades = await db.Agent.find
+                let agente = await db.Agent.findOne({
+                  where: { id: id}
+                });
                 eventData.Ticket.update({
-                  city: lastTicket.city
+                  city: agente.city
                 });
                 eventData.context.reply = ""; 
                 eventData.updateRequisites();
@@ -278,6 +280,8 @@ module.exports = async function evento(response, eventData, conversations, messa
           }
         }
       }
+    }else{
+      
     }
   }
   
