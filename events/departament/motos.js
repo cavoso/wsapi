@@ -289,8 +289,16 @@ module.exports = async function evento(response, eventData, conversations, messa
           }
         }
       }
-    }else{
-      if(eventData.Ticket.status === 'OPEN'){
+    }
+  }
+
+  
+  if(
+    eventData.context.requisitos.departamentreq == true &&
+    eventData.context.requisitos.userdata == true &&
+    eventData.context.requisitos.ticketreq == true
+  ){
+    if(eventData.Ticket.status === 'OPEN'){
         if (!listTicket.includes(eventData.Ticket.id)){
           eventData.Ticket.update({
             status : 'IN_PROGRESS',
@@ -305,7 +313,6 @@ module.exports = async function evento(response, eventData, conversations, messa
           );
         }
       }
-    }
   }
   
   
