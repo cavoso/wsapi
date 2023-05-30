@@ -115,6 +115,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                   city: lastTicket.city,
                   available_to_all: true
                 });
+                eventData.context.ticketreq.ciudad = true;
                 eventData.context.reply = ""; 
                 eventData.updateRequisites();
                 conversations.set(eventData.Key_Context, eventData.context);
@@ -126,6 +127,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                 eventData.Ticket.update({
                   city: agente.city
                 });
+                eventData.context.ticketreq.ciudad = true;
                 eventData.context.reply = ""; 
                 eventData.updateRequisites();
                 conversations.set(eventData.Key_Context, eventData.context);
@@ -195,7 +197,14 @@ module.exports = async function evento(response, eventData, conversations, messa
           eventData.updateRequisites();
           conversations.set(eventData.Key_Context, eventData.context);
         }else{
-          
+          if(eventData.Ticket.status === 'OPEN'){
+            await MessageService.EnviarMensaje(
+              eventData.Departamento,
+              eventData.Ticket,
+              new whatsappMessage(eventData.Ticket.wa_id)
+              .createTextMessage("Lo siento, no entiendo tu mensaje")
+            );
+          }
         }
       }
       break;
@@ -285,9 +294,9 @@ module.exports = async function evento(response, eventData, conversations, messa
         if (!listTicket.includes(eventData.Ticket.id)){
           eventData.Ticket.update({
             status : 'IN_PROGRESS',
-            updated_at: Sequelize.literal('CURRENT_TIMESTAMP')
+            updated_at: db.sequelize.literal('NOW()')
           });
-          listTicket.push();
+          listTicket.push(eventData.Ticket.id);
         }
       }
     }
