@@ -187,10 +187,12 @@ module.exports = async function evento(response, eventData, conversations, messa
         if(eventData.context.enproceso != ""){
           switch(eventData.context.enproceso){
             case "full_name":              
-              eventData.Cliente.update({full_name: response.utterance});              
+              eventData.Cliente.update({full_name: response.utterance});  
+              eventData.context.userdata.full_name = true;
               break;
             case "email":              
               eventData.Cliente.update({email: response.utterance});
+              eventData.context.userdata.email = true;
               break;
           }
           eventData.context.enproceso = "";
@@ -209,7 +211,7 @@ module.exports = async function evento(response, eventData, conversations, messa
       }
       break;
   }
-  
+   
   for(var requisito in eventData.context.requisitos){
     if(!eventData.context.requisitos[requisito]){
       for(var rv in eventData.context[requisito]){
@@ -291,7 +293,6 @@ module.exports = async function evento(response, eventData, conversations, messa
       }
     }
   }
-
   
   if(
     eventData.context.requisitos.departamentreq == true &&
