@@ -9,6 +9,7 @@ const app = express().use(body_parser.json()).use(cors());
 
 const db = require('./models');
 const nlp = require('./nlp/');
+const {Sequelize, Op } = require('sequelize');
 
 const { WSProc, moment, regex, delay, TsToDateString } = require('./utils');
 const { statusEvents, metadataEvents, contactsEvents,  messageEvents } = require('./events');
@@ -17,6 +18,29 @@ const { statusEvents, metadataEvents, contactsEvents,  messageEvents } = require
 
 const conversations = new Map();
 const listTicket = [];
+
+async function checkTickets() {
+  for (const ticketId of listTicket) {
+    const ticketToUpdate = await db.Ticket.findOne({
+      where: {
+        id: ticketId,
+        [Op.and]: Sequelize.literal('TIMESTAMPDIFF(MINUTE, updated_at, NOW()) >= 15'),
+      },
+    });
+
+    if (ticketToUpdate) {
+      // Se encontró un registro que cumple las condiciones
+      console.log(`Ticket ${ticketId}: Registro encontrado.`);
+      // Realizar acciones adicionales si es necesario
+    } else {
+      // No se encontró ningún registro que cumpla las condiciones
+      console.log(`Ticket ${ticketId}: No se encontró ningún registro.`);
+      // Realizar acciones adicionales si es necesario
+    }
+  }
+}
+
+setInterval(checkTickets, 60000);
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -46,7 +70,7 @@ app.post('/webhook', async (req, res) => {
       await contactsEvents(eventData, conversations, contacts[0]);
     }
     if(messages){
-      await messageEvents(eventData, conversations, messages[0], nlp);
+      await messageEvents(eventData, conversations, messages[0], nlp, listTicket);
     }
     
   }

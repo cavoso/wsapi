@@ -6,7 +6,7 @@ const { whatsappMessage, messageInteractive, messageAction, messageObject, templ
 
 const keyReply = "8fK2s";
 
-module.exports = async function evento(response, eventData, conversations, message) {
+module.exports = async function evento(response, eventData, conversations, message, listTicket) {
   //console.log(JSON.stringify(eventData, null, 2));
   console.log(eventData);
   
@@ -281,7 +281,15 @@ module.exports = async function evento(response, eventData, conversations, messa
         }
       }
     }else{
-      
+      if(eventData.Ticket.status === 'OPEN'){
+        if (!listTicket.includes(eventData.Ticket.id)){
+          eventData.Ticket.update({
+            status : 'IN_PROGRESS',
+            updated_at: Sequelize.literal('CURRENT_TIMESTAMP')
+          });
+          listTicket.push();
+        }
+      }
     }
   }
   

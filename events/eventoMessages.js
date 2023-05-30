@@ -4,7 +4,7 @@ const { ClienteService, TicketService, MessageService } = require('../services')
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
 const { motosEvents, repuestosEvents, tallerEvents, postventaEvents, otrosEvents} = require('./departament');
 
-module.exports = async function evento(eventData, conversations, message, nlp) {
+module.exports = async function evento(eventData, conversations, message, nlp, listTicket) {
   
   await TicketService.agregarMensaje(eventData.Ticket, {
     ticket_id: eventData.Ticket.id,
@@ -60,15 +60,15 @@ module.exports = async function evento(eventData, conversations, message, nlp) {
   
  
   switch(eventData.Departamento.id){
-    case 1: await motosEvents(response, eventData, conversations, message);
+    case 1: await motosEvents(response, eventData, conversations, message, listTicket);
       break
-    case 2: await repuestosEvents(response, eventData, conversations, message);
+    case 2: await repuestosEvents(response, eventData, conversations, message, listTicket);
       break
-    case 3: await tallerEvents(response, eventData, conversations, message);
+    case 3: await tallerEvents(response, eventData, conversations, message, listTicket);
       break
-    case 4: await postventaEvents(response, eventData, conversations, message);
+    case 4: await postventaEvents(response, eventData, conversations, message, listTicket);
       break
-    default: await otrosEvents(response, eventData, conversations, message);
+    default: await otrosEvents(response, eventData, conversations, message, listTicket);
       break
   }
 };
