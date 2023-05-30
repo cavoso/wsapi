@@ -35,8 +35,7 @@ module.exports = async function evento(eventData, conversations, data) {
     if(eventData.context.userdata.full_name && eventData.context.userdata.email){
       eventData.context.requisitos.userdata = true;
     }
-    eventData.context.ticketreq.
-  }
+      }
   if(!eventData.Ticket){
     const [ticketInstance, ticketCreated] = await TicketService.buscarOCrearTicket(wa_id, eventData.Departamento.id);
     eventData.Ticket = ticketInstance;
@@ -44,6 +43,7 @@ module.exports = async function evento(eventData, conversations, data) {
       let msg = new whatsappMessage(wa_id).createTextMessage(`Ticket creado exitosamente. ID asignado: ${String(eventData.Ticket.id).padStart(5, '0')}.`);
       await MessageService.EnviarMensaje(eventData.Departamento, eventData.Ticket, msg);
     }
+    eventData.context.ticketreq.ciudad = (eventData.Ticket.city ? true : false);
   }
   if(!eventData.TicketData){
     eventData.TicketData = await db.AdditionalInfo.findAll({

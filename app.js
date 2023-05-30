@@ -21,21 +21,29 @@ const listTicket = [];
 
 async function checkTickets() {
   for (const ticketId of listTicket) {
-    const ticketToUpdate = await db.Ticket.findOne({
+    const ticket = await db.Ticket.findOne({
       where: {
         id: ticketId,
         [Op.and]: Sequelize.literal('TIMESTAMPDIFF(MINUTE, updated_at, NOW()) >= 15'),
       },
     });
 
-    if (ticketToUpdate) {
-      // Se encontró un registro que cumple las condiciones
-      console.log(`Ticket ${ticketId}: Registro encontrado.`);
-      // Realizar acciones adicionales si es necesario
-    } else {
-      // No se encontró ningún registro que cumpla las condiciones
-      console.log(`Ticket ${ticketId}: No se encontró ningún registro.`);
-      // Realizar acciones adicionales si es necesario
+    if (ticket) {
+      if(ticket.agent_id == 0){
+        await db.Ticket.update({
+          available_to_all: true
+        }, {
+          where: {
+            id: ticket.id
+          }
+        });
+      }
+      /*
+      eventData.Ticket.update({
+            status : 'IN_PROGRESS',
+            updated_at: db.sequelize.literal('NOW()')
+          });
+          */
     }
   }
 }

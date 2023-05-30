@@ -297,6 +297,12 @@ module.exports = async function evento(response, eventData, conversations, messa
             updated_at: db.sequelize.literal('NOW()')
           });
           listTicket.push(eventData.Ticket.id);
+          await MessageService.EnviarMensaje(
+            eventData.Departamento,
+            eventData.Ticket,
+            new whatsappMessage(eventData.Ticket.wa_id)
+            .createTextMessage("Uno de nuestros operadores se comunicará con usted, por favor espere")
+          );
         }
       }
     }
