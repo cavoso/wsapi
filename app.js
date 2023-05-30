@@ -16,6 +16,7 @@ const { statusEvents, metadataEvents, contactsEvents,  messageEvents } = require
 //const {messageStatusMiddleware, departmentMiddleware, clientTicketMiddleware, messageMiddleware} = require('./middlewares');
 
 const conversations = new Map();
+const listTicket = [];
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
