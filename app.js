@@ -38,12 +38,6 @@ async function checkTickets() {
           }
         });
       }
-      /*
-      eventData.Ticket.update({
-            status : 'IN_PROGRESS',
-            updated_at: db.sequelize.literal('NOW()')
-          });
-          */
     }
   }
 }
