@@ -21,6 +21,7 @@ const listTicket = [];
 
 async function checkTickets() {
   for (const ticketId of listTicket) {
+    console.log(`Buscando ${ticketId}`);
     const ticket = await db.Ticket.findOne({
       where: {
         id: ticketId,

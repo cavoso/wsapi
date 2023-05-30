@@ -9,14 +9,6 @@ const Agent = sequelize.define('Agent', {
     autoIncrement: true,
     allowNull: false
   },
-  name: {
-    type: DataTypes.STRING(255),
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING(255),
-    allowNull: false
-  },
   agent_type: {
     type: DataTypes.ENUM('SELLER', 'DISTRIBUTOR'),
     allowNull: false
