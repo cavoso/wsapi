@@ -6,10 +6,20 @@ const { motosEvents, repuestosEvents, tallerEvents, postventaEvents, otrosEvents
 
 module.exports = async function evento(eventData, conversations, message, nlp, listTicket) {
   
+  const jsonString = JSON.stringify(message, (key, value) => {
+    if (typeof value === 'string') {
+      return value.replace(
+        /[\u{1F000}-\u{1FFFF}\u{20000}-\u{3FFFF}\u{E0000}-\u{FFFFF}]/ug,
+        (match) => `\\u${match.codePointAt(0).toString(16)}`
+      );
+    }
+    return value;
+  });
+  
   await TicketService.agregarMensaje(eventData.Ticket, {
     ticket_id: eventData.Ticket.id,
     wamid: message.id,
-    content: JSON.stringify(message),
+    content: jsonString,
     direction: "INCOMING",
     created_at: TsToDateString(message.timestamp)
   });
@@ -72,3 +82,4 @@ module.exports = async function evento(eventData, conversations, message, nlp, l
       break
   }
 };
+
