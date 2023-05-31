@@ -3,14 +3,20 @@ const {  WSProc, moment, regex, delay, TsToDateString  } = require('../utils');
 const { ClienteService, TicketService, MessageService } = require('../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../lib');
 const { motosEvents, repuestosEvents, tallerEvents, postventaEvents, otrosEvents} = require('./departament');
-const twemoji = require('twemoji');
 
 module.exports = async function evento(eventData, conversations, message, nlp, listTicket) {
+  
+  const jsonString = JSON.stringify(message, (key, value) => {
+  if (typeof value === 'string') {
+    return value.replace(/[\u007f-\uffff]/g, (match) => `\\u${match.charCodeAt(0).toString(16)}`);
+  }
+  return value;
+});
   
   await TicketService.agregarMensaje(eventData.Ticket, {
     ticket_id: eventData.Ticket.id,
     wamid: message.id,
-    content:  convertUnicodeToEmoji(message),
+    content:  jsonString,
     direction: "INCOMING",
     created_at: TsToDateString(message.timestamp)
   });
@@ -74,12 +80,4 @@ module.exports = async function evento(eventData, conversations, message, nlp, l
   }
 };
 
-function convertUnicodeToEmoji(obj) {
-  return JSON.parse(JSON.stringify(obj), (key, value) => {
-    if (typeof value === 'string') {
-      return twemoji.parse(value);
-    }
-    return value;
-  });
-}
 
