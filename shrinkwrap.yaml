@@ -7,6 +7,7 @@ dependencies:
   mysql2: 3.2.0
   node-nlp: 4.26.1
   request: 2.88.2
+  restify-safe-json-formatter: 0.4.10
   sequelize: 6.31.0
   url-regex: 5.0.0
   validator: 13.9.0
@@ -1446,6 +1447,13 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
+  /restify-safe-json-formatter/0.4.10:
+    dev: false
+    engines:
+      node: '>=10'
+      npm: '>=6.4.1'
+    resolution:
+      integrity: sha512-TQEh6HvHfzkE/0MFJ1aJjlLeBZjyXnzOcWnqOKsr3nRDfdm+Z9vKLn2eldcrhRJFJd81Kr3Diaf/gEI8c9+F7Q==
   /retry-as-promised/7.0.4:
     dev: false
     resolution:
@@ -1757,6 +1765,7 @@ specifiers:
   mysql2: ^3.2.0
   node-nlp: ^4.26.1
   request: ^2.88.2
+  restify-safe-json-formatter: ^0.4.10
   sequelize: ^6.31.0
   url-regex: ^5.0.0
   validator: ^13.9.0

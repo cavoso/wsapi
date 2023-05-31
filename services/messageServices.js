@@ -1,6 +1,7 @@
 const sequelize = require('sequelize');
 const axios = require("axios").default;
 const TicketService = require('./ticketServices');
+const safeJsonFormatter = require('restify-safe-json-formatter');
 
 const token = process.env.WHATSAPP_TOKEN;
 
@@ -16,10 +17,11 @@ function EnviarMensaje(departamento, ticket, msg){
     //console.log(JSON.stringify(data, null, 2));
     let date = new Date();
     let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+    console.log(safeJsonFormatter(msg))
     await TicketService.agregarMensaje(ticket, {
         ticket_id: ticket.id,
         wamid: data.messages[0].id,
-        content: JSON.stringify(msg),
+        content: safeJsonFormatter(msg),
         direction: "OUTGOING",
         created_at: mysqlDatetimeString
       });
