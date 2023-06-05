@@ -6,6 +6,7 @@ const express = require("express");
 const body_parser = require("body-parser");
 const cors = require('cors');
 const app = express().use(body_parser.json()).use(cors());
+const axios = require('axios');
 
 const db = require('./models');
 const nlp = require('./nlp/');
@@ -125,4 +126,35 @@ app.get("/marcas", async (req, res) => {
   });
   
   res.json(marcas);
+})
+
+app.get('/media/:id', (req, res) => {
+  const Id = req.params.id;
+  
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `https://graph.facebook.com/v16.0/${Id}`,
+    headers: {
+      'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`
+    }
+  };
+  
+  axios.request(config).then((response) => {
+    let dconfig = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: response.data.url,
+      headers: {
+        'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`
+      }
+    };
+    axios.request(dconfig).then((result) => {
+      res.status(200).json(result.data);
+    }).catch((error) => {
+      res.status(404).json(error);
+    });    
+  }).catch((error) => {
+    res.status(404).json(error);
+  });
 })
