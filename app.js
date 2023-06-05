@@ -141,6 +141,7 @@ app.get('/media/:id', (req, res) => {
   };
   
   axios.request(config).then((response) => {
+    console.log()
     let dconfig = {
       method: 'get',
       maxBodyLength: Infinity,
@@ -150,7 +151,10 @@ app.get('/media/:id', (req, res) => {
       }
     };
     axios.request(dconfig).then((result) => {
-      res.status(200).json(result.data);
+      //res.status(200).json(result.data);
+      res.setHeader('Content-Type', response.data.mime_type);
+      res.setHeader('Content-Disposition', 'attachment; filename=archivo.pdf');
+      res.send(result.data);
     }).catch((error) => {
       res.status(404).json(error);
     });    
