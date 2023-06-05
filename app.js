@@ -128,37 +128,36 @@ app.get("/marcas", async (req, res) => {
   res.json(marcas);
 })
 
-app.get('/media/:id', (req, res) => {
-  const Id = req.params.id;
-  
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: `https://graph.facebook.com/v16.0/${Id}`,
-    headers: {
-      'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`
-    }
-  };
-  
-  axios.request(config).then((response) => {
-    console.log()
-    let dconfig = {
+app.get('/media/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const config = {
       method: 'get',
-      maxBodyLength: Infinity,
-      url: response.data.url,
+      url: `https://graph.facebook.com/v16.0/${id}`,
       headers: {
         'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`
       }
     };
-    axios.request(dconfig).then((result) => {
-      //res.status(200).json(result.data);
-      res.setHeader('Content-Type', response.data.mime_type);
-      res.setHeader('Content-Disposition', 'attachment; filename=archivo.pdf');
-      res.send(result.data);
-    }).catch((error) => {
-      res.status(404).json(error);
-    });    
-  }).catch((error) => {
+
+    const response = await axios.request(config);
+    const mediaUrl = response.data.url;
+
+    const mediaConfig = {
+      method: 'get',
+      url: mediaUrl,
+      responseType: 'stream',
+      headers: {
+        'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`
+      }
+    };
+
+    const mediaResponse = await axios.request(mediaConfig);
+
+    res.setHeader('Content-Type', response.data.mime_type);
+    res.setHeader('Content-Disposition', 'inline; filename=File.mp4');
+    mediaResponse.data.pipe(res);
+  } catch (error) {
     res.status(404).json(error);
-  });
-})
+  }
+});
