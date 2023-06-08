@@ -156,7 +156,7 @@ app.get('/media/:id', async (req, res) => {
 
     res.setHeader('Content-Type', response.data.mime_type);
     res.setHeader('Content-Disposition', 'inline; filename=File.mp4');
-    res.set('Cache-Control', 'public, max-age=86400');
+    res.set('Cache-Control', 'public, max-age=172800');
     mediaResponse.data.pipe(res);
   } catch (error) {
     res.status(404).json(error);
