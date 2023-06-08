@@ -15,7 +15,8 @@ function EnviarMensaje(departamento, ticket, msg){
     let data = result.data;
     //console.log(JSON.stringify(data, null, 2));
     let date = new Date();
-    let mysqlDatetimeString = date.toISOString().slice(0, 19).replace('T', ' ');
+    let options = { timeZone: 'America/Santiago' };
+    let mysqlDatetimeString = date.toLocaleString('es-CL', options);
     await TicketService.agregarMensaje(ticket, {
         ticket_id: ticket.id,
         wamid: data.messages[0].id,
