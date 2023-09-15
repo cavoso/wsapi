@@ -1,5 +1,5 @@
 const db = require('../../models');
-const Sequelize = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const {  WSProc, moment, regex, delay, TsToDateString  } = require('../../utils');
 const { ClienteService, TicketService, MessageService } = require('../../services');
 const { whatsappMessage, messageInteractive, messageAction, messageObject, templateComponent } = require('../../lib');
@@ -260,7 +260,7 @@ module.exports = async function evento(response, eventData, conversations, messa
                     department_id: eventData.Ticket.department_id,
                     wa_id: eventData.Ticket.wa_id,
                     id: {
-                      [db.Sequelize.Op.lt]: eventData.Ticket.id
+                      [Op.lt]: eventData.Ticket.id
                     }
                   },
                   order: [['id', 'DESC']]
