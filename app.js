@@ -28,7 +28,10 @@ async function checkTickets() {
     }
   });
   for(const ticket  of tickets){
-    console.log(ticket)
+    
+    console.log(ticket.id)
+    console.log(ticket.agent_id)
+    console.log(ticket.available_to_all)
   }
 }
 
