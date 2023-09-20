@@ -21,6 +21,7 @@ const conversations = new Map();
 const listTicket = [];
 
 async function checkTickets() {
+  //esto es un mensaje de prueba
   const tickets = await db.Ticket.findAll({
     where: {
       agent_id: null,
