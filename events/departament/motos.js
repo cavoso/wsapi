@@ -305,7 +305,7 @@ module.exports = async function evento(response, eventData, conversations, messa
             status : 'IN_PROGRESS',
             updated_at: db.sequelize.literal('NOW()')
           });
-          listTicket.push(eventData.Ticket.id);
+          //listTicket.push(eventData.Ticket.id);
           await MessageService.EnviarMensaje(
             eventData.Departamento,
             eventData.Ticket,

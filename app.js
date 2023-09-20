@@ -21,26 +21,14 @@ const conversations = new Map();
 const listTicket = [];
 
 async function checkTickets() {
-  for (const ticketId of listTicket) {
-    console.log(`Buscando ${ticketId}`);
-    const ticket = await db.Ticket.findOne({
-      where: {
-        id: ticketId,
-        [Op.and]: Sequelize.literal('TIMESTAMPDIFF(MINUTE, updated_at, NOW()) >= 15'),
-      },
-    });
-
-    if (ticket) {
-      if(ticket.agent_id == 0){
-        await db.Ticket.update({
-          available_to_all: true
-        }, {
-          where: {
-            id: ticket.id
-          }
-        });
-      }
+  const tickets = await db.Ticket.findAll({
+    where: {
+      agent_id: null,
+      available_to_all: 0
     }
+  });
+  for(const ticket  of tickets){
+    console.log(ticket)
   }
 }
 
@@ -51,7 +39,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
 app.post('/webhook', async (req, res) => {
-  console.log(JSON.stringify(req.body, null, 2));
+  //console.log(JSON.stringify(req.body, null, 2));
   const {statuses, metadata, contacts, messages} = WSProc(req.body);
   //console.log(JSON.stringify(statuses, null, 2));
   //console.log(JSON.stringify(contacts, null, 2));
